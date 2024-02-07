@@ -33,39 +33,40 @@
       </nav>
     <h1>Formulario convenios.</h1> 
     <p></p>
-    <form class="row g-3">
+    <form class="row g-3" method="GET" action="Controlador.php">
         <div class="col-md-6">
-          <label for="inputEmail4" class="form-label">Codigo convenio</label>
-          <input type="number" class="form-control" id="inputEmail4">
+          <label for="codigo_convenio" class="form-label">Codigo convenio</label>
+          <input type="number" class="form-control" name="codigo_convenio">
         </div>
         <div class="col-md-6">
-          <label for="inputPassword4" class="form-label">Valor</label>
-          <input type="number" class="form-control" id="inputPassword4">
+          <label for="valor" class="form-label">Valor</label>
+          <input type="number" class="form-control" name="valor">
         </div>
         <div class="col-md-6">
-          <label for="inputAddress" class="form-label">Saldo convenio</label>
-          <input type="number" class="form-control" id="inputAddress" >
+          <label for="saldo_convenios" class="form-label">Saldo convenio</label>
+          <input type="number" class="form-control" name="saldo_convenios" >
         </div>
         <div class="col-md-6">
-          <label for="inputAddress2" class="form-label">Codigo alumno</label>
-          <input type="number" class="form-control" id="inputAddress2" >
+          <label for="codigo_alumno" class="form-label">Codigo alumno</label>
+          <input type="number" class="form-control" name="codigo_alumno" >
         </div>
         <div class="col-md-6">
-          <label for="inputCity" class="form-label">Codigo carrera</label>
-          <input type="number" class="form-control" id="inputCity">
+          <label for="codigo_carrera" class="form-label">Codigo carrera</label>
+          <input type="number" class="form-control" name="codigo_carrera">
         </div>
         <div class="col-md-3">
-          <label for="inputState" class="form-label">Codigo descuento</label>
-            <input type="number" class="form-control" id="inputCity">
+          <label for="codigo_descuento" class="form-label">Codigo descuento</label>
+            <input type="number" class="form-control" name="codigo_descuento">
           </select>
         </div>
         <div class="col-md-3">
-          <label for="inputZip" class="form-label">Codigo institucion</label>
-          <input type="number" class="form-control" id="inputZip">
+          <label for="codigo_institucion" class="form-label">Codigo institucion</label>
+          <input type="number" class="form-control" name="codigo_institucion">
         </div>
         <p></p>
-      </form>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <div>
+          <input type="submit" class="btn btn-primary"></input>
+        </div>
       </form>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
