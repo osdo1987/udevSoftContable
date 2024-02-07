@@ -33,16 +33,17 @@
       </nav>
     <h1>Formulario descuentos</h1> 
     <p></p>
-    <div class="mb-3">
-          <label for="exampleInputEmail1" class="form-label">Codigo descuento</label>
-          <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+    <div class="mb-3" >
+      <form action="Controlador.php" method = "GET">
+          <label for="codigo_descuento" class="form-label">Codigo descuento</label>
+          <input type="number" class="form-control" name="codigo_descuento" >
         </div>
         <div class="mb-3">
-          <label for="exampleInputPassword1" class="form-label">Valor descuento</label>
-          <input type="number" class="form-control" id="exampleInputPassword1">
+          <label for="valor_descuento" class="form-label">Valor descuento</label>
+          <input type="number" class="form-control" name="valor_descuento">
         </div>
         <p></p>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <input type="submit" class="btn btn-primary"></input>
       </form>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
