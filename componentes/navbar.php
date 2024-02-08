@@ -33,4 +33,3 @@
   </div>
 </nav>
 
-<?php include_once 'pie.php';?>
