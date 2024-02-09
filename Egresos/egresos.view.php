@@ -30,6 +30,8 @@
 
 
         <body>
+
+        <h1>Formulario egresos  </h1>
       
           
               <div class="row mb-3 custom-margin">
@@ -105,7 +107,7 @@
 
 
         <?php include_once '../componentes/pie.php';?>
-        
+
         </body>
 
     <!-- Aquí va el contenido de tu página -->
