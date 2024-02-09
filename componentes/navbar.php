@@ -24,10 +24,22 @@
         <a class="nav-link" href="#">Acerca de</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Servicios</a>
+        <a class="nav-link" href="../carrera/carrera.view.php">Carrera</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Contacto</a>
+        <a class="nav-link" href="../institucion/institucion.view.php">Institucion</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="../cargos/cargos.view.php">Cargos</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="../tipo_movimiento/tipo_movimiento.view.php">Movimientos</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="../egresos/egresos.view.php">egresos</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="../empleados/empleados.view.php">empleados</a>
       </li>
     </ul>
   </div>
