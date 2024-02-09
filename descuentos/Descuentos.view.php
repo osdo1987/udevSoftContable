@@ -1,7 +1,7 @@
 <navbar>
 
   <?php 
-  include_once '../navbar/navbar.php';
+  include_once '../componentes/navbar.php';
   ?>
 
 </navbar>
@@ -29,7 +29,7 @@
 
   <?php 
   
-  include_once "../pie/pie.php";
+  include_once "../componentes/pie.php";
   
   ?>
 
