@@ -1,3 +1,9 @@
+<?php
+
+
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -42,63 +48,63 @@
       
           
               <div class="row mb-3 custom-margin">
-                  <label for="codigoEgreso" class="col-sm-1 col-form-label">Codigo del egreso</label>
+                  <label for="codigoEmpleado" class="col-sm-1 col-form-label">Codigo del empleado</label>
                   <div class="col-sm-5">
-                      <input type="text" class="form-control" id="codigo_egreso" placeholder="Escriba el codigo">
+                      <input type="text" class="form-control" id="codigo_empleado" placeholder="Escriba codigo del empleado de su carnet">
                   </div>
               </div>
-
+          
               <div class="row mb-3 custom-margin">
-                <label for="tipoEgreso" class="col-sm-1 col-form-label">Tipo de egreso</label>
+                  <label for="nombreEmpleado" class="col-sm-1 col-form-label">Nombre del empleado</label>
+                  <div class="col-sm-5">
+                      <input type="text" class="form-control" id="nombre_empleado" placeholder="Escriba los nombres">
+                  </div>
+              </div>
+          
+              <div class="row mb-3 custom-margin">
+                  <label for="apellidosEmpleado" class="col-sm-1 col-form-label">Apellido del empleado</label>
+                  <div class="col-sm-5">
+                      <input type="text" class="form-control" id="apellidos_empleado" placeholder="Escriba los appellidos ">
+                  </div>
+              </div>
+      
+              <div class="row mb-3 custom-margin">
+                <label for="cargoEmpleado" class="col-sm-1 col-form-label">Cargo</label>
+                <div class="col-sm-5">
+                    <input type="text" class="form-control" id="cargo_empleado" placeholder="cargo que ocupada la persona">
+                </div>
+            </div>
+
+            <div class="row mb-3 custom-margin">
+                <label for="DocumentoEmpleado" class="col-sm-1 col-form-label">Tipo de documento</label>
                 <div class="col-sm-5">
                   <select class="form-select" aria-label="Default select example">
                     <option selected>Escoja el tipo</option>
-                    <option value="true">Pago nomina</option>
-                    <option value="true">Servicios</option>
-                    <option value="true">Pago asociados</option>
-                    <option value="true">Otros</option>
+                    <option value="true">Tarjeta de identidad</option>
+                    <option value="true">Cedula de ciudadania</option>
+                    <option value="true">Pasaporte</option>
+                    <option value="true">Cedula extranjera</option>
                     
                   </select>
                 </div>
-          
-                <div class="row mb-3 custom-margin">
-                    <label for="exampleFormControlTextarea1" class="form-label">Descripcion del egreso</label>
-                    <div class="col-sm-6">
-                    <textarea class="form-control" id="descripcion_egreso" rows="3"></textarea>
-                </div>
-                  </div>
-          
-              <div class="row mb-3 custom-margin">
-                  <label for="facturadoA" class="col-sm-1 col-form-label">Facturado a:</label>
-                  <div class="col-sm-5">
-                      <input type="text" class="form-control" id="facturado_a" placeholder="Escriba nombre de la persona o empresa">
-                  </div>
-              </div>
-
-              <div class="row mb-3 custom-margin">
-                <label for="codigofkUsuario" class="col-sm-1 col-form-label">Codigo del usuario</label>
-                <div class="col-sm-5">
-                    <input type="text" class="form-control" id="codigo_fk_usuario" placeholder="Escriba el codigo">
-                </div>
-            </div>
-
-            <div class="row mb-3 custom-margin">
-                <label for="valorEgreso" class="col-sm-1 col-form-label">Valor del egreso</label>
-                <div class="col-sm-5">
-                    <input type="text" class="form-control" id="valor_egreso" placeholder="valor numerico">
-                </div>
-            </div>
-
-            <div class="row mb-3 custom-margin">
-                <label for="FechaEgreso" class="col-sm-1 col-form-label">Fecha del egreso</label>
-                <div class="col-sm-5">
-                    <input type="date" class="form-control" id="fecha_egreso" placeholder="Fecha">
-                </div>
-            </div>
       
-             
+            <div class="row mb-3 custom-margin">
+              <label for="numeroDocuemtno" class="col-sm-1 col-form-label">Numero del documento</label>
+              <div class="col-sm-5">
+                  <input type="text" class="form-control" id="documento_empleado" placeholder="Escriba el numero de identificacion">
+              </div>
+            </div>
 
-           
+            <div class="row mb-3 custom-margin">
+                <label for="EstadoEmpleado" class="col-sm-1 col-form-label">Estado</label>
+                <div class="col-sm-5">
+                  <select class="form-select" aria-label="Default select example">
+                    <option selected>Escoja estado del empleado</option>
+                    <option value="true">Activo</option>
+                    <option value="false">Desactivado</option>
+                    
+                  </select>
+                </div>
             </div>
       
       
