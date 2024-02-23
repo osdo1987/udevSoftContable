@@ -1,0 +1,29 @@
+[33mcommit 989461d11f1fc9a93a90ddf28171342704f1ac9c[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mdevelop[m[33m)[m
+Author: SamuelTrujillo <samuelitoguapacha@gmail.com>
+Date:   Thu Feb 22 00:21:12 2024 -0500
+
+    desarrollo funcionalidades y correcion de errores falta el editar
+
+[33mcommit a58607646316a1a746e5e57ac73186fbfd6e4706[m
+Author: SamuelTrujillo <samuelitoguapacha@gmail.com>
+Date:   Wed Feb 21 03:51:22 2024 -0500
+
+    desarrolor completo hasta vracion de registros
+
+[33mcommit e8189931fbad54f27d7162c28dfd006c663f3c92[m
+Author: SamuelTrujillo <samuelitoguapacha@gmail.com>
+Date:   Mon Feb 19 06:47:33 2024 -0500
+
+    creacion conexion y diseño de busqueda
+
+[33mcommit a5d0a528155f73f5044867cb68bea8841ab67b1d[m
+Author: SamuelTrujillo <samuelitoguapacha@gmail.com>
+Date:   Mon Feb 19 05:44:21 2024 -0500
+
+    finalizacion de index y estilos
+
+[33mcommit bac7ec51bde97bf1289ffa6280bb09518dfa3604[m[33m ([m[1;32mtrujillo/conexion[m[33m, [m[1;32mrelease[m[33m, [m[1;32mmaster[m[33m)[m
+Author: SamuelTrujillo <samuelitoguapacha@gmail.com>
+Date:   Mon Feb 19 03:19:58 2024 -0500
+
+    creacion de estructura e inicio de index con los links de recursos
