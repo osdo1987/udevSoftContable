@@ -206,6 +206,7 @@
       $(document).on('click', '.editar', function() {
 
         var codigo_estudiante = $(this).attr("id");
+        
         $.ajax({
           url: "obtener.registro.php",
           method: "POST",
@@ -235,8 +236,6 @@
             console.log(textStatus, errorThrown);
           }
         })
-
-
       });
 
       //Funcionalida de borrar
@@ -247,7 +246,8 @@
             url: "borrar.php",
             method: "POST",
             data: {
-              codigo_estudiante: codigo_estudiante
+              codigo_estudiante: codigo_estudiante,
+              action:'borrar'
             },
             success: function(data) {
               alert(data);
