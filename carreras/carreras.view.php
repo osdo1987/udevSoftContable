@@ -29,7 +29,6 @@
         <thead>
           <tr>
             <th>Codigo</th>
-            <th>Nombre Carrera</th>
             <th>Descripcion Carrera</th>
             <th>Valor Total</th>
             <th>Estado</th>
@@ -49,9 +48,6 @@
           <div class="modal-body">
             <form method="post" id="formulario" enctype="multipart/form-data">
               <div class="modal-content">
-                <label for="nombre_carrera">Ingrese el nombre</label>
-                <input type="text" name="nombre_carrera" id="nombre_carrera" class="form-control">
-                <br>
                 <label for="descripcion_carrera">Ingrese la descripción</label>
                 <input type="text" name="descripcion_carrera" id="descripcion_carrera" class="form-control">
                 <br>
@@ -67,7 +63,7 @@
               </div>
               <div class="modal-footer">
                 <input type="hidden" name="codigo_carrera" id="codigo_carrera">
-                <input  type="hidden" name="operacion" id="action" data-operacion="crear">
+                <input  type="hidden" name="operacion" id="operacion" data-operacion="crear">
                 <input type="submit" name="action" id="action" class="btn btn-success" value="Crear" data-operacion="crear">
               </div>
             </form>
@@ -82,48 +78,51 @@
   
     <script type="text/javascript">
       $(document).ready(function() {
-        var dataTable = $('#carreras').DataTable({
-          "processing": true,
-          "serverSide": true,
-          "order": [],
-          "ajax": {
-           url: "obtener.registros.php",
-           type: "POST"
-         },
-          "columnDefs": [{
-            "targets": [5, 6],
-            "orderable": false,
-          }]
-        });
+        $("#botonCrear").click(function() {
+        $("#formulario")[0].reset();
+        $(".modal-title").text("crear carrera");
+        $("#action").val("crear");
+        $("#operacion").val("crear");
       });
-      
+
+      var dataTable = $('#carreras').DataTable({
+        "processing": true,
+        "serverSide": true,
+        "order": [],
+        "ajax": {
+          url: "obtener.registros.php",
+          type: "POST"
+        },
+        "columnDefs": [{
+          "targets": [4, 5],
+          "orderable": false,
+        }]
+      });
+
       $(document).on('submit', '#formulario', function(event) {
-    event.preventDefault();
-    var nom_carrera = $("#nombre_carrera").val();
-    var descri_carrera = $("#descripcion_carrera").val();
-    var val_total = $("#valor_total_carrera").val();
-    var status = $("#estado").val();
-    var operacion = $("#action").data("crear");
+        event.preventDefault();
+        var descri_carrera = $("#descripcion_carrera").val();
+        var val_total = $("#valor_total_carrera").val();
+        var status = $("#estado").val();
 
-
-    if (nom_carrera != '' && descri_carrera != '' && val_total != '' && status != '') {
-        $.ajax({
+        if (descri_carrera != '' && val_total != '' && status != '') {
+          $.ajax({
             url: "crear.php",
             method: "POST",
             data: new FormData(this),
             processData: false,
+            contentType: false,
             success: function(data) {
-                alert(data);
-                $('#formulario')[0].reset();
-                $('#modalCarrera').modal('hide');
-                $('#carreras').DataTable().ajax.reload();
+              alert(data);
+              $('#formulario')[0].reset();
+              $('#modalCarrera').modal('hide');
+              $('#carreras').DataTable().ajax.reload();
             }
-        });
-    } else {
-        alert("Algunos campos son obligatorios");
-    }
-});
-
+          });
+        } else {
+          alert("Algunos campos son obligatorios");
+        }
+      });
     </script>
   </body>
 </html>
