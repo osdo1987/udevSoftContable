@@ -2,10 +2,10 @@
 
 include("conexion.php");
 include("funciones.php");
+
+
+
 if($_POST["operacion"] == "crear"){
-    
-    
-    
     
     
     $imagen = '';
@@ -21,9 +21,7 @@ if($_POST["operacion"] == "crear"){
             ':apellidos'  => $_POST["apellidos"],
             ':fecha_nacimiento_estudiante'  => $_POST["fecha_nacimiento_estudiante"],
             ':imagen_estudiante' => $imagen,
-           
-
-        )
+                    )
         );
         if(!empty($resultado)){
             echo'Registro creado';
