@@ -42,7 +42,7 @@ foreach($resultado as $fila){
 $salida = array (
     "draw"            => intval($_POST["draw"]),
     "recordsTotal"    => $filtered_rows,
-    "recordsFiltered" => obtener_todos_registros(),
+    "recordsFiltered" => $filtered_rows,//obtener_todos_registros(),
     "data"            => $datos
 );
 

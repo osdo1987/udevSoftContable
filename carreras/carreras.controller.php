@@ -1,13 +1,23 @@
 <?php 
 
-include("conexion.php");
+include("../conexion.php");
 //include("funciones.php") tampoco creo que vaya esto 
 
-
+echo var_dump($_POST);
 
 //esta es la variable que a tomar el ajax para identificar el metodo
 
-$action = $_POST ["operacion"];
+$action = isset($_POST["action"]) ? $_POST["action"] : null;
+
+if ($action === null) {
+    echo "No se ha proporcionado la operación.";
+    exit; // Otra opción: manejar el error de alguna otra manera
+}
+
+//$action = $_POST["operacion"];
+// Resto del código aquí...
+
+
 
 //lLLAMADO FUNCION MAIN con los dos argumentos necesarios para funcionar
 main($action, $conexion);
@@ -27,10 +37,15 @@ switch($action){
             case 'borrar':
                 borrar($conexion);
                 break;
+                case'obtener_todos_registros': //en caso de que action sea crear se ejectura la funcion crear; si no en caso de editar y borrar lo mismo
+                    obtener_todos_registros ($conexion);
+                    break;
+
 
     default:
     break;
 }
+
 
 }
 
@@ -54,43 +69,51 @@ function crear($conexion){
         } 
     
 
-//CREACION FUNCION EDITAR : esto anidado en la funcion crear inicial
-        function editar($conexion){
-            $stmt = $conexion->prepare("UPDATE carreras SET descrpcion_carrera=:descripcion_carrera, valor_total=:valor_total,
-             estado=:estado WHERE codigo_carrera = :codigo_carrera");
-        $resultado = $stmt->execute(
-            array(
 
-                ':descripcion_carrera'  => $_POST["descripcion_carrera"],
-                ':valor_total'  => $_POST["valor_total"],
-                ':estado'  => $_POST["estado"],
-                ':codigo_carrera'  => $_POST["codigo_carrera"]
-            )
-        );
-        if (!empty($resultado)) {
-            echo 'Registro actulizado';
-            
-        }
-    }
-
-    //CREACION FUNCION BORRAR : anidado en la de crear 
-    function borrar($conexion){
-       
-            $stmt = $conexion->prepare("DELETE FROM carreras WHERE codigo_carrera = :codigo_carrera");
     
-            $resultado = $stmt->execute(
-                array(
-                    ':codigo_carrera'  => $_POST["codigo_carrera"]
-                )
-            );
-            if (!empty($resultado)) {
-                echo 'Registro borrado';
-            }
+}
+//CREACION FUNCION EDITAR : esto anidado en la funcion crear inicial
+function editar($conexion){
+    $stmt = $conexion->prepare("UPDATE carreras SET descripcion_carrera=:descripcion_carrera, valor_total=:valor_total,
+     estado=:estado WHERE codigo_carrera = :codigo_carrera");
+$resultado = $stmt->execute(
+    array(
 
-    }
+        ':descripcion_carrera'  => $_POST["descripcion_carrera"],
+        ':valor_total'  => $_POST["valor_total"],
+        ':estado'  => $_POST["estado"],
+        ':codigo_carrera'  => $_POST["codigo_carrera"]
+    )
+);
+if (!empty($resultado)) {
+    echo 'Registro actulizado';
+    
+}
 }
 
-function obtener_todos_registros($conexion){
+//CREACION FUNCION BORRAR : anidado en la de crear 
+function borrar($conexion){
+
+    $stmt = $conexion->prepare("DELETE FROM carreras WHERE codigo_carrera = :codigo_carrera");
+
+    $resultado = $stmt->execute(
+        array(
+            ':codigo_carrera'  => $_POST["codigo_carrera"]
+        )
+    );
+    if (!empty($resultado)) {
+        echo 'Registro borrado';
+    }
+
+
+
+    }
+
+
+
+    function obtener_todos_registros($conexion){
+
+
     $stmt = $conexion->prepare("SELECT * FROM carreras");
     $stmt ->execute();
     $resutlado = $stmt->fetchAll();
@@ -135,7 +158,7 @@ foreach($resultado as $fila){
 $salida = array (
     "draw"            => intval($_POST["draw"]),
     "recordsTotal"    => $filtered_rows,
-    "recordsFiltered" => obtener_todos_registros(),
+    "recordsFiltered" => $filtered_rows,//Obtener_todos_registros()
     "data"            => $datos
 );
 
