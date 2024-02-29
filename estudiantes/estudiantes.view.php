@@ -77,10 +77,11 @@
             <div class="modal-contant">
               <div class="modal-body">
 
-
+                <!--
                 <label for="codigo_estudiante">Codigo</label>
                 <input type="number" name="codigo_estudiante" id="codigo_estudiante" class="form-control">
                 <br>
+-->
 
                 <label for="nombre">Nombre</label>
                 <input type="text" name="nombre" id="nombre" class="form-control">
@@ -145,9 +146,8 @@
     $(document).ready(function () {
       $("#botonCrear").click(function () {
         $("#formulario")[0].reset();
-        $(".modal-title").text("crear estudiante");
-        $("#action").val("Crear");
-        $("class").val("bi bi-plus-circle-fill");
+        $(".modal-title").text("}Crear estudiante");
+        $("#action").val("crear");
         $("#operacion").val("crear");
         $("#imagen_subida").html("");
 
@@ -173,7 +173,7 @@
 
       $(document).on('submit', '#formulario', function (event) {
         event.preventDefault();
-        var nombres = $("#codigo_estudiante").val();
+        //var nombres = $("#codigo_estudiante").val();
         var nombres = $("#nombre_estudiante").val();
         var apellidos = $("#apellidos_estudiante").val();
         var fecha_nacimiento_estudiante = $("#fecha_nacimiento_estudiante").val();
@@ -185,9 +185,9 @@
             return false;
 
           }
-
-
         }
+        var estado = $("#estado").val();
+
         if (nombres != '' && apellidos != '' && fecha_nacimiento_estudiante != '') {
           $.ajax({
             url: "estudiantes.controller.php",

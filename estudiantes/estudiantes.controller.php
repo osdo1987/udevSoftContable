@@ -72,6 +72,7 @@ function obtener_registros($conexion)
         $sub_array[] = $fila["apellidos_estudiante"];
         $sub_array[] = $fila["fecha_nacimiento_estudiante"];
         $sub_array[] = $imagen;
+        $sub_array[] = $fila["estado"];
 
         $sub_array[] = '<button type="button" data-bs-toggle="modal" data-bs-target="#modalUsuario" name="editar" id="' . $fila["codigo_estudiante"] . '"  class="btn btn-warning btn-xs editar">Editar</button>';
         $sub_array[] = '<button type="button" name="borrar" id="' . $fila["codigo_estudiante"] . '"class="btn btn-danger btn-xs  borrar">Borrar</button>';
@@ -104,11 +105,10 @@ function obtener_registro($conexion, $nombre)
             if ($fila["imagen_estudiante"] != "") {
                 $salida["imagen_estudiante"] = '<img src="img/' . $fila["imagen_estudiante"]
                     . '"  class="img-thumbnail" width="50" height="35" /><input type="hiden" name="imagen_estudiante_oculta" value="' . $fila["imagen"] . '"/>';
-
             } else {
                 $salida["imagen_estudiante"] = '<input type="hidden" name="imagen_estudiante_oculta" value=""/>';
             }
-
+            $salida["estado"] = $fila["estado"];
         }
 
         echo json_encode($salida);
@@ -144,19 +144,22 @@ function crear($conexion)
     if ($_FILES["imagen_estudiante"]["name"] != '') {
         $imagen = subir_imagen();
     }
-    $stmt = $conexion->prepare("INSERT INTO estudiantes(codigo_estudiante, nombre_estudiante, apellidos_estudiante, fecha_nacimiento_estudiante, imagen)VALUES(:codigo_estudiante, :nombre, :apellidos, :fecha_nacimiento_estudiante, :imagen_estudiante)");
+    $stmt = $conexion->prepare("INSERT INTO estudiantes(nombre_estudiante, apellidos_estudiante, fecha_nacimiento_estudiante, imagen,estado)VALUES(:nombre, :apellidos, :fecha_nacimiento_estudiante, :imagen_estudiante, :estado)");
 
     $resultado = $stmt->execute(
         array(
-            ':codigo_estudiante' => $_POST["codigo_estudiante"],
+            //':codigo_estudiante' => $_POST["codigo_estudiante"],
             ':nombre' => $_POST["nombre"],
             ':apellidos' => $_POST["apellidos"],
             ':fecha_nacimiento_estudiante' => $_POST["fecha_nacimiento_estudiante"],
             ':imagen_estudiante' => $imagen,
+            ':estado' => $_POST["estado"],
         )
     );
     if (!empty($resultado)) {
         echo 'Registro creado';
+    } else {
+        echo 'Registro no guardado';
     }
 }
 
@@ -211,6 +214,7 @@ function editar($conexion)
             ':apellidos' => $_POST["apellidos"],
             ':fecha_nacimiento_estudiante' => $_POST["fecha_nacimiento_estudiante"],
             ':imagen_estudiante' => $imagen,
+            ':estado' => $_POST["estado"],
             ':codigo_estudiante' => $_POST["codigo_estudiante"]
         )
     );
