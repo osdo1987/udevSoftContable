@@ -71,19 +71,20 @@ include ("../componentes/navbar.php");
               </div>
               <div class="modal-footer">
                 <input type="hidden" name="codigo_carrera" id="codigo_carrera">
-                <input type="hidden" name="operacion" id="operacion">
+                <input type="hidden" method="POST" name="operacion" id="operacion">
                 
                 <!-- Este es un comentario<input type="submit" name="action" id="action" class="btn btn-primary" value="crear"   >
                 <i class="bi bi-journal-plus" > </i> -->
-                <button type = "submit" name="cancelar" id="cancelar" class="btn btn-secondary">
+                <button type = "button" name="cancelar" id="cancelar" class="btn btn-secondary" data-bs-dismiss="modal">
                 <i class="bi bi-journal-x" > </i>
                 </button>
-                <button type = "submit" name="action" id="action" class="btn btn-primary ">
+                <button type = "submit" name="action" id="action" class="btn btn-primary " value="ingresar">
                   
                   <i class="bi bi-journal-plus" > </i>
                   
                 </button>
                 
+                <?php $operacion = "mostrar" ?>
               </div>
             </form>
           </div>
