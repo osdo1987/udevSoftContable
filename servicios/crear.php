@@ -3,7 +3,7 @@
 include("../conexion.php");
 include("funciones.php");
 
-if($_POST["operacion"] == "Crear"){
+if($_POST["operacion"] == "crear"){
 
     
 

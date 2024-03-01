@@ -1,7 +1,7 @@
 <?php
 
 include("conexion.php");
-include("funciones.php");
+//include("funciones.php"); no creo que vaya esto
 
 if($_POST["operacion"] == "crear") {
     $stmt = $conexion->prepare("INSERT INTO carreras(descripcion_carrera, valor_total, estado) VALUES(:descripcion_carrera, :valor_total, :estado)");

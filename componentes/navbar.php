@@ -27,9 +27,6 @@
           <a class="nav-link" href="#">Acerca de</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../estudiantes/estudiantes.view.php">Estudiantes</a>
-        </li>
-        <li class="nav-item">
           <a class="nav-link" href="../carrera/carrera.view.php">Carrera</a>
         </li>
         <li class="nav-item">
