@@ -4,7 +4,10 @@ include("../conexion.php");
 
 $action = $_POST["operacion"];
 
+
 main($action, $conexion);
+
+//obtener_registros($conexion);
 
 function main($action, $conexion)
 {

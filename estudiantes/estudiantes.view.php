@@ -1,5 +1,7 @@
 <?php
 
+include("../componentes/navbar.php");
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -22,7 +24,7 @@
 
 <body>
   <div class="container fondo">
-    <h1 class="text-center">Estudiantes</h1>
+    <h1 class="text-center">Estudiante</h1>
 
 
 
@@ -111,8 +113,12 @@
                   value="<?php echo $fila['imagen']; ?>">
 
                 <input type="hidden" name="codigo_estudiante" id="codigo_estudiante">
-                <input type="hidden" name="operacion" id="operacion">
+                <input type="hidden" method="POST" name="operacion" id="operacion">
+                <input type="button" class="btn btn-secondary" data-bs-dismiss="modal" value="Cancelar">
                 <input type="submit" name="action" id="action" class="btn btn-primary" value="Ingresar">
+                <?php $operacion = "mostrar" ?>
+
+
 
               </div>
           </form>
@@ -122,8 +128,11 @@
     </div>
   </div>
 
+  <?php
 
+  include("../componentes/pie.php");
 
+  ?>
 
 
 
@@ -143,17 +152,17 @@
     crossorigin="anonymous"></script>
 
   <script type="text/javascript">
+
+
     $(document).ready(function () {
       $("#botonCrear").click(function () {
         $("#formulario")[0].reset();
-        $(".modal-title").text("}Crear estudiante");
+        $(".modal-title").text("Crear estudiante");
         $("#action").val("crear");
         $("#operacion").val("crear");
         $("#imagen_subida").html("");
-
-
-
       });
+
 
       var dataTable = $('#estudiantes').DataTable({
         "processing": true,
@@ -186,6 +195,7 @@
 
           }
         }
+
         var estado = $("#estado").val();
 
         if (nombres != '' && apellidos != '' && fecha_nacimiento_estudiante != '') {
@@ -203,7 +213,6 @@
               $("#boton").btn('danger');
               dataTable.ajax.reload();
             }
-
           });
         } else {
           alert("algunos campos son obligatorios");
@@ -268,14 +277,6 @@
           return false;
         }
       });
-
-
-
-
-
-
-
-
     });
   </script>
 
