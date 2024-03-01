@@ -1,6 +1,7 @@
 <?php
-function subir_imagen(){
-    if(isset ($_FILES["imagen_estudiante"])) {
+function subir_imagen()
+{
+    if (isset($_FILES["imagen_estudiante"])) {
 
         $extensiones = explode('.', $_FILES["imagen_estudiante"]['name']);
         $nuevo_nombre = rand() . '.' . $extensiones[1];
@@ -9,28 +10,30 @@ function subir_imagen(){
         return $nuevo_nombre;
 
 
-        }
-        }
+    }
+}
 
-    function obtener_nombre_imagen($codigo_estudiante){
-        
+function obtener_nombre_imagen($codigo_estudiante)
+{
 
-        include('conexion.php');
-        $stmt = $conexion ->prepare("SELECT imagen From estudiantes WHERE codigo_estudiante= '$codigo_estudiante'");
-        $stmt->execute();
-        $resultado = $stmt->fetchAll();
-        foreach($resultado as $fila){
-            return $fila["imagen"];
-        }
 
+    include('../conexion.php');
+    $stmt = $conexion->prepare("SELECT imagen From estudiantes WHERE codigo_estudiante= '$codigo_estudiante'");
+    $stmt->execute();
+    $resultado = $stmt->fetchAll();
+    foreach ($resultado as $fila) {
+        return $fila["imagen"];
     }
 
-function obtener_todos_registros (){
-    include('conexion.php');
+}
+
+function obtener_todos_registros()
+{
+    include('../conexion.php');
     $stmt = $conexion->prepare("SELECT * FROM estudiantes");
-    $stmt ->execute();
+    $stmt->execute();
     $resutlado = $stmt->fetchAll();
-    return $stmt ->rowCount();
+    return $stmt->rowCount();
 
 }
 
