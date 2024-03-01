@@ -25,7 +25,7 @@
     </div>
     <br>
     <div class="tabla-responsive">
-      <table id="carreras" class="table table-bordered table-striped">
+      <table id="Carreras" class="table table-bordered table-striped">
         <thead>
           <tr>
             <th>Codigo</th>
@@ -45,9 +45,10 @@
             <h1 class="modal-title fs-5" id="exampleModalLabel">Registro de Carrera</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <div class="modal-body">
-            <form method="post" id="formulario" enctype="multipart/form-data">
+          <form method="post" id="formulario" enctype="multipart/form-data">
               <div class="modal-content">
+              <div class="modal-body">
+                
                 <label for="descripcion_carrera">Ingrese la descripción</label>
                 <input type="text" name="descripcion_carrera" id="descripcion_carrera" class="form-control">
                 <br>
@@ -63,8 +64,8 @@
               </div>
               <div class="modal-footer">
                 <input type="hidden" name="codigo_carrera" id="codigo_carrera">
-                <input  type="hidden" name="operacion" id="operacion" data-operacion="crear">
-                <input type="submit" name="action" id="action" class="btn btn-success" value="Crear" data-operacion="crear">
+                <input type="hidden" name="operacion" id="operacion">
+                <input type="submit" name="action" id="action" class="btn btn-success" value="crear" >
               </div>
             </form>
           </div>
@@ -85,43 +86,51 @@
         $("#operacion").val("crear");
       });
 
-      var dataTable = $('#carreras').DataTable({
+      var dataTable = $('#Carreras').DataTable({
         "processing": true,
         "serverSide": true,
         "order": [],
         "ajax": {
-          url: "obtener.registros.php",
-          type: "POST"
+          url: "carreras.controller.php",//ver registros obtener todos
+          type: "POST",
+          data:{action: 'obtener_todos_registros' }
+          
         },
         "columnDefs": [{
           "targets": [4, 5],
           "orderable": false,
-        }]
+        },]
       });
 
       $(document).on('submit', '#formulario', function(event) {
         event.preventDefault();
-        var descri_carrera = $("#descripcion_carrera").val();
-        var val_total = $("#valor_total_carrera").val();
-        var status = $("#estado").val();
+        var formData= new FormData(this);
+        formData.append('operacion', $("#operacion").val());
+        //var codigo_carrera = $("#codigo_carrera").val();
+        //var descripcion_carrera = $("#descripcion_carrera").val();
+        //var valor_total_carrera= $("#valor_total_carrera").val();
+        //var estado = $("#estado").val();
 
-        if (descri_carrera != '' && val_total != '' && status != '') {
+        if (descripcion_carrera != '' && valor_total_carrera != '' && estado != '') {
           $.ajax({
-            url: "crear.php",
+            url: "carreras.controller.php",//crear
             method: "POST",
-            data: new FormData(this),
+            //data: new FormData(this),
+            data: formData,
             processData: false,
             contentType: false,
-            success: function(data) {
+            success: function(data)
+             {
               alert(data);
               $('#formulario')[0].reset();
               $('#modalCarrera').modal('hide');
-              $('#carreras').DataTable().ajax.reload();
+              dataTable.ajax.reload();
             }
           });
         } else {
           alert("Algunos campos son obligatorios");
         }
+      });
       });
     </script>
   </body>
