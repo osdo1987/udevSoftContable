@@ -7,14 +7,14 @@ include("../conexion.php");
 
 //esta es la variable que a tomar el ajax para identificar el metodo
 
-$action = isset($_POST["action"]) ? $_POST["action"] : null;
+//$action = isset($_POST["action"]) ? $_POST["action"] : null;
 
-if ($action === null) {
-    echo "No se ha proporcionado la operación.";
-    exit; // Otra opción: manejar el error de alguna otra manera
-}
+//if ($action === null) {
+  //  echo "No se ha proporcionado la operación.";
+    //exit; // Otra opción: manejar el error de alguna otra manera
+//}
 
-//$action = $_POST["operacion"];
+$action = $_POST["operacion"];
 // Resto del código aquí...
 
 
@@ -37,9 +37,9 @@ switch($action){
     case 'borrar':
         borrar($conexion);
         break;
-    case'obtener_todos_registros': //en caso de que action sea crear se ejectura la funcion crear; si no en caso de editar y borrar lo mismo
-        obtener_todos_registros ($conexion);
-        break;
+    //case'obtener_todos_registros': //en caso de que action sea crear se ejectura la funcion crear; si no en caso de editar y borrar lo mismo
+     //   obtener_todos_registros ($conexion);
+     //   break;
 
 
     default:
@@ -54,20 +54,22 @@ switch($action){
 
 function crear($conexion){
     
-        $stmt = $conexion->prepare("INSERT INTO carreras(descripcion_carrera, valor_total, estado) VALUES(:descripcion_carrera, :valor_total, :estado)");
+        $stmt = $conexion->prepare("INSERT INTO carreras(descripcion_carrera, valor_total_carrera, estado) VALUES(:descripcion_carrera, :valor_total_carrera, :estado)");
                
         $resultado = $stmt->execute(
             array(
                 ':descripcion_carrera' => $_POST["descripcion_carrera"],
-                ':valor_total' => $_POST["valor_total_carrera"],
+                ':valor_total_carrera' => $_POST["valor_total_carrera"],
                 ':estado' => $_POST["estado"]
             )
         );
     
         if(!empty($resultado) ){
             echo 'Registro creado';
-        } 
-    
+            
+        } else{
+            echo 'Registro no creado';
+        }
 
 
     
@@ -80,7 +82,7 @@ $resultado = $stmt->execute(
     array(
 
         ':descripcion_carrera'  => $_POST["descripcion_carrera"],
-        ':valor_total'  => $_POST["valor_total"],
+        ':valor_total_carrera'  => $_POST["valor_total"],
         ':estado'  => $_POST["estado"],
         ':codigo_carrera'  => $_POST["codigo_carrera"]
     )
@@ -112,12 +114,14 @@ function borrar($conexion){
 
 
 
-/*function obtener_todos_registros($conexion){
+function obtener_registros($conexion){
+
+    global $conexion;
 
 
     $stmt = $conexion->prepare("SELECT * FROM carreras");
     $stmt ->execute();
-    $resutlado = $stmt->fetchAll();
+    $resultado = $stmt->fetchAll();
     return $stmt ->rowCount();
 
 $query = "";
@@ -150,8 +154,8 @@ foreach($resultado as $fila){
     $sub_array[] = $fila["descripcion_carrera"];
     $sub_array[] = $fila["valor_total"];
     $sub_array[] = $fila["estado"];
-    $sub_array[] = '<button type="button" name="editar" id="'.$fila["codigo_carrera"].'" class="btn btn warning btn-xs editar">Editar</button>';
-    $sub_array[] = '<button type="button" name="borrar" id="'.$fila["codigo_carrera"].'" class="btn btn warning btn-xs borrar">Borrar</button>';
+    $sub_array[] = '<button type="button" data-bs-toggle="modal" data-bs-target="#modalUsuario" name="editar" id="'.$fila["codigo_carrera"].'" class="btn btn warning btn-xs editar">Editar</button>';
+    $sub_array[] = '<button type="button" name="borrar" id="'.$fila["codigo_carrera"].'" class="btn btn danger btn-xs borrar">Borrar</button>';
 
     $datos[] = $sub_array;
 }
@@ -159,19 +163,19 @@ foreach($resultado as $fila){
 $salida = array (
     "draw"            => intval($_POST["draw"]),
     "recordsTotal"    => $filtered_rows,
-    "recordsFiltered" => $filtered_rows,//Obtener_todos_registros()
+    "recordsFiltered" => obtener_todos_registros(),
     "data"            => $datos
 );
 
 echo json_encode($salida);
 
 } 
-**/
 
 
-function obtener_registro($conexion)
-{
-    $salida = array();
+
+function obtener_registro($conexion, $descripcion_carrera){
+
+   /* $salida = array();
 
     try {
         $stmt = $conexion->prepare("SELECT * FROM carreras WHERE codigo_carrera = :codigo_carrera LIMIT 1");
@@ -186,10 +190,24 @@ function obtener_registro($conexion)
         }
     } catch (PDOException $e) {
         $salida["error"] = "Error en la ejecución de la consulta: " . $e->getMessage();
-    }
+    } **/
+    if (isset($_POST["codigo_carrera"])) {
+
+        $salida = array();
+        $stmt = $conexion->prepare("SELECT * FROM carreras WHERE codigo_carrera = '" . $_POST["codigo_carrera"] . "' LIMIT 1");
+        $stmt->execute();
+        $resultado = $stmt->fetchAll();
+        foreach ($resultado as $fila) {
+            $salida["descripcion_carrera"] = $fila["descripcion_carrera"];
+            $salida["valor_total_carrera"] = $fila["valor_total_carrera"];
+            $salida["estado"] = $fila["estado"];
+           
+            ;}
 
     echo json_encode($salida);
 }
+}
+
 
 function obtener_todos_registros()
 {
