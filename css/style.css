@@ -14,3 +14,8 @@ background-color:silver;
     border-radius: 5px;
     margin-top: 5px;
 }
+.footer{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}

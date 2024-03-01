@@ -20,4 +20,4 @@ try {
     $salida["error"] = "Error en la ejecución de la consulta: " . $e->getMessage();
 }
 
-echo json_decode($salida);
+echo json_encode($salida);
