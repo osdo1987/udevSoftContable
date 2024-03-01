@@ -155,12 +155,14 @@ include("../componentes/navbar.php");
     $(document).ready(function () {
       $("#botonCrear").click(function () {
         $("#formulario")[0].reset();
-        $(".modal-title").text("Crear estudiante");
+        $(".modal-title").text("crear estudiante");
         $("#action").val("crear");
         $("#operacion").val("crear");
         $("#imagen_subida").html("");
-      });
 
+
+
+      });
 
       var dataTable = $('#estudiantes').DataTable({
         "processing": true,
@@ -180,7 +182,7 @@ include("../componentes/navbar.php");
 
       $(document).on('submit', '#formulario', function (event) {
         event.preventDefault();
-        //var nombres = $("#codigo_estudiante").val();
+        var nombres = $("#codigo_estudiante").val();
         var nombres = $("#nombre_estudiante").val();
         var apellidos = $("#apellidos_estudiante").val();
         var fecha_nacimiento_estudiante = $("#fecha_nacimiento_estudiante").val();
@@ -192,10 +194,9 @@ include("../componentes/navbar.php");
             return false;
 
           }
+
+
         }
-
-        var estado = $("#estado").val();
-
         if (nombres != '' && apellidos != '' && fecha_nacimiento_estudiante != '') {
           $.ajax({
             url: "crear.php",
@@ -208,14 +209,15 @@ include("../componentes/navbar.php");
               alert(data);
               $('#formulario')[0].reset();
               $('#modalUsuario').modal('hide');
-              $("#boton").btn('danger');
               dataTable.ajax.reload();
             }
+
           });
         } else {
           alert("algunos campos son obligatorios");
         }
       });
+
 
 
 
