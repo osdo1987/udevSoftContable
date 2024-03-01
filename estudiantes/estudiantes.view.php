@@ -221,38 +221,37 @@ include("../componentes/navbar.php");
 
       //funcionanlidad editar
       $(document).on('click', '.editar', function () {
-
         var codigo_estudiante = $(this).attr("id");
 
         $.ajax({
-          url: "crear.php",
+          url: "obtener.registro.php",
           method: "POST",
           data: { codigo_estudiante: codigo_estudiante },
           dataType: "json",
           success: function (data) {
-
+            console.log(data);
             $('#modalUsuario').modal('show');
             $('#nombre').val(data.nombre_estudiante);
             $('#apellidos').val(data.apellidos_estudiante);
             $('#fecha_nacimiento_estudiante').val(data.fecha_nacimiento_estudiante);
-
-            $('#imagen_subida').html(data.imagen_estudiante);
-
+            $(".modal-title").text("Editar estudiante");
+            $('#imagen_subida').val(data.imagen_estudiante);
             $('#estado').val(data.estado);
-
-            $('#modal-title').text("Editar estudiante");
-            $('#action').val("editar");
-            $('#operacion').val("editar");
+            $('#action').val("Editar");
             $('#codigo_estudiante').val(codigo_estudiante);
+            $('#operacion').val("editar");
+
+
+
+
 
             // Asegúrate de reiniciar el campo de imagen oculta si es necesario
             $('#imagen_estudiante_oculta').val(data.imagen_estudiante);
-
           },
           error: function (jqXHR, textStatus, errorThrown) {
-            console.log(textStatus, errorThrown);
+            console.error("Error en la solicitud AJAX:", textStatus, errorThrown);
           }
-        })
+        });
       });
 
       //Funcionalida de borrar
