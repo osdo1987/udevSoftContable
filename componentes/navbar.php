@@ -24,7 +24,7 @@
         <a class="nav-link" href="#">Acerca de</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="../carrera/carrera.view.php">Carrera</a>
+        <a class="nav-link" href="../carreras/carreras.view.php">Carreras</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="../institucion/institucion.view.php">Institucion</a>
