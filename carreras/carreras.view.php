@@ -36,7 +36,11 @@ include("../componentes/navbar.php");
     </div>
     <br>
     <div class="tabla-responsive">
+<<<<<<< HEAD
       <table id="CarrerasTabla" class="table table-bordered table-striped">
+=======
+      <table id="Carreras" class="table table-bordered table-striped">
+>>>>>>> 90f0a5bbc58c64c118287784748ca39c7615f284
         <thead>
           <tr>
             <th>Codigo</th>
@@ -57,6 +61,7 @@ include("../componentes/navbar.php");
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <form method="post" id="formulario" enctype="multipart/form-data">
+<<<<<<< HEAD
             <div class="modal-content">
               <div class="modal-body">
 
@@ -65,6 +70,11 @@ include("../componentes/navbar.php");
                 <input type="number" name="codigo_carrera" id="codigo_carrera" class="form-control">
                 <br>
 
+=======
+              <div class="modal-content">
+              <div class="modal-body">
+                
+>>>>>>> 90f0a5bbc58c64c118287784748ca39c7615f284
                 <label for="descripcion_carrera">Ingrese la descripción</label>
                 <input type="text" name="descripcion_carrera" id="descripcion_carrera" class="form-control">
                 <br>
@@ -80,6 +90,7 @@ include("../componentes/navbar.php");
               </div>
               <div class="modal-footer">
                 <input type="hidden" name="codigo_carrera" id="codigo_carrera">
+<<<<<<< HEAD
                 <input type="hidden" method="POST" name="operacion" id="operacion">
 
                 <!-- Este es un comentario<input type="submit" name="action" id="action" class="btn btn-primary" value="crear"   >
@@ -94,6 +105,10 @@ include("../componentes/navbar.php");
                 </button>
 
                 <?php $operacion = "mostrar" ?>
+=======
+                <input type="hidden" name="operacion" id="operacion">
+                <input type="submit" name="action" id="action" class="btn btn-success" value="crear" >
+>>>>>>> 90f0a5bbc58c64c118287784748ca39c7615f284
               </div>
           </form>
         </div>
@@ -123,24 +138,40 @@ include("../componentes/navbar.php");
         $("#operacion").val("crear");
       });
 
+<<<<<<< HEAD
       var dataTable = $('#CarrerasTabla').DataTable({
+=======
+      var dataTable = $('#Carreras').DataTable({
+>>>>>>> 90f0a5bbc58c64c118287784748ca39c7615f284
         "processing": true,
         "serverSide": true,
         "order": [],
         "ajax": {
+<<<<<<< HEAD
           url: "carreras.controller.php", //ver registros obtener todos
           type: "POST",
           //data:{action: 'obtener_todos_registros' }
 
+=======
+          url: "carreras.controller.php",//ver registros obtener todos
+          type: "POST",
+          data:{action: 'obtener_todos_registros' }
+          
+>>>>>>> 90f0a5bbc58c64c118287784748ca39c7615f284
         },
         "columnDefs": [{
           "targets": [0, 3, 4],
           "orderable": false,
+<<<<<<< HEAD
         }, ]
+=======
+        },]
+>>>>>>> 90f0a5bbc58c64c118287784748ca39c7615f284
       });
 
       $(document).on('submit', '#formulario', function(event) {
         event.preventDefault();
+<<<<<<< HEAD
         //var formData= new FormData(this);
         //formData.append('operacion', $("#operacion").val());
         var codigo_carrera = $("#codigo_carrera").val();
@@ -154,13 +185,32 @@ include("../componentes/navbar.php");
             method: "POST",
             data: new FormData(this),
             //data: formData,
+=======
+        var formData= new FormData(this);
+        formData.append('operacion', $("#operacion").val());
+        //var codigo_carrera = $("#codigo_carrera").val();
+        //var descripcion_carrera = $("#descripcion_carrera").val();
+        //var valor_total_carrera= $("#valor_total_carrera").val();
+        //var estado = $("#estado").val();
+
+        if (descripcion_carrera != '' && valor_total_carrera != '' && estado != '') {
+          $.ajax({
+            url: "carreras.controller.php",//crear
+            method: "POST",
+            //data: new FormData(this),
+            data: formData,
+>>>>>>> 90f0a5bbc58c64c118287784748ca39c7615f284
             processData: false,
             contentType: false,
-            success: function(data) {
+            success: function(data)
+             {
               alert(data);
               $('#formulario')[0].reset();
               $('#modalCarrera').modal('hide');
+<<<<<<< HEAD
               //$("#boton").btn('danger');
+=======
+>>>>>>> 90f0a5bbc58c64c118287784748ca39c7615f284
               dataTable.ajax.reload();
             }
           });
@@ -168,6 +218,7 @@ include("../componentes/navbar.php");
           alert("Algunos campos son obligatorios");
         }
       });
+<<<<<<< HEAD
       //funcionanlidad editar
       $(document).on('click', '.editar', function() {
 
@@ -237,3 +288,9 @@ include("../componentes/navbar.php");
 </body>
 
 </html>
+=======
+      });
+    </script>
+  </body>
+</html>
+>>>>>>> 90f0a5bbc58c64c118287784748ca39c7615f284
