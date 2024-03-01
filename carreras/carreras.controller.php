@@ -14,7 +14,7 @@ include("../conexion.php");
     //exit; // Otra opción: manejar el error de alguna otra manera
 //}
 
-$action = $_POST["operacion"];
+$action = "obtener_registros";
 // Resto del código aquí...
 
 
@@ -37,9 +37,10 @@ switch($action){
     case 'borrar':
         borrar($conexion);
         break;
-    //case'obtener_todos_registros': //en caso de que action sea crear se ejectura la funcion crear; si no en caso de editar y borrar lo mismo
-     //   obtener_todos_registros ($conexion);
-     //   break;
+    case'obtener_registros': //en caso de que action sea crear se ejectura la funcion crear; si no en caso de editar y borrar lo mismo
+       
+        obtener_registros ($conexion);
+        break;
 
 
     default:
@@ -116,9 +117,6 @@ function borrar($conexion){
 
 function obtener_registros($conexion){
 
-    global $conexion;
-
-
     $stmt = $conexion->prepare("SELECT * FROM carreras");
     $stmt ->execute();
     $resultado = $stmt->fetchAll();
@@ -163,8 +161,8 @@ foreach($resultado as $fila){
 $salida = array (
     "draw"            => intval($_POST["draw"]),
     "recordsTotal"    => $filtered_rows,
-    "recordsFiltered" => obtener_todos_registros(),
-    "data"            => $datos
+    "recordsFiltered" => 15,
+    "data"            => obtener_todos_registros()
 );
 
 echo json_encode($salida);
@@ -209,13 +207,14 @@ function obtener_registro($conexion, $descripcion_carrera){
 }
 
 
-function obtener_todos_registros()
+function obtener_todos_registros($conexion)
 {
-    include("../conexion.php");
+    
     $stmt = $conexion->prepare("SELECT * FROM carreras");
     $stmt->execute();
-    $resutlado = $stmt->fetchAll();
-    return $stmt->rowCount();
+    $resultado = $stmt->fetchAll();
+    return $resultado;
+    
 }
 
 
