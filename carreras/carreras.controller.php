@@ -3,7 +3,7 @@
 include("../conexion.php");
 //include("funciones.php") tampoco creo que vaya esto 
 
-echo var_dump($_POST);
+//echo var_dump($_POST);
 
 //esta es la variable que a tomar el ajax para identificar el metodo
 
@@ -31,15 +31,15 @@ switch($action){
     case'crear': //en caso de que action sea crear se ejectura la funcion crear; si no en caso de editar y borrar lo mismo
         crear ($conexion);
         break;
-        case 'editar':
-            editar($conexion);
-            break;
-            case 'borrar':
-                borrar($conexion);
-                break;
-                case'obtener_todos_registros': //en caso de que action sea crear se ejectura la funcion crear; si no en caso de editar y borrar lo mismo
-                    obtener_todos_registros ($conexion);
-                    break;
+    case 'editar':
+        editar($conexion);
+        break;
+    case 'borrar':
+        borrar($conexion);
+        break;
+    case'obtener_todos_registros': //en caso de que action sea crear se ejectura la funcion crear; si no en caso de editar y borrar lo mismo
+        obtener_todos_registros ($conexion);
+        break;
 
 
     default:
@@ -86,9 +86,10 @@ $resultado = $stmt->execute(
     )
 );
 if (!empty($resultado)) {
-    echo 'Registro actulizado';
-    
-}
+    echo 'Registro actulizado'; 
+}else{
+    echo "No se pudo actulizar el registro";
+};
 }
 
 //CREACION FUNCION BORRAR : anidado en la de crear 
@@ -111,7 +112,7 @@ function borrar($conexion){
 
 
 
-    function obtener_todos_registros($conexion){
+/*function obtener_todos_registros($conexion){
 
 
     $stmt = $conexion->prepare("SELECT * FROM carreras");
@@ -164,6 +165,39 @@ $salida = array (
 
 echo json_encode($salida);
 
+} 
+**/
+
+
+function obtener_registro($conexion)
+{
+    $salida = array();
+
+    try {
+        $stmt = $conexion->prepare("SELECT * FROM carreras WHERE codigo_carrera = :codigo_carrera LIMIT 1");
+        $stmt->bindParam(':codigo_carrera', $_POST['codigo_carrera'], PDO::PARAM_INT);
+        $stmt->execute();
+
+        if ($stmt->rowCount() > 0) {
+            $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+            $salida = $resultado;
+        } else {
+            $salida["error"] = "No se encontraron resultados";
+        }
+    } catch (PDOException $e) {
+        $salida["error"] = "Error en la ejecución de la consulta: " . $e->getMessage();
+    }
+
+    echo json_encode($salida);
+}
+
+function obtener_todos_registros()
+{
+    include("../conexion.php");
+    $stmt = $conexion->prepare("SELECT * FROM carreras");
+    $stmt->execute();
+    $resutlado = $stmt->fetchAll();
+    return $stmt->rowCount();
 }
 
 
