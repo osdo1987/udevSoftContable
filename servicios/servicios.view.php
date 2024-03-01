@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
+<?php include_once '../componentes/navbar.php' ?>
   <div class="container fondo">
     <h1 class="text-center">SERVICIOS</h1>
     <div class="row">
@@ -184,5 +185,6 @@
       });
     });
   </script>
+  
 </body>
 </html>
