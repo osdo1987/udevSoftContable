@@ -241,10 +241,6 @@ include("../componentes/navbar.php");
             $('#codigo_estudiante').val(codigo_estudiante);
             $('#operacion').val("editar");
 
-
-
-
-
             // Asegúrate de reiniciar el campo de imagen oculta si es necesario
             $('#imagen_estudiante_oculta').val(data.imagen_estudiante);
           },

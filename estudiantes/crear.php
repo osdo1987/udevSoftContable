@@ -5,6 +5,8 @@ include("funciones.php");
 
 
 
+
+
 if ($_POST["operacion"] == "crear") {
 
 
@@ -28,40 +30,34 @@ if ($_POST["operacion"] == "crear") {
     }
 }
 
+
+$codigo = $_POST["codigo_estudiante"];
+
 if ($_POST["operacion"] == "editar") {
     $imagen = '';
+
     if ($_FILES["imagen_estudiante"]["name"] != '') {
         $imagen = subir_imagen();
     } else {
         $imagen = $_POST["imagen_estudiante_oculta"];
     }
-    $stmt = $conexion->prepare("UPDATE estudiantes SET nombre_estudiante=:nombre, apellidos_estudiante=:apellidos,
-fecha_nacimiento_estudiante=:fecha_nacimiento_estudiante, imagen=:imagen_estudiante, :estado=estado WHERE codigo_estudiante = :codigo_estudiante");
 
+    $stmt = $conexion->prepare("UPDATE estudiantes SET nombre_estudiante=:nombre, apellidos_estudiante=:apellidos,fecha_nacimiento_estudiante=:fecha_nacimiento_estudiante, 
+    imagen=:imagen_estudiante,estado=:estado WHERE codigo_estudiante = :codigo_estudiante");
 
+    $stmt->bindParam(':nombre', $_POST["nombre"]);
+    $stmt->bindParam(':apellidos', $_POST["apellidos"]);
+    $stmt->bindParam(':fecha_nacimiento_estudiante', $_POST["fecha_nacimiento_estudiante"]);
+    $stmt->bindParam(':imagen_estudiante', $imagen);
+    $stmt->bindParam(':estado', $_POST["estado"]);
+    $stmt->bindParam(':codigo_estudiante', $codigo);
 
-    $resultado = $stmt->execute(
-        array(
+    $resultado = $stmt->execute();
 
-            ':nombre' => $_POST["nombre"],
-            ':apellidos' => $_POST["apellidos"],
-            ':fecha_nacimiento_estudiante' => $_POST["fecha_nacimiento_estudiante"],
-            ':imagen_estudiante' => $imagen,
-            ':estado' => $_POST["estado"],
-            ':codigo_estudiante' => $_POST["codigo_estudiante"]
-
-
-
-
-        )
-    );
-    if (!empty($resultado)) {
-        echo 'Registro actulizado';
+    if ($resultado) {
+        echo 'Registro actualizado';
+    } else {
+        echo 'Error al actualizar el registro';
+        print_r($stmt->errorInfo());
     }
 }
-
-
-
-
-
-?>
