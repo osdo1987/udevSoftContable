@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Crud servicios</title>
+  <title>SERVICIOS</title>
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <!-- DataTables CSS -->
@@ -14,13 +14,14 @@
   <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
+<?php include_once '../componentes/navbar.php';?>
   <div class="container fondo">
-    <h1 class="text-center">Servicios</h1>
+    <h1 class="text-center">SERVICIOS</h1>
     <div class="row">
       <div class="col-2 offset-10">
         <div class="text-center">
           <button type="button" class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#modalServicio" id="botonCrear">
-            <i class="bi bi-plus-circle-fill"></i> Crear
+            <i class="btn-sm bi bi-plus-lg"></i>
           </button>
         </div>
       </div>        
@@ -53,9 +54,7 @@
         <form method="POST" id="formulario" enctype="multipart/form-data">
           <div class="modal-content">
             <div class="modal-body">
-              <label for="codigo_servicio">Codigo servicio</label>
-              <input type="number" name="codigo_servicio" id="codigo_servicio" class="form-control">
-              <br>
+              <input type="hidden" name="codigo_servicio" id="codigo_servicio">
               <label for="descripcion_servicio">Descripcion</label>
               <input type="text" name="descripcion_servicio" id="descripcion_servicio" class="form-control">
               <br>
@@ -63,13 +62,18 @@
               <input type="number" name="valor_total_servicio" id="valor_total_servicio" class="form-control">
               <br>
               <label for="estado">Estado</label>
-              <input type="text" name="estado" id="estado" class="form-control">
+              <select name="estado" id="estado" class="form-control">
+                <option value="2">Seleccione una de las siguientes opciones...</option>
+                <option value="Activo">Activo</option>
+                <option value="Inactivo">Inactivo</option>
+              </select>
               <br>
             </div>
             <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
               <input type="hidden" name="id_servicio" id="id_servicio">
               <input type="hidden" name="operacion" id="operacion">
-              <input type="submit" name="action" id="action" class="btn btn-success" value="Crear">
+              <input type="submit" name="action" id="action" class="btn btn-primary" value="Crear">
             </div>
           </div>
         </form>
@@ -88,23 +92,32 @@
       $("#botonCrear").click(function() {
         $("#formulario")[0].reset();
         $(".modal-title").text("Crear servicio");
-        $("#action").val("crear");
+        $("#action").val("Crear");
         $("#operacion").val("crear");
       });
 
       var dataTable = $('#datos_servicio').DataTable({
-        "processing": true,
-        "serverSide": true,
-        "order": [],
-        "ajax": {
-          url: "obtener_registros.php",
-          type: "POST"
-        },
-        "columnDefs": [{
-          "targets": [4, 5],
-          "orderable": false,
-        }]
-      });
+  "processing": true,
+  "serverSide": true,
+  "order": [],
+  "ajax": {
+    url: "obtener_registros.php",
+    type: "POST"
+  },
+  "columnDefs": [
+    { "targets": "_all", "className": "text-center" },
+    {
+    "targets": 2, // Índice de la columna "valor total"
+    "render": function (data, type, row) {
+      // Formatea el valor numérico a formato de moneda con el símbolo "$" y puntuación de miles
+      return '$' + parseFloat(data).toLocaleString('es-ES', {minimumFractionDigits: 2});
+    }
+  }, {
+    "targets": [4, 5],
+    "orderable": false,
+  }]
+});
+
 
       $(document).on('submit', '#formulario', function(event) {
         event.preventDefault();
@@ -113,7 +126,7 @@
         var valor_total_servicio = $("#valor_total_servicio").val();
         var estado = $("#estado").val();
         
-        if (codigo_servicio != '' && descripcion_servicio != '' && valor_total_servicio != '' && estado != '') {
+        if (descripcion_servicio != '' && valor_total_servicio != '' && estado != '') {
           $.ajax({
             url: "crear.php",
             method: 'POST',
@@ -147,7 +160,7 @@
             $('#estado').val(data.estado);
             $('.modal-title').text("Editar servicio");
             $('#id_servicio').val(codigo_servicio);
-            $('#action').val("editar");
+            $('#action').val("Editar").removeClass('btn-primary').addClass('btn-warning');
             $('#operacion').val("editar");
           },
           error: function(jqXHR, textStatus, errorThrown) {
