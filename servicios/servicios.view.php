@@ -14,22 +14,14 @@
   <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
-<<<<<<< HEAD
 <?php include_once '../componentes/navbar.php' ?>
-=======
-<?php include_once '../componentes/navbar.php';?>
->>>>>>> feature/jfabian/estabilizacion_servicios
   <div class="container fondo">
     <h1 class="text-center">SERVICIOS</h1>
     <div class="row">
       <div class="col-2 offset-10">
         <div class="text-center">
           <button type="button" class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#modalServicio" id="botonCrear">
-<<<<<<< HEAD
             <i class="bi bi-plus-circle-fill"></i> Crear
-=======
-            <i class="btn-sm bi bi-plus-lg"></i>
->>>>>>> feature/jfabian/estabilizacion_servicios
           </button>
         </div>
       </div>        
@@ -78,10 +70,6 @@
               <br>
             </div>
             <div class="modal-footer">
-<<<<<<< HEAD
-=======
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
->>>>>>> feature/jfabian/estabilizacion_servicios
               <input type="hidden" name="id_servicio" id="id_servicio">
               <input type="hidden" name="operacion" id="operacion">
               <input type="submit" name="action" id="action" class="btn btn-primary" value="Crear">
@@ -197,9 +185,6 @@
       });
     });
   </script>
-<<<<<<< HEAD
   
-=======
->>>>>>> feature/jfabian/estabilizacion_servicios
 </body>
 </html>
