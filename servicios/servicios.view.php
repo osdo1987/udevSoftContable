@@ -100,7 +100,7 @@
   "serverSide": true,
   "order": [],
   "ajax": {
-    url: "obtener_registros.php",
+    url: "servicios.controller.php",
     type: "POST"
   },
   "columnDefs": [
@@ -127,7 +127,7 @@
         
         if (descripcion_servicio != '' && valor_total_servicio != '' && estado != '') {
           $.ajax({
-            url: "crear.php",
+            url: "servicios.controller.php",
             method: 'POST',
             data: new FormData(this),
             contentType: false,
@@ -148,9 +148,9 @@
       $(document).on('click', '.editar', function() {
         var codigo_servicio = $(this).attr("id");
         $.ajax({
-          url: "obtener_registro.php",
+          url: "servicios.controller.php",
           method: "POST",
-          data: {codigo_servicio: codigo_servicio},
+          data: {codigo_servicio: codigo_servicio,operacion:'obtener_registro'},
           dataType: "json",
           success: function(data) {
             $('#modalServicio').modal('show');
@@ -173,9 +173,9 @@
         var codigo_servicio = $(this).attr("id");
         if (confirm("¿Estás seguro de borrar este registro: " + codigo_servicio + "?")) {
           $.ajax({
-            url: "borrar.php",
+            url: "servicios.controller.php",
             method: "POST",
-            data: {codigo_servicio: codigo_servicio},
+            data: {codigo_servicio: codigo_servicio,operacion:'borrar'},
             success: function(data) {
               alert(data);
               dataTable.ajax.reload();
