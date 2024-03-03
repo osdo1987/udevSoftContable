@@ -227,14 +227,15 @@ include("../componentes/navbar.php");
       $(document).on('click', '.editar', function () {
         var codigo_estudiante = $(this).attr("id");
 
-
         $.ajax({
           url: "estudiantes.controller.php",
           method: "POST",
-          data: {
+          data:
+          {
             codigo_estudiante: codigo_estudiante,
-            operacion: 'editar'
+            action: 'obtener_registro'
           },
+
           dataType: "json",
           success: function (data) {
             console.log(data);
@@ -245,7 +246,7 @@ include("../componentes/navbar.php");
             $(".modal-title").text("Editar estudiante");
             $('#imagen_subida').val(data.imagen_estudiante);
             $('#estado').val(data.estado);
-            $('#action').val("Editar");
+            $('#action').val("editar");
             $('#codigo_estudiante').val(codigo_estudiante);
             $('#operacion').val("editar");
 

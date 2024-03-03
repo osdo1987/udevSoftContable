@@ -61,21 +61,22 @@ function crear($conexion)
 function editar($conexion)
 {
 
+
     $codigo = $_POST["codigo_estudiante"];
 
 
     if ($_POST["operacion"] == "editar") {
         $imagen = '';
-
+        /*
         if ($_FILES["imagen_estudiante"]["name"] != '') {
             $imagen = subir_imagen();
         } else {
             $imagen = $_POST["imagen_estudiante_oculta"];
         }
 
-
+        
         $stmt = $conexion->prepare("UPDATE estudiantes SET nombre_estudiante=:nombre, apellidos_estudiante=:apellidos,fecha_nacimiento_estudiante=:fecha_nacimiento_estudiante, 
-    imagen=:imagen_estudiante,estado=:estado WHERE codigo_estudiante = :codigo_estudiante");
+        imagen=:imagen_estudiante,estado=:estado WHERE codigo_estudiante = :codigo_estudiante");
 
         $stmt->bindParam(':nombre', $_POST["nombre"]);
         $stmt->bindParam(':apellidos', $_POST["apellidos"]);
@@ -91,7 +92,7 @@ function editar($conexion)
         } else {
             echo 'Error al actualizar el registro';
             print_r($stmt->errorInfo());
-        }
+        }*/
     }
 
 
@@ -204,9 +205,9 @@ function obtener_registro($conexion)
             $salida["nombre_estudiante"] = $fila["nombre_estudiante"];
             $salida["apellidos_estudiante"] = $fila["apellidos_estudiante"];
             $salida["fecha_nacimiento_estudiante"] = $fila["fecha_nacimiento_estudiante"];
-            if ($fila["imagen_estudiante"] != "") {
-                $salida["imagen_estudiante"] = '<../img src="img/' . $fila["imagen_estudiante"]
-                    . '"  class="img-thumbnail" width="50" height="35" /><input type="hiden" name="imagen_estudiante_oculta" value="' . $fila["imagen"] . '"/>';
+            if ($fila["imagen"] != "") {
+                $salida["imagen_estudiante"] = '<../img src="img/' . $fila["imagen"]
+                    . '"  class="img-thumbnail" width="100" height="" /><input type="hiden" name="imagen_estudiante_oculta" value="' . $fila["imagen"] . '"/>';
 
             } else {
                 $salida["imagen_estudiante"] = '<input type="hidden" name="imagen_estudiante_oculta" value=""/>';
