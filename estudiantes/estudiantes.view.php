@@ -231,7 +231,10 @@ include("../componentes/navbar.php");
         $.ajax({
           url: "estudiantes.controller.php",
           method: "POST",
-          data: { codigo_estudiante: codigo_estudiante },
+          data: {
+            codigo_estudiante: codigo_estudiante,
+            action: 'editar'
+          },
           dataType: "json",
           success: function (data) {
             console.log(data);
