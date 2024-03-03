@@ -60,7 +60,9 @@ function crear($conexion)
 
 function editar($conexion)
 {
+
     $codigo = $_POST["codigo_estudiante"];
+
 
     if ($_POST["operacion"] == "editar") {
         $imagen = '';
@@ -70,6 +72,7 @@ function editar($conexion)
         } else {
             $imagen = $_POST["imagen_estudiante_oculta"];
         }
+
 
         $stmt = $conexion->prepare("UPDATE estudiantes SET nombre_estudiante=:nombre, apellidos_estudiante=:apellidos,fecha_nacimiento_estudiante=:fecha_nacimiento_estudiante, 
     imagen=:imagen_estudiante,estado=:estado WHERE codigo_estudiante = :codigo_estudiante");
@@ -96,16 +99,17 @@ function editar($conexion)
 
 function borrar($conexion)
 {
+    if (isset($_POST["codigo_estudiante"])) {
+        $stmt = $conexion->prepare("DELETE FROM estudiantes WHERE codigo_estudiante = :codigo_estudiante");
 
-    $stmt = $conexion->prepare("DELETE FROM estudiantes WHERE codigo_estudiante = :id");
-
-    $resultado = $stmt->execute(
-        array(
-            ':codigo_estudiante' => $_POST["codigo_estudiante"]
-        )
-    );
-    if (!empty($resultado)) {
-        echo 'Registro borrado';
+        $resultado = $stmt->execute(
+            array(
+                ':codigo_estudiante' => $_POST["codigo_estudiante"]
+            )
+        );
+        if (!empty($resultado)) {
+            echo 'Registro borrado';
+        }
     }
 }
 
@@ -183,6 +187,10 @@ function obtener_registros($conexion)
         echo "Error en la consulta: " . $e->getMessage();
     }
 }
+
+
+
+
 function obtener_registro($conexion)
 {
 
@@ -211,10 +219,6 @@ function obtener_registro($conexion)
     }
 }
 
-
-
-
-//melo
 function obtener_todos_registros()
 {
     include('../conexion.php');

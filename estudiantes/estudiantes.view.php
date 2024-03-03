@@ -233,7 +233,7 @@ include("../componentes/navbar.php");
           method: "POST",
           data: {
             codigo_estudiante: codigo_estudiante,
-            action: 'editar'
+            operacion: 'editar'
           },
           dataType: "json",
           success: function (data) {
@@ -261,21 +261,19 @@ include("../componentes/navbar.php");
       //Funcionalida de borrar
       $(document).on('click', '.borrar', function () {
         var codigo_estudiante = $(this).attr("id");
-        if (confirm("Esta seguro de borrar este registro = " + codigo_estudiante)) {
+        if (confirm("¿Estás seguro de borrar este registro: " + codigo_estudiante + "?")) {
           $.ajax({
             url: "estudiantes.controller.php",
             method: "POST",
             data: {
               codigo_estudiante: codigo_estudiante,
-              action: 'borrar'
+              operacion: 'borrar'
             },
             success: function (data) {
               alert(data);
               dataTable.ajax.reload();
             }
           });
-        } else {
-          return false;
         }
       });
     });
