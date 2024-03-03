@@ -71,7 +71,7 @@ include("../componentes/navbar.php");
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">Registro de estudiante</h1>
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Crear estudiante</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
 
@@ -152,24 +152,24 @@ include("../componentes/navbar.php");
     crossorigin="anonymous"></script>
 
   <script type="text/javascript">
-
-
     $(document).ready(function () {
       $("#botonCrear").click(function () {
         $("#formulario")[0].reset();
-        $(".modal-title").text("Crear estudiante");
+        $(".modal-title").text("crear estudiante");
         $("#action").val("crear");
         $("#operacion").val("crear");
         $("#imagen_subida").html("");
-      });
 
+
+
+      });
 
       var dataTable = $('#estudiantes').DataTable({
         "processing": true,
         "serverSide": true,
         "order": [],
         "ajax": {
-          url: "estudiantes.controller.php",
+          url: "obtener.registros.php",
           type: "POST"
 
         },
@@ -182,7 +182,7 @@ include("../componentes/navbar.php");
 
       $(document).on('submit', '#formulario', function (event) {
         event.preventDefault();
-        //var nombres = $("#codigo_estudiante").val();
+        var nombres = $("#codigo_estudiante").val();
         var nombres = $("#nombre_estudiante").val();
         var apellidos = $("#apellidos_estudiante").val();
         var fecha_nacimiento_estudiante = $("#fecha_nacimiento_estudiante").val();
@@ -194,13 +194,12 @@ include("../componentes/navbar.php");
             return false;
 
           }
+
+
         }
-
-        var estado = $("#estado").val();
-
         if (nombres != '' && apellidos != '' && fecha_nacimiento_estudiante != '') {
           $.ajax({
-            url: "estudiantes.controller.php",
+            url: "crear.php",
             method: 'POST',
             data: new FormData(this),
             contentType: false,
@@ -210,9 +209,9 @@ include("../componentes/navbar.php");
               alert(data);
               $('#formulario')[0].reset();
               $('#modalUsuario').modal('hide');
-              $("#boton").btn('danger');
               dataTable.ajax.reload();
             }
+
           });
         } else {
           alert("algunos campos son obligatorios");
@@ -221,40 +220,36 @@ include("../componentes/navbar.php");
 
 
 
+
       //funcionanlidad editar
       $(document).on('click', '.editar', function () {
-
         var codigo_estudiante = $(this).attr("id");
 
         $.ajax({
-          url: "estudiantes.controller.php",
+          url: "obtener.registro.php",
           method: "POST",
-          data: {
-            codigo_estudiante: codigo_estudiante
-          },
+          data: { codigo_estudiante: codigo_estudiante },
           dataType: "json",
           success: function (data) {
-
+            console.log(data);
             $('#modalUsuario').modal('show');
             $('#nombre').val(data.nombre_estudiante);
             $('#apellidos').val(data.apellidos_estudiante);
             $('#fecha_nacimiento_estudiante').val(data.fecha_nacimiento_estudiante);
-
-            $('#imagen_subida').html(data.imagen_estudiante);
-
-            $('#modal-title').text("Editar estudiante");
-            $('#action').val("editar");
-            $('#operacion').val("editar");
+            $(".modal-title").text("Editar estudiante");
+            $('#imagen_subida').val(data.imagen_estudiante);
+            $('#estado').val(data.estado);
+            $('#action').val("Editar");
             $('#codigo_estudiante').val(codigo_estudiante);
+            $('#operacion').val("editar");
 
             // Asegúrate de reiniciar el campo de imagen oculta si es necesario
             $('#imagen_estudiante_oculta').val(data.imagen_estudiante);
-
           },
           error: function (jqXHR, textStatus, errorThrown) {
-            console.log(textStatus, errorThrown);
+            console.error("Error en la solicitud AJAX:", textStatus, errorThrown);
           }
-        })
+        });
       });
 
       //Funcionalida de borrar
@@ -262,7 +257,7 @@ include("../componentes/navbar.php");
         var codigo_estudiante = $(this).attr("id");
         if (confirm("Esta seguro de borrar este registro:" + codigo_estudiante)) {
           $.ajax({
-            url: "estudiantes.controller.php",
+            url: "borrar.php",
             method: "POST",
             data: {
               codigo_estudiante: codigo_estudiante,
