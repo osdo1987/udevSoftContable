@@ -21,10 +21,9 @@
 
 <body>
   <?php include_once '../componentes/navbar.php' ?>
+
+  <h1 class="text-center">Estudiante</h1>
   <div class="container fondo">
-    <h1 class="text-center">Estudiante</h1>
-
-
 
     <div class="row">
       <div class="col-2 offset-10">
