@@ -145,8 +145,8 @@ try {
         $sub_array[] = $fila["descripcion_servicio"];
         $sub_array[] = $fila["valor_total_servicio"];
         $sub_array[] = $fila["estado"];
-        $sub_array[] = '<div class="text-center"><button type="button" name="editar" id="' . $fila["codigo_servicio"] . '" class="btn btn-warning btn-xs editar"><i class="bi bi-pencil-fill"></i></button></div>';
-        $sub_array[] = '<div class="text-center"><button type="button" name="borrar" id="' . $fila["codigo_servicio"] . '" class="btn btn-danger btn-xs borrar"><i class="bi bi-trash-fill"></i></button></div>';
+        $sub_array[] = '<div class="text-center"><button type="button" name="Editar" id="' . $fila["codigo_servicio"] . '" class="btn btn-warning btn-xs editar"><i class="bi bi-pencil-fill"></i></button></div>';
+        $sub_array[] = '<div class="text-center"><button type="button" name="Borrar" id="' . $fila["codigo_servicio"] . '" class="btn btn-danger btn-xs borrar"><i class="bi bi-trash-fill"></i></button></div>';
         
         $datos[] = $sub_array;
     }
