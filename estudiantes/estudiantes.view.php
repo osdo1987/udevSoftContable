@@ -1,7 +1,3 @@
-<?php
-include("../componentes/navbar.php");
-
-?>
 <!doctype html>
 <html lang="en">
 
@@ -15,8 +11,10 @@ include("../componentes/navbar.php");
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+
+  <link rel="stylesheet" href="../css/style.css">
+
 </head>
-<link rel="stylesheet" href="../css/style.css">
 
 
 </head>
