@@ -70,7 +70,7 @@ $resultado = $stmt->execute(
     array(
 
         ':descripcion_carrera'  => $_POST["descripcion_carrera"],
-        ':valor_total_carrera'  => $_POST["valor_total"],
+        ':valor_total_carrera'  => $_POST["valor_total_carrera"],
         ':estado'  => $_POST["estado"],
         ':codigo_carrera'  => $_POST["codigo_carrera"]
     )
@@ -149,7 +149,7 @@ if(isset($_POST["order"])){
     $query .= 'ORDER BY codigo_carrera DESC ';
 }
 
-if($_POST['length'] != -1){
+if(isset($_POST['length'])&& isset($_POST['start'])) {
     $query .= 'LIMIT ' . ($_POST["start"]) . ',' . $_POST["length"];
 }
 
@@ -161,11 +161,13 @@ $resultado = $stmt->fetchAll();
 $datos = array();
 $filtered_rows = $stmt->rowCount();
 
+$draw = isset($_POST['draw']) ? intval($_POST['draw']) : 0;
+
 foreach($resultado as $fila){
     $sub_array = array();
     $sub_array[] = $fila["codigo_carrera"];
     $sub_array[] = $fila["descripcion_carrera"];
-    $sub_array[] = $fila["valor_total"];
+    $sub_array[] = $fila["valor_total_carrera"];
     $sub_array[] = $fila["estado"];
     $sub_array[] = '<button type="button" data-bs-toggle="modal" data-bs-target="#modalUsuario" name="editar" id="'.$fila["codigo_carrera"].'" class="btn btn warning btn-xs editar">Editar</button>';
     $sub_array[] = '<button type="button" name="borrar" id="'.$fila["codigo_carrera"].'" class="btn btn danger btn-xs borrar">Borrar</button>';
@@ -174,7 +176,7 @@ foreach($resultado as $fila){
 }
 
 $salida = array (
-    "draw"            => intval($_POST["draw"]),
+    "draw"            => $draw,
     "recordsTotal"    => $filtered_rows,
     "recordsFiltered" => obtener_todos_registros(),
     "data"            => $datos
