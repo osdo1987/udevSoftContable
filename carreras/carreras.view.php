@@ -22,7 +22,7 @@
   ?>
 
   <h1 class="text-center">CARRERAS</h1>
-  <div class="container fondo">
+  <div >
 
     <div class="row">
       <div class="col-2 offset-10">
@@ -85,12 +85,12 @@
 
                 <!-- Este es un comentario<input type="submit" name="action" id="action" class="btn btn-primary" value="crear"   >
                 <i class="bi bi-journal-plus" > </i> -->
-                <button type="button" name="cancelar" id="cancelar" class="btn btn-secondary" data-bs-dismiss="modal">
-                  <i class="bi bi-x-circle"> </i>
+                <button type="button" name="cancelar" id="cancelar" class="btn btn-secondary" data-bs-dismiss="modal" > Cancelar
+                 
                 </button>
-                <button type="submit" name="action" id="action" class="btn btn-primary " value="ingresar">
+                <button type="submit" name="action" id="action" class="btn btn-primary" value="ingresar" >Crear
 
-                  <i class="bi bi-plus-circle-fill"> </i>
+                  
 
                 </button>
 
@@ -199,6 +199,7 @@
           success: function(data) {
 
             $('#modalCarrera').modal('show');
+            $('#codigo_carrera').val(data.codigo_carrera);
             $('#descripcion_carrera').val(data.descripcion_carrera);
             $('#valor_total_carrera').val(data.valor_total_carrera);
             $('#estado').val(data.estado);
