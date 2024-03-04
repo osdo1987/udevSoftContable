@@ -79,7 +79,7 @@ include("../componentes/navbar.php");
                 </select>
               </div>
               <div class="modal-footer">
-                <input type="hidden" name="codigo_carrera" id="codigo_carrera">
+                <input type="hidden" name="id_carrera" id="id_carrera">
                 <input type="hidden" method="POST" name="operacion" id="operacion">
 
                 <!-- Este es un comentario<input type="submit" name="action" id="action" class="btn btn-primary" value="crear"   >
@@ -133,10 +133,19 @@ include("../componentes/navbar.php");
           //data:{action: 'obtener_todos_registros' }
 
         },
-        "columnDefs": [{
-          "targets": [0, 3, 4],
-          "orderable": false,
-        }, ]
+        "columnDefs": [
+          {"targets": "_all","className:" "text-center" },
+          {
+            "targets":2, //valor de la columna valor total
+            "render":function(data, type, row){
+              return '$' + parseFloat(data).toLocaleString('es-ES',{minimumFractionDigits: 2});
+        
+        },
+      },{
+        "targets":[4, 5],
+        "orderable":false,
+
+      }]
       });
 
       $(document).on('submit', '#formulario', function(event) {
@@ -178,7 +187,7 @@ include("../componentes/navbar.php");
           url: "carreras.controller.php",
           method: "POST",
           data: {
-            codigo_carrera: codigo_carrera
+            codigo_carrera: codigo_carrera, operacion:'obtener_registro'
           },
           dataType: "json",
           success: function(data) {
@@ -191,9 +200,10 @@ include("../componentes/navbar.php");
 
 
             $('#modal-title').text("Editar estudiante");
-            $('#action').val("editar");
+            $('#id_carrera').val(codigo_carrera);
+            $('#action').val("editar").removeClass('btn-primary').addClass('btn-warnig');
             $('#operacion').val("editar");
-            $('#codigo_carrera').val(codigo_carrera);
+           
 
 
 
@@ -207,13 +217,12 @@ include("../componentes/navbar.php");
       //Funcionalida de borrar
       $(document).on('click', '.borrar', function() {
         var codigo_estudiante = $(this).attr("id");
-        if (confirm("Esta seguro de borrar este registro:" + codigo_carrera)) {
+        if (confirm("Esta seguro de borrar este registro:" + codigo_carrera + "?")) {
           $.ajax({
             url: "estudiantes.controller.php",
             method: "POST",
             data: {
-              codigo_carrera: codigo_carrera,
-              action: 'borrar'
+              codigo_carrera: codigo_carrera, operacion:'borrar'
             },
             success: function(data) {
               alert(data);
