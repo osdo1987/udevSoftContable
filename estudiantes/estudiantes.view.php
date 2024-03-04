@@ -230,7 +230,7 @@
           data:
           {
             codigo_estudiante: codigo_estudiante,
-            action: 'obtener_registro'
+            operacion: 'obtener_registro'
           },
 
           dataType: "json",

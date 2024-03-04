@@ -67,14 +67,14 @@ function editar($conexion)
 
     if ($_POST["operacion"] == "editar") {
         $imagen = '';
-        /*
+
         if ($_FILES["imagen_estudiante"]["name"] != '') {
             $imagen = subir_imagen();
         } else {
             $imagen = $_POST["imagen_estudiante_oculta"];
         }
 
-        
+
         $stmt = $conexion->prepare("UPDATE estudiantes SET nombre_estudiante=:nombre, apellidos_estudiante=:apellidos,fecha_nacimiento_estudiante=:fecha_nacimiento_estudiante, 
         imagen=:imagen_estudiante,estado=:estado WHERE codigo_estudiante = :codigo_estudiante");
 
@@ -92,7 +92,7 @@ function editar($conexion)
         } else {
             echo 'Error al actualizar el registro';
             print_r($stmt->errorInfo());
-        }*/
+        }
     }
 
 
