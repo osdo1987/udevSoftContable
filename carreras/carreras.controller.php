@@ -1,25 +1,9 @@
 <?php 
 
 include("../conexion.php");
-//include("funciones.php") tampoco creo que vaya esto 
-
-//echo var_dump($_POST);
-
-//esta es la variable que a tomar el ajax para identificar el metodo
-
-//$action = isset($_POST["action"]) ? $_POST["action"] : null;
-
-//if ($action === null) {
-  //  echo "No se ha proporcionado la operación.";
-    //exit; // Otra opción: manejar el error de alguna otra manera
-//}
 
 $action = "obtener_registros";
-// Resto del código aquí...
 
-
-
-//lLLAMADO FUNCION MAIN con los dos argumentos necesarios para funcionar
 main($action, $conexion);
 
 //CREACION FUNCION MAIN
@@ -37,13 +21,14 @@ switch($action){
     case 'borrar':
         borrar($conexion);
         break;
-    case'obtener_registros': //en caso de que action sea crear se ejectura la funcion crear; si no en caso de editar y borrar lo mismo
-       
-        obtener_registros ($conexion);
+    case'obtener_registro': //en caso de que action sea crear se ejectura la funcion crear; si no en caso de editar y borrar lo mismo
+        obtener_registro ($conexion);
         break;
 
 
     default:
+    obtener_registros($conexion);
+
     break;
 }
 
@@ -55,10 +40,11 @@ switch($action){
 
 function crear($conexion){
     
-        $stmt = $conexion->prepare("INSERT INTO carreras(descripcion_carrera, valor_total_carrera, estado) VALUES(:descripcion_carrera, :valor_total_carrera, :estado)");
+        $stmt = $conexion->prepare("INSERT INTO carreras(codigo_carrera, descripcion_carrera, valor_total_carrera, estado) VALUES(:codigo_carrera, :descripcion_carrera, :valor_total_carrera, :estado)");
                
         $resultado = $stmt->execute(
             array(
+                'codigo_carrera' => $_POST["codigo_carrera"],
                 ':descripcion_carrera' => $_POST["descripcion_carrera"],
                 ':valor_total_carrera' => $_POST["valor_total_carrera"],
                 ':estado' => $_POST["estado"]
@@ -77,7 +63,8 @@ function crear($conexion){
 }
 //CREACION FUNCION EDITAR : esto anidado en la funcion crear inicial
 function editar($conexion){
-    $stmt = $conexion->prepare("UPDATE carreras SET descripcion_carrera=:descripcion_carrera, valor_total=:valor_total,
+    
+    $stmt = $conexion->prepare("UPDATE carreras SET descripcion_carrera=:descripcion_carrera, valor_total_carrera=:valor_total_carrera,
      estado=:estado WHERE codigo_carrera = :codigo_carrera");
 $resultado = $stmt->execute(
     array(
@@ -98,6 +85,8 @@ if (!empty($resultado)) {
 //CREACION FUNCION BORRAR : anidado en la de crear 
 function borrar($conexion){
 
+    if(isset($_POST["codigo_carrera"])){
+
     $stmt = $conexion->prepare("DELETE FROM carreras WHERE codigo_carrera = :codigo_carrera");
 
     $resultado = $stmt->execute(
@@ -107,22 +96,46 @@ function borrar($conexion){
     );
     if (!empty($resultado)) {
         echo 'Registro borrado';
+        }
     }
 
+ }
 
 
+
+
+
+
+
+function obtener_registro($conexion){
+
+    $salida = array();
+
+    try {
+        $stmt = $conexion->prepare("SELECT * FROM carreras WHERE codigo_carrera = :codigo_carrera LIMIT 1");
+        $stmt->bindParam(':codigo_carrera', $_POST['codigo_carrera'], PDO::PARAM_INT);
+        $stmt->execute();
+
+        if ($stmt->rowCount() > 0) {
+            $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+            $salida = $resultado;
+        } else {
+            $salida["error"] = "No se encontraron resultados";
+        }
+    } catch (PDOException $e) {
+        $salida["error"] = "Error en la ejecución de la consulta: " . $e->getMessage();
+    } 
+    echo json_encode($salida);
     }
+    
 
 
 
-function obtener_registros($conexion){
 
-    $stmt = $conexion->prepare("SELECT * FROM carreras");
-    $stmt ->execute();
-    $resultado = $stmt->fetchAll();
-    return $stmt ->rowCount();
 
-$query = "";
+function obtener_registros($conexion)
+{
+    $query = "";
 $salida = array();
 $query = "SELECT * FROM carreras ";
 
@@ -141,6 +154,8 @@ if($_POST['length'] != -1){
 }
 
 $stmt = $conexion->prepare($query);
+
+try{
 $stmt->execute();
 $resultado = $stmt->fetchAll();
 $datos = array();
@@ -161,62 +176,26 @@ foreach($resultado as $fila){
 $salida = array (
     "draw"            => intval($_POST["draw"]),
     "recordsTotal"    => $filtered_rows,
-    "recordsFiltered" => 15,
-    "data"            => obtener_todos_registros()
+    "recordsFiltered" => obtener_todos_registros(),
+    "data"            => $datos
+
 );
 
 echo json_encode($salida);
 
-} 
-
-
-
-function obtener_registro($conexion, $descripcion_carrera){
-
-   /* $salida = array();
-
-    try {
-        $stmt = $conexion->prepare("SELECT * FROM carreras WHERE codigo_carrera = :codigo_carrera LIMIT 1");
-        $stmt->bindParam(':codigo_carrera', $_POST['codigo_carrera'], PDO::PARAM_INT);
-        $stmt->execute();
-
-        if ($stmt->rowCount() > 0) {
-            $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
-            $salida = $resultado;
-        } else {
-            $salida["error"] = "No se encontraron resultados";
-        }
-    } catch (PDOException $e) {
-        $salida["error"] = "Error en la ejecución de la consulta: " . $e->getMessage();
-    } **/
-    if (isset($_POST["codigo_carrera"])) {
-
-        $salida = array();
-        $stmt = $conexion->prepare("SELECT * FROM carreras WHERE codigo_carrera = '" . $_POST["codigo_carrera"] . "' LIMIT 1");
-        $stmt->execute();
-        $resultado = $stmt->fetchAll();
-        foreach ($resultado as $fila) {
-            $salida["descripcion_carrera"] = $fila["descripcion_carrera"];
-            $salida["valor_total_carrera"] = $fila["valor_total_carrera"];
-            $salida["estado"] = $fila["estado"];
-           
-            ;}
-
-    echo json_encode($salida);
-}
+} catch (PDOException $e){
+    echo "Error en la consulta: " . $e->getMessage();
 }
 
+}
 
-function obtener_todos_registros($conexion)
-{
-    
-    $stmt = $conexion->prepare("SELECT * FROM carreras");
-    $stmt->execute();
+function obtener_todos_registros(){
+    include("../conexion.php");
+    $stmt = $conexion -> prepare("SELECT * FROM carreras");
+    $stmt ->execute();
     $resultado = $stmt->fetchAll();
-    return $resultado;
-    
+    return $stmt ->rowCount();
 }
-
 
 
 
