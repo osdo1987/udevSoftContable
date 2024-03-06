@@ -49,6 +49,9 @@
       <li class="nav-item">
         <a class="nav-link" href="../servicios/servicios.view.php">Servicios</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="../pagos/pagos.view.php">Pagos</a>
+      </li>
     </ul>
   </div>
 </nav>
