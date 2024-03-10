@@ -41,15 +41,15 @@ function crear($conexion)
         if ($_FILES["imagen_estudiante"]["name"] != '') {
             $imagen = subir_imagen();
         }
-        $stmt = $conexion->prepare("INSERT INTO estudiantes(nombre_estudiante, apellidos_estudiante, fecha_nacimiento_estudiante, imagen, estado)VALUES(:nombre, :apellidos, :fecha_nacimiento_estudiante, :imagen_estudiante, :estado)");
+        $stmt = $conexion->prepare("INSERT INTO estudiantes(nombre_estudiante, apellidos_estudiante, fecha_nacimiento_estudiante, imagen, estado)VALUES(:nombre, :apellidos_estudiante, :fecha_nacimiento_estudiante, :imagen_estudiante, :estado)");
 
         $resultado = $stmt->execute(
             array(
                 ':nombre' => $_POST["nombre"],
-                ':apellidos' => $_POST["apellidos"],
+                ':apellidos_estudiante' => $_POST["apellidos_estudiante"],
                 ':fecha_nacimiento_estudiante' => $_POST["fecha_nacimiento_estudiante"],
                 ':imagen_estudiante' => $imagen,
-                ':estado' => $_POST["estado"],
+                ':estado' => $_POST["estado"]
             )
         );
         if (!empty($resultado)) {
@@ -75,17 +75,20 @@ function editar($conexion)
         }
 
 
-        $stmt = $conexion->prepare("UPDATE estudiantes SET nombre_estudiante=:nombre, apellidos_estudiante=:apellidos,fecha_nacimiento_estudiante=:fecha_nacimiento_estudiante, 
+        $stmt = $conexion->prepare("UPDATE estudiantes SET nombre_estudiante=:nombre, apellidos_estudiante=:apellidos_estudiante,fecha_nacimiento_estudiante=:fecha_nacimiento_estudiante, 
         imagen=:imagen_estudiante,estado=:estado WHERE codigo_estudiante = :codigo_estudiante");
 
-        $stmt->bindParam(':nombre', $_POST["nombre"]);
-        $stmt->bindParam(':apellidos', $_POST["apellidos"]);
-        $stmt->bindParam(':fecha_nacimiento_estudiante', $_POST["fecha_nacimiento_estudiante"]);
-        $stmt->bindParam(':imagen_estudiante', $imagen);
-        $stmt->bindParam(':estado', $_POST["estado"]);
-        $stmt->bindParam(':codigo_estudiante', $codigo);
+        $resultado = $stmt->execute(
+            array(
+                ':nombre' => $_POST["nombre"],
+                ':apellidos_estudiante' => $_POST["apellidos_estudiante"],
+                ':fecha_nacimiento_estudiante' => $_POST["fecha_nacimiento_estudiante"],
+                ':imagen_estudiante' => $imagen,
+                ':estado' => $_POST["estado"],
+                ':codigo_estudiante' => $_POST["codigo_estudiante"],
+            )
+        );
 
-        $resultado = $stmt->execute();
 
         if ($resultado) {
             echo 'Registro actualizado';
@@ -170,7 +173,7 @@ function obtener_registros($conexion)
             $sub_array[] = $fila["estado"];
 
             $sub_array[] = '<button type="button" data-bs-toggle="modal" data-bs-target="#modalUsuario" name="editar" id="' . $fila["codigo_estudiante"] . '"  class="btn btn-warning bi bi-pencil-square editar"></button>';
-            $sub_array[] = '<button type="button" name="borrar" id="' . $fila["codigo_estudiante"] . '"  class="btn btn-danger bi bi-trash borrar"></button>';
+
             $datos[] = $sub_array;
 
         }
@@ -205,14 +208,16 @@ function obtener_registro($conexion)
             $salida["nombre_estudiante"] = $fila["nombre_estudiante"];
             $salida["apellidos_estudiante"] = $fila["apellidos_estudiante"];
             $salida["fecha_nacimiento_estudiante"] = $fila["fecha_nacimiento_estudiante"];
+            $salida["estado"] = $fila["estado"];
             if ($fila["imagen"] != "") {
-                $salida["imagen_estudiante"] = '<../img src="img/' . $fila["imagen"]
-                    . '"  class="img-thumbnail" width="100" height="" /><input type="hiden" name="imagen_estudiante_oculta" value="' . $fila["imagen"] . '"/>';
+                $salida["imagen_estudiante"] = '<img src="../img/' . $fila["imagen"]
+                    . '"  class="img-thumbnail" width="200" height="35" /><input type="hidden" name="imagen_estudiante_oculta" value="' . $fila["imagen"] . '"';
 
             } else {
-                $salida["imagen_estudiante"] = '<input type="hidden" name="imagen_estudiante_oculta" value=""/>';
+                $salida["imagen_estudiante"] = '<input type="hidden" name="imagen_estudiante_oculta" value="' . $fila
+                ["imagen"] . '"';
             }
-            $salida["estado"] = $fila["estado"];
+
 
         }
 
