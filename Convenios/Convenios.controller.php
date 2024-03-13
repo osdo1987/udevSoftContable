@@ -25,5 +25,4 @@ function main($action, $conexion)
             break;
     }
 }
-
 ?>
