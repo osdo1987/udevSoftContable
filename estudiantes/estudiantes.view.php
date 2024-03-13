@@ -1,7 +1,5 @@
 <?php
 
-include("../componentes/navbar.php");
-
 ?>
 <!doctype html>
 <html lang="en">
@@ -10,7 +8,6 @@ include("../componentes/navbar.php");
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>UDEV</title>
-  <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
@@ -18,15 +15,18 @@ include("../componentes/navbar.php");
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
-  <!--<link rel="stylesheet" href="CSS/style.css"> -->
+  <link rel="stylesheet" href="../css/style.css">
+
+</head>
+
 
 </head>
 
 <body>
+  <?php include_once '../componentes/navbar.php' ?>
+
+  <h1 class="text-center">Estudiante</h1>
   <div class="container fondo">
-    <h1 class="text-center">Estudiante</h1>
-
-
 
     <div class="row">
       <div class="col-2 offset-10">
@@ -102,8 +102,12 @@ include("../componentes/navbar.php");
 
                 <br>
                 <label for="estado">Estado</label>
-                <input type="text" name="estado" id="estado" class="form-control">
-
+                <select name="estado" id="estado" class="form-control">
+                  <option value="2">Seleccione una opciones</option>
+                  <option value="Activo">Activo</option>
+                  <option value="Inactivo">Inactivo</option>
+                </select>
+                <br>
 
 
 
@@ -169,7 +173,7 @@ include("../componentes/navbar.php");
         "serverSide": true,
         "order": [],
         "ajax": {
-          url: "obtener.registros.php",
+          url: "estudiantes.controller.php",
           type: "POST"
 
         },
@@ -199,7 +203,7 @@ include("../componentes/navbar.php");
         }
         if (nombres != '' && apellidos != '' && fecha_nacimiento_estudiante != '') {
           $.ajax({
-            url: "crear.php",
+            url: "estudiantes.controller.php",
             method: 'POST',
             data: new FormData(this),
             contentType: false,
@@ -219,16 +223,19 @@ include("../componentes/navbar.php");
       });
 
 
-
-
       //funcionanlidad editar
       $(document).on('click', '.editar', function () {
         var codigo_estudiante = $(this).attr("id");
 
         $.ajax({
-          url: "obtener.registro.php",
+          url: "estudiantes.controller.php",
           method: "POST",
-          data: { codigo_estudiante: codigo_estudiante },
+          data:
+          {
+            codigo_estudiante: codigo_estudiante,
+            operacion: 'obtener_registro'
+          },
+
           dataType: "json",
           success: function (data) {
             console.log(data);
@@ -239,7 +246,7 @@ include("../componentes/navbar.php");
             $(".modal-title").text("Editar estudiante");
             $('#imagen_subida').val(data.imagen_estudiante);
             $('#estado').val(data.estado);
-            $('#action').val("Editar");
+            $('#action').val("editar");
             $('#codigo_estudiante').val(codigo_estudiante);
             $('#operacion').val("editar");
 
@@ -255,21 +262,19 @@ include("../componentes/navbar.php");
       //Funcionalida de borrar
       $(document).on('click', '.borrar', function () {
         var codigo_estudiante = $(this).attr("id");
-        if (confirm("Esta seguro de borrar este registro:" + codigo_estudiante)) {
+        if (confirm("¿Estás seguro de borrar este registro: " + codigo_estudiante + "?")) {
           $.ajax({
-            url: "borrar.php",
+            url: "estudiantes.controller.php",
             method: "POST",
             data: {
               codigo_estudiante: codigo_estudiante,
-              action: 'borrar'
+              operacion: 'borrar'
             },
             success: function (data) {
               alert(data);
               dataTable.ajax.reload();
             }
           });
-        } else {
-          return false;
         }
       });
     });
