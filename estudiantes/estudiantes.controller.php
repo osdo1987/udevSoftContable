@@ -101,7 +101,7 @@ function editar($conexion)
 
 }
 
-function borrar($conexion)
+/*function borrar($conexion)
 {
     if (isset($_POST["codigo_estudiante"])) {
         $stmt = $conexion->prepare("DELETE FROM estudiantes WHERE codigo_estudiante = :codigo_estudiante");
@@ -115,7 +115,7 @@ function borrar($conexion)
             echo 'Registro borrado';
         }
     }
-}
+}*/
 
 function obtener_registros($conexion)
 {

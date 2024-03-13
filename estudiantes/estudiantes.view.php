@@ -25,108 +25,108 @@
   <h1 class="text-center">Estudiante</h1>
 
 
-  <div class="container fondo">
-
-    <div class="row">
-      <div class="col-2 offset-10">
-        <div class="text-center">
-          <!-- Button trigger modal -->
-          <button type="button" class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#modalUsuario"
-            id="botonCrear">
-            <i class="bi bi-plus-circle-fill"></i> Crear
-          </button>
 
 
-
-        </div>
-      </div>
-    </div>
-    <br>
-    <br>
-    <div class="tabla-responsive">
-      <table id="estudiantes" class="table table-bordered table-striped">
-
-        <thead>
-          <tr>
-
-            <th>Codigo</th>
-            <th>Nombre</th>
-            <th>Apellido</th>
-            <th>Fecha nacimiento</th>
-            <th>Imagen</th>
-            <th>Estado</th>
-            <th>Editar</th>
+  <div class="row">
+    <div class="col-2 offset-10">
+      <div class="text-center">
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#modalUsuario"
+          id="botonCrear">
+          <i class="bi bi-plus-circle-fill"></i> Crear
+        </button>
 
 
-          </tr>
-        </thead>
-      </table>
-
-    </div>
-
-
-    <!-- Modal -->
-    <div class="modal fade" id="modalUsuario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">Crear estudiante</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-
-          <form method="post" id="formulario" enctype="multipart/form-data">
-            <div class="modal-contant">
-              <div class="modal-body">
-
-
-                <!--<label for="codigo_estudiante">Codigo</label>
-                <input type="number" name="codigo_estudiante" id="codigo_estudiante" class="form-control">
-                <br>-->
-
-                <label for="nombre">Nombre</label>
-                <input type="text" name="nombre" id="nombre" class="form-control">
-                <br>
-                <label for="apellidos_estudiante"> apellidos_estudiante</label>
-                <input type="text" name="apellidos_estudiante" id="apellidos_estudiante" class="form-control">
-                <br>
-                <label for="fecha_nacimiento_estudiante">Fecha de nacimiento</label>
-                <input type="date" name="fecha_nacimiento_estudiante" id="fecha_nacimiento_estudiante"
-                  class="form-control">
-                <br>
-
-                <label for="imagen_estudiante">Seleccione una imagen</label>
-                <input type="file" name="imagen_estudiante" id="imagen_estudiante" class="form-control">
-                <span id="imagen_subida"></span>
-
-                <br>
-                <label for="estado">Estado</label>
-                <input type="hidden" name="estado" id="estado">
-                <input type="radio" name="estado" id="estado" value="Activo" checked>Activo |
-                <input type="radio" name="estado" id="estado" value="Inactivo">Inactivo
-
-                <br>
-
-
-
-              </div>
-              <div class="modal-footer">
-                <input type="hidden" name="imagen_estudiante_oculta" id="imagen_estudiante_oculta"
-                  value="<?php echo $fila['imagen']; ?>">
-
-                <input type="hidden" name="codigo_estudiante" id="codigo_estudiante">
-                <input type="hidden" method="POST" name="operacion" id="operacion">
-                <input type="button" class="btn btn-secondary" data-bs-dismiss="modal" value="Cancelar">
-                <input type="submit" name="action" id="action" class="btn btn-primary" value="Ingresar">
-
-
-
-              </div>
-          </form>
-        </div>
 
       </div>
     </div>
   </div>
+  <br>
+  <br>
+  <div class="tabla-responsive">
+    <table id="estudiantes" class="table table-bordered table-striped">
+
+      <thead>
+        <tr>
+
+          <th>Codigo</th>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Fecha nacimiento</th>
+          <th>Imagen</th>
+          <th>Estado</th>
+          <th>Editar</th>
+
+
+        </tr>
+      </thead>
+    </table>
+
+  </div>
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="modalUsuario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Crear estudiante</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <form method="post" id="formulario" enctype="multipart/form-data">
+          <div class="modal-contant">
+            <div class="modal-body">
+
+
+              <!--<label for="codigo_estudiante">Codigo</label>
+                <input type="number" name="codigo_estudiante" id="codigo_estudiante" class="form-control">
+                <br>-->
+
+              <label for="nombre">Nombre</label>
+              <input type="text" name="nombre" id="nombre" class="form-control">
+              <br>
+              <label for="apellidos_estudiante"> apellidos_estudiante</label>
+              <input type="text" name="apellidos_estudiante" id="apellidos_estudiante" class="form-control">
+              <br>
+              <label for="fecha_nacimiento_estudiante">Fecha de nacimiento</label>
+              <input type="date" name="fecha_nacimiento_estudiante" id="fecha_nacimiento_estudiante"
+                class="form-control">
+              <br>
+
+              <label for="imagen_estudiante">Seleccione una imagen</label>
+              <input type="file" name="imagen_estudiante" id="imagen_estudiante" class="form-control">
+              <span id="imagen_subida"></span>
+
+              <br>
+              <label for="estado">Estado</label>
+              <input type="hidden" name="estado" id="estado">
+              <input type="radio" name="estado" id="estado" value="Activo" checked>Activo |
+              <input type="radio" name="estado" id="estado" value="Inactivo">Inactivo
+
+              <br>
+
+
+
+            </div>
+            <div class="modal-footer">
+              <input type="hidden" name="imagen_estudiante_oculta" id="imagen_estudiante_oculta"
+                value="<?php echo $fila['imagen']; ?>">
+
+              <input type="hidden" name="codigo_estudiante" id="codigo_estudiante">
+              <input type="hidden" method="POST" name="operacion" id="operacion">
+              <input type="button" class="btn btn-secondary" data-bs-dismiss="modal" value="Cancelar">
+              <input type="submit" name="action" id="action" class="btn btn-primary" value="Ingresar">
+
+
+
+            </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+
 
   <?php
 
