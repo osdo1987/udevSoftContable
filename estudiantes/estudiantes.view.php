@@ -1,6 +1,3 @@
-<?php
-
-?>
 <!doctype html>
 <html lang="en">
 
@@ -26,123 +23,116 @@
   <?php include_once '../componentes/navbar.php' ?>
 
   <h1 class="text-center">Estudiante</h1>
-  <div class="container fondo">
-
-    <div class="row">
-      <div class="col-2 offset-10">
-        <div class="text-center">
-          <!-- Button trigger modal -->
-          <button type="button" class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#modalUsuario"
-            id="botonCrear">
-            <i class="bi bi-plus-circle-fill"></i> Crear
-          </button>
 
 
 
-        </div>
-      </div>
-    </div>
-    <br>
-    <br>
-    <div class="tabla-responsive">
-      <table id="estudiantes" class="table table-bordered table-striped">
 
-        <thead>
-          <tr>
-
-            <th>Codigo</th>
-            <th>Nombre</th>
-            <th>Apellido</th>
-            <th>Fecha nacimiento</th>
-            <th>Imagen</th>
-            <th>Estado</th>
-            <th>Editar</th>
-            <th>Borrar</th>
-
-          </tr>
-        </thead>
-      </table>
-
-    </div>
+  <div class="row">
+    <div class="col-2 offset-10">
+      <div class="text-center">
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#modalUsuario"
+          id="botonCrear">
+          <i class="bi bi-plus-circle-fill"></i> Crear
+        </button>
 
 
-    <!-- Modal -->
-    <div class="modal fade" id="modalUsuario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">Crear estudiante</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-
-          <form method="post" id="formulario" enctype="multipart/form-data">
-            <div class="modal-contant">
-              <div class="modal-body">
-
-                <!--
-                <label for="codigo_estudiante">Codigo</label>
-                <input type="number" name="codigo_estudiante" id="codigo_estudiante" class="form-control">
-                <br>
--->
-
-                <label for="nombre">Nombre</label>
-                <input type="text" name="nombre" id="nombre" class="form-control">
-                <br>
-                <label for="apellidos"> Apellidos</label>
-                <input type="text" name="apellidos" id="apellidos" class="form-control">
-                <br>
-                <label for="fecha_nacimiento_estudiante">Fecha de nacimiento</label>
-                <input type="text" name="fecha_nacimiento_estudiante" id="fecha_nacimiento_estudiante"
-                  class="form-control">
-                <br>
-
-                <label for="imagen_estudiante">Seleccione una imagen</label>
-                <input type="file" name="imagen_estudiante" id="imagen_estudiante" class="form-control">
-                <span id="imagen_subida"></span>
-
-                <br>
-                <label for="estado">Estado</label>
-                <select name="estado" id="estado" class="form-control">
-                  <option value="2">Seleccione una opciones</option>
-                  <option value="Activo">Activo</option>
-                  <option value="Inactivo">Inactivo</option>
-                </select>
-                <br>
-
-
-
-              </div>
-              <div class="modal-footer">
-                <input type="hidden" name="imagen_estudiante_oculta" id="imagen_estudiante_oculta"
-                  value="<?php echo $fila['imagen']; ?>">
-
-                <input type="hidden" name="codigo_estudiante" id="codigo_estudiante">
-                <input type="hidden" method="POST" name="operacion" id="operacion">
-                <input type="button" class="btn btn-secondary" data-bs-dismiss="modal" value="Cancelar">
-                <input type="submit" name="action" id="action" class="btn btn-primary" value="Ingresar">
-                <?php $operacion = "mostrar" ?>
-
-
-
-              </div>
-          </form>
-        </div>
 
       </div>
     </div>
   </div>
+  <br>
+  <br>
+  <div class="tabla-responsive">
+    <table id="estudiantes" class="table table-bordered table-striped">
+
+      <thead>
+        <tr>
+
+          <th>Codigo</th>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Fecha nacimiento</th>
+          <th>Imagen</th>
+          <th>Estado</th>
+          <th>Editar</th>
+
+
+        </tr>
+      </thead>
+    </table>
+
+  </div>
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="modalUsuario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Crear estudiante</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <form method="post" id="formulario" enctype="multipart/form-data">
+          <div class="modal-contant">
+            <div class="modal-body">
+
+
+              <!--<label for="codigo_estudiante">Codigo</label>
+                <input type="number" name="codigo_estudiante" id="codigo_estudiante" class="form-control">
+                <br>-->
+
+              <label for="nombre">Nombre</label>
+              <input type="text" name="nombre" id="nombre" class="form-control">
+              <br>
+              <label for="apellidos_estudiante"> apellidos_estudiante</label>
+              <input type="text" name="apellidos_estudiante" id="apellidos_estudiante" class="form-control">
+              <br>
+              <label for="fecha_nacimiento_estudiante">Fecha de nacimiento</label>
+              <input type="date" name="fecha_nacimiento_estudiante" id="fecha_nacimiento_estudiante"
+                class="form-control">
+              <br>
+
+              <label for="imagen_estudiante">Seleccione una imagen</label>
+              <input type="file" name="imagen_estudiante" id="imagen_estudiante" class="form-control">
+              <span id="imagen_subida"></span>
+
+              <br>
+              <label for="estado">Estado</label>
+              <input type="hidden" name="estado" id="estado">
+              <input type="radio" name="estado" id="estado" value="Activo" checked>Activo |
+              <input type="radio" name="estado" id="estado" value="Inactivo">Inactivo
+
+              <br>
+
+
+
+            </div>
+            <div class="modal-footer">
+              <input type="hidden" name="imagen_estudiante_oculta" id="imagen_estudiante_oculta"
+                value="<?php echo $fila['imagen']; ?>">
+
+              <input type="hidden" name="codigo_estudiante" id="codigo_estudiante">
+              <input type="hidden" method="POST" name="operacion" id="operacion">
+              <input type="button" class="btn btn-secondary" data-bs-dismiss="modal" value="Cancelar">
+              <input type="submit" name="action" id="action" class="btn btn-primary" value="Ingresar">
+
+
+
+            </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+
 
   <?php
 
   include("../componentes/pie.php");
 
   ?>
-
-
-
-
-
-  </div>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"
     integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
@@ -181,27 +171,47 @@
         "columnDefs": [{
           "targets": [0, 3, 4],
           "orderable": false,
-        },]
+        },
+        ],
+        "language": {
+          "decimal": "",
+          "emptyTable": "No hay registros",
+          "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+          "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+          "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+          "infoPostFix": "",
+          "thousands": ",",
+          "lengthMenu": "Mostrar _MENU_ Entradas",
+          "loadingRecords": "Cargando...",
+          "processing": "Procesando...",
+          "search": "Buscar:",
+          "zeroRecords": "Sin resultados encontrados",
+          "paginate": {
+            "first": "Primero",
+            "last": "Ultimo",
+            "next": "Siguiente",
+            "previous": "Anterior"
+          }
+        }
       });
 
       $(document).on('submit', '#formulario', function (event) {
         event.preventDefault();
-        var nombres = $("#codigo_estudiante").val();
+        //var nombres = $("#codigo_estudiante").val();
         var nombres = $("#nombre_estudiante").val();
-        var apellidos = $("#apellidos_estudiante").val();
+        var apellidos_estudiante = $("#apellidos_estudiante").val();
         var fecha_nacimiento_estudiante = $("#fecha_nacimiento_estudiante").val();
+        var estado = $("#estado").val();
         var extension = $('#imagen_estudiante').val().split('.').pop().toLowerCase();
         if (extension != '') {
           if (jQuery.inArray(extension, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
             alert("formato de imagen invalido");
             $('#imagen_estudiante').val('');
             return false;
-
           }
 
-
         }
-        if (nombres != '' && apellidos != '' && fecha_nacimiento_estudiante != '') {
+        if (nombres != '' && apellidos_estudiante != '' && fecha_nacimiento_estudiante != '') {
           $.ajax({
             url: "estudiantes.controller.php",
             method: 'POST',
@@ -241,17 +251,17 @@
             console.log(data);
             $('#modalUsuario').modal('show');
             $('#nombre').val(data.nombre_estudiante);
-            $('#apellidos').val(data.apellidos_estudiante);
+            $('#apellidos_estudiante').val(data.apellidos_estudiante);
             $('#fecha_nacimiento_estudiante').val(data.fecha_nacimiento_estudiante);
             $(".modal-title").text("Editar estudiante");
-            $('#imagen_subida').val(data.imagen_estudiante);
+            $('#imagen_subida').html(data.imagen_estudiante);
             $('#estado').val(data.estado);
             $('#action').val("editar");
             $('#codigo_estudiante').val(codigo_estudiante);
             $('#operacion').val("editar");
 
             // Asegúrate de reiniciar el campo de imagen oculta si es necesario
-            $('#imagen_estudiante_oculta').val(data.imagen_estudiante);
+            //$('#imagen_estudiante_oculta').val(data.imagen_estudiante);
           },
           error: function (jqXHR, textStatus, errorThrown) {
             console.error("Error en la solicitud AJAX:", textStatus, errorThrown);
@@ -259,6 +269,7 @@
         });
       });
 
+      /*
       //Funcionalida de borrar
       $(document).on('click', '.borrar', function () {
         var codigo_estudiante = $(this).attr("id");
@@ -276,7 +287,7 @@
             }
           });
         }
-      });
+      });*/
     });
   </script>
 
