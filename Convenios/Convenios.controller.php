@@ -55,6 +55,37 @@ function crear($conexion){
 
 }
 
+function editar($conexion){
+
+$stmt = $conexion->prepare("UPDATE convenios SET descripcion_convenio=:nombre_convenio, valor_total_convenio=:valor_total_convenio, saldo_convenio=:saldo_convenio, 
+ codigo_carrera=:codigo_carrera, codigo_estudiante=:codigo_estudiante, estado=:estado WHERE codigo_convenio=:codigo_convenio");
+
+$resultado = $stmt->execute(
+
+    array(
+
+        
+            ':descripcion_carrera' => $_POST["nombre_carrera"],
+            ':valor_total_convenio' => $_POST["valor_total_convenio"],
+            ':saldo_convenio' => $_POST["saldo_convenio"],
+            ':codigo_carrera' => $_POST["codigo_carrera"],
+            ':codigo_estudiante' => $_POST["codigo_estudiante"],
+            ':estado' => $_POST["estado"],
+            'codigo_convenio' => $_POST["codigo_convenio"]
+
+
+
+    )
+
+
+    );if (!empty($resultado)) {
+    echo 'Convenio actulizado';
+} else {
+    echo "No se pudo actulizar el convenio";
+};
+
+}
+
 
 function obtener_registros($conexion)
 {
