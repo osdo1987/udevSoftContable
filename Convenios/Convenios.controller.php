@@ -129,7 +129,7 @@ function obtener_registros($conexion)
             $sub_array[] = $fila["codigo_estudiante"];
             $sub_array[] = $fila["estado"];
 
-           $sub_array[] = '<button type="button" name="MasInfo" id="' . $fila["codigo_convenio"] . '" class="btn btn-warning bi bi-pencil-square editar"></button>';
+           $sub_array[] = '<button type="button" data-bs-toggle="modal" data-bs-target="#modalCrearConvenio" name="MasInfo" id="' . $fila["codigo_convenio"] . '" class="btn btn-warning bi bi-pencil-square editar"></button>';
 
             $datos[] = $sub_array;
         }
