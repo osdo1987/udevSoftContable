@@ -22,9 +22,13 @@ function main($action, $conexion)
         case 'obtener_registro':
             obtener_registro($conexion);
             break;
+        case 'obtener_registro_estudiante':
+        obtener_registro_estudiante($conexion);
         default:
             obtener_registros($conexion);
             break;
+
+
     }
 }
 
@@ -130,16 +134,23 @@ function obtener_registros($conexion)
             $sub_array[] = $fila["estado"];
 
            $sub_array[] = '<button type="button" data-bs-toggle="modal" data-bs-target="#modalCrearConvenio" name="editar" id="' . $fila["codigo_convenio"] . '" class="btn btn-warning bi bi-pencil-square editar"></button>';
-           $sub_array[] = '<button type="button"  data-bs-toggle="modal" data-bs-target="#modalInfoEstudiante" name="MasInfo" id="' . $fila["codigo_convenio"] . '" class="btn btn-info bi bi-person-square info"></button>';
+           $sub_array[] = '<button type="button"  data-bs-toggle="modal" data-bs-target="#modalInfoEstudiante" name="info" id="' . $fila["codigo_convenio"] . '" class="btn btn-info bi bi-person-square info"></button>';
 
             $datos[] = $sub_array;
         }
+        /*$stmt_carreras = $conexion->query("SELECT * FROM carreras");
+        $carreras = $stmt_carreras->fetchAll(PDO::FETCH_ASSOC);
 
+        $stmt_estudiantes = $conexion->query("SELECT * FROM estudiantes");
+        $estudiantes = $stmt_estudiantes->fetchAll(PDO::FETCH_ASSOC);
+*/
         $salida = array(
             "draw" => $draw,
             "recordsTotal" => $filtered_rows,
             "recordsFiltered" => obtener_todos_registros(),
-            "data" => $datos
+            "data" => $datos,
+           /* "carreras"=>$carreras,
+            "estudiantes"=>$estudiantes*/
         );
 
         echo json_encode($salida);
@@ -169,6 +180,62 @@ function obtener_registro($conexion)
     }
     echo json_encode($salida);
 }
+
+/*function obtener_registro_estudiante($conexion){
+    $salida=array();
+
+    try{
+        $stmt = $conexion->prepare("SELECT * FROM convenio WHERE codigo_convenio = :codigo_convenio LIMIT 1");
+        $stmt->bindParam(':codigo_convenio', $_POST['codigo_convenio'], PDO::PARAM_INT);
+        $stmt->execute();
+        if ($stmt->rowCount() > 0) {
+            $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+            $salida['convenio'] = $resultado;
+
+        $stmt=$conexion->prepare("SELECT * FROM estudiantes WHERE codigo_estudiante=:codigo_estudiante");
+        $stmt->bindParam(':codigo_estudiante', $resultado['codigo_estudiante'], PDO::PARAM_INT);
+        $stmt->execute();
+            $estudiante = $stmt->fetch(PDO::FETCH_ASSOC);
+            $salida['estudiante'] = $estudiante;
+
+            $stmt = $conexion->prepare("SELECT * FROM movimientos WHERE codigo_estudiante = :codigo_estudiante");
+            $stmt->bindParam(':codigo_estudiante', $resultado['codigo_estudiante'], PDO::PARAM_INT);
+            $stmt->execute();
+            $movimientos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $salida['movimientos'] = $movimientos;
+        } else {
+            $salida["error"] = "No se encontraron resultados";
+        }
+    } catch (PDOException $e) {
+        $salida["error"] = "Error en la ejecución de la consulta: " . $e->getMessage();
+    }
+    echo json_encode($salida);
+    }*/
+
+    function obtener_registro_estudiante($conexion)
+{
+    $salida = array();
+
+    try {
+        $stmt = $conexion->prepare("SELECT * FROM estudiantes");
+        $stmt->execute();
+
+        if ($stmt->rowCount() > 0) {
+            $estudiantes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $salida['estudiantes'] = $estudiantes;
+        } else {
+            $salida["error"] = "No se encontraron estudiantes";
+        }
+    } catch (PDOException $e) {
+        $salida["error"] = "Error en la ejecución de la consulta: " . $e->getMessage();
+    }
+    echo json_encode($salida);
+}
+
+
+
+
+
 
 function obtener_todos_registros()
 {
