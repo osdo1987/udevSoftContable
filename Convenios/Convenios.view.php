@@ -104,9 +104,10 @@
               
             </div>
             <div class="modal-footer">
-              <input type="hidden" name="estado_convenio" id="estado_convenio">
+              <input type="hidden" name="id_convenio" id="id_convenio">
               <input type="hidden" method="POST" name="operacion" id="operacion">
               <input type="submit" name="action" id="action" class="btn btn-primary" value="crear">
+
             </div>
           </div>
         </form>
@@ -195,6 +196,55 @@
           alert("Algunos campos son obligatorios");
         }
       
+      });
+
+      $(document).on('click', '.editar', function(){
+      //$("#botonEditar").click(function(){  
+        var codigo_convenio=$(this).attr("id");
+        $.ajax({
+
+          url:"Convenios.controller.php",
+          method:"POST",
+          data:{
+            codigo_convenio:codigo_convenio,
+            operacion:'obtener_registro'
+
+          },
+          dataType:"json",
+          success:function(data){
+
+            $('#modalEditarConvenio').modal('show');
+            $('#codigo_convenio').val(data.codigo_convenio);
+            $('#descripcion_convenio').val(data.descripcion_convenio);
+            $('#valor_total_convenio').val(data.valor_total_convenio);
+            $('#saldo_convenio').val(data.saldo_convenio);
+            $('#codigo_carrera').val(data.codigo_carrera);
+            $('#codigo_estudiante').val(data.codigo_estudiante);
+            $('#estado').val(data.estado);
+
+            $('#modal-title').text('Editar estudiante');
+            $('#id_convenio').val(codigo_convenio);
+            $('#action').val('editar').removeClass('btn-primary').addClass('btn-warning');
+            $('#operacion').val("editar");
+
+
+          },
+          error: function(jqXHR, textStatus, errorThrown) {
+            console.log(textStatus, errorThrown);
+          }
+
+
+
+
+
+        });
+        
+
+
+
+
+
+
       });
 
 
