@@ -33,7 +33,8 @@
           <th>CODIGO CARRERA</th>
           <th>CODIGO ESTUDIANTE</th>
           <th>ESTADO</th>
-          <th>+</th>
+          <th>Edicion</th>
+          <th>+Info</th>
         </tr>
       </thead>
     </table>
