@@ -34,7 +34,7 @@
           <th>CODIGO ESTUDIANTE</th>
           <th>ESTADO</th>
           <th>Edición</th>
-          <th>+Info</th>
+          <th>+Infos</th>
         </tr>
       </thead>
     </table>
