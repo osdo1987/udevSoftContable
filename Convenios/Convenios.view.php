@@ -89,6 +89,61 @@
       </div>
     </div>
   </div>
+
+  <!-- Modal Confirmar Pago Convenio -->
+  <div class="modal fade" id="modalExcelConvenio" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">CONFIRMA LA INFORMACION</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form method="POST" id="formulario" enctype="multipart/form-data">
+          <div class="modal-content">
+            <div class="modal-body">
+              <h3>Se pagara lo siguiente: </h3>
+
+              <div class="table-responsive">
+              <table id="datos_confirmacion_pago" class="table table-bordered table-striped">
+                <thead>
+                  <tr>
+                    <th>C</th>
+                    <th>FECHA</th>
+                    <th>VALOR</th>
+                 </tr>
+                </thead>
+                <!-- Valores de prueba (cuota,fecha,valor) -->
+                <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td>01/01/24</td>
+                    <td>120000</td>
+                  </tr>
+                  <tr>
+                    <td>2</td>
+                    <td>01/02/24</td>
+                    <td>120000</td>
+                  </tr>
+              </table>
+              <div class="col-5 offset-7">
+              <h6>TOTAL: </h6>
+              <div class="card">
+                <div class="card-body">
+                  $ 240000
+                </div>
+              </div>
+              </div>
+              
+              
+            </div>
+            <div class="modal-footer">
+              <input type="submit" name="action" id="action" class="btn btn-success" value="Pagar">
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
     
   <!-- jQuery -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
@@ -120,6 +175,28 @@
             { "targets": "_all", "className": "text-center" },
             {
             "targets": 4, // Índice de la columna "valor total"
+            "render": function (data, type, row) {
+            // Formato de moneda con el símbolo "$" y puntuación de miles
+            return '$' + parseFloat(data).toLocaleString('es-ES', {minimumFractionDigits: 2});
+            }
+        }, {
+            "targets": [4, 5],
+            "orderable": false,
+        }]
+        
+        });
+
+        var dataTable = $('#datos_confirmacion_pago').DataTable({
+        "filter":false,
+        "ordering":false,
+        "paging":false,
+        "processing": false,
+        "serverSide": true,
+        "order": [],
+        "columnDefs": [
+            { "targets": "_all", "className": "text-center" },
+            {
+            "targets": 2, // Índice de la columna "valor total"
             "render": function (data, type, row) {
             // Formato de moneda con el símbolo "$" y puntuación de miles
             return '$' + parseFloat(data).toLocaleString('es-ES', {minimumFractionDigits: 2});
