@@ -32,12 +32,12 @@ function main($action, $conexion)
 
 function crear($conexion){
 
-    $stmt = $conexion->prepare("INSERT INTO convenios(codigo_convenio, descripcion_convenio, valor_total_convenio, saldo_convenio, codigo_carrera, codigo_estudiante, estado) VALUES(:codigo_convenio, :nombre_convenio, :valor_total_convenio, :saldo_convenio, :codigo_carrera, :codigo_estudiante, :estado)");
+    $stmt = $conexion->prepare("INSERT INTO convenio(codigo_convenio, descripcion_convenio, valor_total_convenio, saldo_convenio, codigo_carrera, codigo_estudiante, estado) VALUES(:codigo_convenio, :descripcion_convenio, :valor_total_convenio, :saldo_convenio, :codigo_carrera, :codigo_estudiante, :estado)");
 
     $resultado = $stmt->execute(
         array(
             'codigo_convenio' => $_POST["codigo_convenio"],
-            ':descripcion_carrera' => $_POST["nombre_carrera"],
+            ':descripcion_convenio' => $_POST["descripcion_convenio"],
             ':valor_total_convenio' => $_POST["valor_total_convenio"],
             ':saldo_convenio' => $_POST["saldo_convenio"],
             ':codigo_carrera' => $_POST["codigo_carrera"],
@@ -57,7 +57,7 @@ function crear($conexion){
 
 function editar($conexion){
 
-$stmt = $conexion->prepare("UPDATE convenios SET descripcion_convenio=:nombre_convenio, valor_total_convenio=:valor_total_convenio, saldo_convenio=:saldo_convenio, 
+$stmt = $conexion->prepare("UPDATE convenio SET descripcion_convenio=:descripcion_convenio, valor_total_convenio=:valor_total_convenio, saldo_convenio=:saldo_convenio, 
  codigo_carrera=:codigo_carrera, codigo_estudiante=:codigo_estudiante, estado=:estado WHERE codigo_convenio=:codigo_convenio");
 
 $resultado = $stmt->execute(
@@ -65,7 +65,7 @@ $resultado = $stmt->execute(
     array(
 
         
-            ':descripcion_carrera' => $_POST["nombre_carrera"],
+            ':descripcion_convenio' => $_POST["descripcion_convenio"],
             ':valor_total_convenio' => $_POST["valor_total_convenio"],
             ':saldo_convenio' => $_POST["saldo_convenio"],
             ':codigo_carrera' => $_POST["codigo_carrera"],
@@ -85,6 +85,8 @@ $resultado = $stmt->execute(
 };
 
 }
+
+
 
 
 function obtener_registros($conexion)

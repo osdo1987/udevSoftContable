@@ -72,25 +72,41 @@
               <input type="text" name="codigo_convenio" id="codigo_convenio" class="form-control">
               <br>
 
-              <label for="nombre_convenio">Nombre</label>
-              <input type="text" name="nombre_convenio" id="nombre_convenio" class="form-control">
-              <br>
-
-              <label for="tipo_convenio">Tipo %</label>
-              <input type="text" name="tipo_convenio" id="tipo_convenio" class="form-control">
-              <br>
-
-              <label for="convenio_convenio">Convenio</label>
-              <input type="text" name="convenio_convenio" id="convenio_convenio" class="form-control">
+              <label for="descripcion_convenio">descripcion_convenio</label>
+              <input type="text" name="descripcion_convenio" id="descripcion_convenio" class="form-control">
               <br>
 
               <label for="valor_total_convenio">Valor total</label>
               <input type="number" name="valor_total_convenio" id="valor_total_convenio" class="form-control">
               <br>
+
+              <label for="saldo_convenio">saldo total</label>
+              <input type="number" name="saldo_convenio" id="saldo_convenio" class="form-control">
+              <br>
+
+              <label for="codigo_carrera">codigo carrera</label>
+              <input type="text" name="codigo_carrera" id="codigo_carrera" class="form-control">
+              <br>
+
+              <label for="codigo_estudiante">codigo estudiante</label>
+              <input type="text" name="codigo_estudiante" id="codigo_estudiante" class="form-control">
+              <br>
+              <br>
+                <label for="estado">Estado</label>
+                <select name="estado" id="estado" class="form-control">
+                  <option value="2">Seleccione una opciones</option>
+                  <option value="Activo">Activo</option>
+                  <option value="Inactivo">Inactivo</option>
+                </select>
+                <br>
+
+
+              
             </div>
             <div class="modal-footer">
               <input type="hidden" name="estado_convenio" id="estado_convenio">
-              <input type="submit" name="action" id="action" class="btn btn-primary" value="Crear">
+              <input type="hidden" method="POST" name="operacion" id="operacion">
+              <input type="submit" name="action" id="action" class="btn btn-primary" value="crear">
             </div>
           </div>
         </form>
@@ -117,7 +133,7 @@
       $("#botonCrear").click(function () {
         $("#formulario")[0].reset();
         $(".modal-title").text("Crear Convenio");
-        $("#action").val("Crear");
+        $("#action").val("crear");
         $("#operacion").val("crear");
       });
 
@@ -147,6 +163,45 @@
         }]
 
       });
+
+      $(document).on('submit', '#formulario', function(event)
+      {event.preventDefault();
+        var codigo_convenio =$("#codigo_convenio").val();
+        var descripcion_convenio=$("#descripcion_convenio").val();
+        var valor_total_convenio=$("#valor_total_convenio");
+        var saldo_convenio=$("#saldo_convenio").val();
+        var codigo_carrera=$("#codigo_carrera");
+        var codigo_estudiante=$("#codigo_estudiante").val();
+        var estado=$("#estado").val();
+
+        if (codigo_convenio !='' &&  descripcion_convenio!= '' && valor_total_convenio != '' && codigo_estudiante !=''){
+
+          $.ajax({
+            url:"Convenios.controller.php",
+            method:"POST",
+            data: new FormData(this),
+            processData:false,
+            contentType:false,
+            success:function(data){
+              alert(data);
+              $('#formulario')[0].reset();
+              $('#modalCrearConvenio').modal('hide');
+              dataTable.ajax.reload();
+            }
+
+
+          });
+        }else{
+          alert("Algunos campos son obligatorios");
+        }
+      
+      });
+
+
+
+
+
+
     });
   </script>
 
