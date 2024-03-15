@@ -41,6 +41,7 @@
   </div>
   </div>
   <div class="text-center">
+  
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCrearConvenio"
       id="botonCrear">
       Crear
@@ -115,6 +116,68 @@
       </div>
     </div>
   </div>
+  <!-- Modal -->
+ <div class="modal fade" id="modalInfoEstudiante" tabindex="-1" aria-labelledby="nuevoModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="nuevoModalLabel">Pagos</h5>
+        <button type="button" class="btn btn-light btn-close" style="position: absolute; top: 0.5rem; right: 1.5rem; padding: 0.5rem 1rem; border: 0; background: 0; font-size: 1.5rem; cursor: pointer; outline: 0;" data-bs-dismiss="modal" aria-label="Close">
+          <i class="bi bi-x-lg"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row w-100">
+          <div class="col-md-6">
+            <h5>Código: <span id="codigo"></span></h5>
+          </div>
+          <div class="col-md-6 text-end">
+            <img src="" alt="Imagen del estudiante" id="imagen" class="img-fluid">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <h5>Nombre: <span id="nombre"></span></h5>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <h5>Cédula: <span id="cedula"></span></h5>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <h5>Fecha de nacimiento: <span id="fecha_nacimiento"></span></h5>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <h5>Carrera: <span id="carrera"></span></h5>
+          </div>
+        </div>
+        <br>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>P</th>
+              <th>Código</th>
+              <th>Fecha</th>
+              <th>Saldo</th>
+              <th>Seleccionar</th>
+            </tr>
+          </thead>
+          <tbody id="tabla-pagos">
+            <!-- Aquí se mostrarán los pagos -->
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="btn-pagar">Pagar</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
   
 
   <!-- jQuery -->
