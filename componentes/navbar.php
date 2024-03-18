@@ -52,6 +52,9 @@
       <li class="nav-item">
         <a class="nav-link" href="../Convenios/Convenios.view.php">Convenios</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="../usuarios/usuarios.view.php">Usuarios</a>
+      </li>
     </ul>
   </div>
 </nav>
