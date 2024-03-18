@@ -24,28 +24,16 @@
 
   <br>
   <br>
-  <div class="row">
-      <div class="col-2 offset-10">
-        <div class="text-center">
-          <!-- Button trigger modal -->
-          <button type="button" class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#modalCrearConvenio"
-            id="botonCrear">
-            <i class="bi bi-plus-circle-fill"></i> Crear
-          </button>
-        </div>
-      </div>
-    </div>
-    <br>
   <div class="table-responsive">
     <table id="datos_convenios" class="table table-bordered table-striped">
       <thead>
         <tr>
           <th>CODIGO</th>
-          <th>CODIGO ESTUDIANTE</th>
-          <th>CODIGO CARRERA</th>
           <th>DESCRIPCION</th>
           <th>VALOR TOTAL </th>
           <th>SALDO TOTAL</th>
+          <th>CODIGO CARRERA</th>
+          <th>CODIGO ESTUDIANTE</th>
           <th>ESTADO</th>
           <th>Edición</th>
           <th>+Infos</th>
@@ -54,7 +42,18 @@
     </table>
   </div>
   </div>
-  
+  <div class="text-center">
+
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCrearConvenio" id="botonCrear">
+      Crear
+    </button>
+    <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalEditarConvenio" id="botonEditar">
+      Editar
+    </button>
+    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalExcelConveni" id="botonExcel">
+      Excel
+    </button>
+  </div>
   <?php
   include("../componentes/pie.php");
   ?>
@@ -70,26 +69,11 @@
         <form method="POST" id="formulario" enctype="multipart/form-data">
           <div class="modal-content">
             <div class="modal-body">
-             <div class="row w-100">
-               <div class="col-md-6">
-                <label for="codigo_carrera">Codigo carrera</label>
-                <input type="text" name="codigo_carrera" id="codigo_carrera" class="form-control">
-                <br>
-             </div>
-             <div class="col-md-6 text-end">
-              <label for="codigo_estudiante">Codigo estudiante</label>
-                <input type="text" name="codigo_estudiante" id="codigo_estudiante" class="form-control">
-                <br>
-              </div>
-             </div>
-            <div class="row w-100">
-             <div class="col-md-6">
-               <label for="descripcion_convenio">Descripcion</label>
-              <input type="text" name="descripcion_convenio" id="descripcion_convenio" class="form-control">
+              <label for="codigo_convenio">Codigo</label>
+              <input type="text" name="codigo_convenio" id="codigo_convenio" class="form-control">
               <br>
-             </div>
-             <div class="col-md-6 text-end">
-             <label for="descripcion_convenio">Tipo de descuento</label>
+
+              <label for="descripcion_convenio">descripcion_convenio</label>
               <input type="text" name="descripcion_convenio" id="descripcion_convenio" class="form-control">
               <br>
               </div>
@@ -99,16 +83,18 @@
                <label for="valor_total_convenio">Valor total</label>
               <input type="number" name="valor_total_convenio" id="valor_total_convenio" class="form-control">
               <br>
-             </div>
-             <div class="col-md-6 text-end">
-             <label for="saldo_convenio">Cuotas adelantadas</label>
+
+              <label for="saldo_convenio">saldo total</label>
               <input type="number" name="saldo_convenio" id="saldo_convenio" class="form-control">
               <br>
-             </div>
-            </div>
-            </div>
 
-            
+             <label for="codigo_carrera">codigo servicios</label>
+              <input type="text" name="codigo_In_servicio" id="codigo_In_servicio" class="form-control">
+              <br>
+
+              <label for="codigo_estudiante">codigo estudiante</label>
+              <input type="text" name="codigo_estudiante" id="codigo_estudiante" class="form-control">
+              <br>
               <br>
               <!--<label for="codigo_carrera">carrera</label>
               <select name="codigo_carrera" id="codigo_carrera" class="form-control">
@@ -127,16 +113,13 @@
               </select>
               <br>-->
               
-            <!--
               <label for="estado">Estado</label>
               <select name="estado" id="estado" class="form-control">
                 <option value="">Seleccione una opciones</option>
                 <option value="Activo">Activo</option>
                 <option value="Inactivo">Inactivo</option>
               </select>
-              <br> -->
-
-
+              <br>
               <!-- <div class="row">
                 <div class="col">
                 <div class="form-check">
@@ -167,7 +150,7 @@
 
 
 
-            
+
 
             </div>
             <div class="modal-footer">
@@ -181,8 +164,7 @@
       </div>
     </div>
   </div>
-
-  <!-- Modal informacion del estudiante-->
+  <!-- Modal -->
   <div class="modal fade" id="modalInfoEstudiante" tabindex="-1" aria-labelledby="nuevoModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
     <div class="modal-dialog modal-dialog-scrollable modal-lg">
       <div class="modal-content">
@@ -244,7 +226,6 @@
       </div>
     </div>
   </div>
-  
   <!-- Modal Confirmar Pago Convenio -->
   <div class="modal fade" id="modalExcelConvenio" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -341,6 +322,7 @@
 });*/
 
 
+
       var dataTable = $('#datos_convenios').DataTable({
         language: {
           url: '//cdn.datatables.net/plug-ins/2.0.2/i18n/es-MX.json',
@@ -372,13 +354,16 @@
 
       });
 
+
+      
+
       $(document).on('submit', '#formulario', function(event) {
         event.preventDefault();
         var codigo_convenio = $("#codigo_convenio").val();
         var descripcion_convenio = $("#descripcion_convenio").val();
         var valor_total_convenio = $("#valor_total_convenio");
         var saldo_convenio = $("#saldo_convenio").val();
-        var codigo_carrera = $("#codigo_carrera");
+        var codigo_In_servicio = $("#codigo_servicio");
         var codigo_estudiante = $("#codigo_estudiante").val();
         var estado = $("#estado").val();
 
@@ -425,14 +410,14 @@
             $('#descripcion_convenio').val(data.descripcion_convenio);
             $('#valor_total_convenio').val(data.valor_total_convenio);
             $('#saldo_convenio').val(data.saldo_convenio);
-            $('#codigo_carrera').val(data.codigo_carrera);
+            $('#codigo_servicio').val(data.codigo_In_servicio);
             $('#codigo_estudiante').val(data.codigo_estudiante);
             $('#estado').val(data.estado);
 
 
             $('#modal-title').text('Editar estudiante');
             $('#id_convenio').val(codigo_convenio);
-            $('#action').val('editar').removeClass('btn-primary').addClass('btn-warning');
+            $('#action').val('editar').removeClass('btn-primary').addClass('btn-success');
             $('#operacion').val("editar");
 
 
