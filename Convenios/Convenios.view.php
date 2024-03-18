@@ -181,7 +181,8 @@
       </div>
     </div>
   </div>
-  <!-- Modal -->
+
+  <!-- Modal informacion del estudiante-->
   <div class="modal fade" id="modalInfoEstudiante" tabindex="-1" aria-labelledby="nuevoModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
     <div class="modal-dialog modal-dialog-scrollable modal-lg">
       <div class="modal-content">
@@ -243,6 +244,7 @@
       </div>
     </div>
   </div>
+  
   <!-- Modal Confirmar Pago Convenio -->
   <div class="modal fade" id="modalExcelConvenio" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
