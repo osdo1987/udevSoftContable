@@ -82,8 +82,8 @@
               <input type="number" name="saldo_convenio" id="saldo_convenio" class="form-control">
               <br>
 
-             <label for="codigo_carrera">codigo carrera</label>
-              <input type="text" name="codigo_carrera" id="codigo_carrera" class="form-control">
+             <label for="codigo_carrera">codigo servicios</label>
+              <input type="text" name="codigo_In_servicio" id="codigo_In_servicio" class="form-control">
               <br>
 
               <label for="codigo_estudiante">codigo estudiante</label>
@@ -316,6 +316,7 @@
 });*/
 
 
+
       var dataTable = $('#datos_convenios').DataTable({
         language: {
           url: '//cdn.datatables.net/plug-ins/2.0.2/i18n/es-MX.json',
@@ -347,13 +348,16 @@
 
       });
 
+
+      
+
       $(document).on('submit', '#formulario', function(event) {
         event.preventDefault();
         var codigo_convenio = $("#codigo_convenio").val();
         var descripcion_convenio = $("#descripcion_convenio").val();
         var valor_total_convenio = $("#valor_total_convenio");
         var saldo_convenio = $("#saldo_convenio").val();
-        var codigo_carrera = $("#codigo_carrera");
+        var codigo_In_servicio = $("#codigo_servicio");
         var codigo_estudiante = $("#codigo_estudiante").val();
         var estado = $("#estado").val();
 
@@ -400,14 +404,14 @@
             $('#descripcion_convenio').val(data.descripcion_convenio);
             $('#valor_total_convenio').val(data.valor_total_convenio);
             $('#saldo_convenio').val(data.saldo_convenio);
-            $('#codigo_carrera').val(data.codigo_carrera);
+            $('#codigo_servicio').val(data.codigo_In_servicio);
             $('#codigo_estudiante').val(data.codigo_estudiante);
             $('#estado').val(data.estado);
 
 
             $('#modal-title').text('Editar estudiante');
             $('#id_convenio').val(codigo_convenio);
-            $('#action').val('editar').removeClass('btn-primary').addClass('btn-warning');
+            $('#action').val('editar').removeClass('btn-primary').addClass('btn-success');
             $('#operacion').val("editar");
 
 

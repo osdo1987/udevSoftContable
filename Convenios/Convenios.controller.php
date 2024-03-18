@@ -22,8 +22,7 @@ function main($action, $conexion)
         case 'obtener_registro':
             obtener_registro($conexion);
             break;
-        case 'obtener_registro_estudiante':
-        obtener_registro_estudiante($conexion);
+      
         default:
             obtener_registros($conexion);
             break;
@@ -36,7 +35,7 @@ function main($action, $conexion)
 
 function crear($conexion){
 
-    $stmt = $conexion->prepare("INSERT INTO convenio(codigo_convenio, descripcion_convenio, valor_total_convenio, saldo_convenio, codigo_carrera, codigo_estudiante, estado) VALUES(:codigo_convenio, :descripcion_convenio, :valor_total_convenio, :saldo_convenio, :codigo_carrera, :codigo_estudiante, :estado)");
+    $stmt = $conexion->prepare("INSERT INTO convenio(codigo_convenio, descripcion_convenio, valor_total_convenio, saldo_convenio, codigo_servicio, codigo_estudiante, estado) VALUES(:codigo_convenio, :descripcion_convenio, :valor_total_convenio, :saldo_convenio, :codigo_In_servicio, :codigo_estudiante, :estado)");
 
     $resultado = $stmt->execute(
         array(
@@ -44,7 +43,7 @@ function crear($conexion){
             ':descripcion_convenio' => $_POST["descripcion_convenio"],
             ':valor_total_convenio' => $_POST["valor_total_convenio"],
             ':saldo_convenio' => $_POST["saldo_convenio"],
-            ':codigo_carrera' => $_POST["codigo_carrera"],
+            ':codigo_In_servicio' => $_POST["codigo_In_servicio"],
             ':codigo_estudiante' => $_POST["codigo_estudiante"],
             ':estado' => $_POST["estado"]
         )
@@ -62,7 +61,7 @@ function crear($conexion){
 function editar($conexion){
 
 $stmt = $conexion->prepare("UPDATE convenio SET descripcion_convenio=:descripcion_convenio, valor_total_convenio=:valor_total_convenio, saldo_convenio=:saldo_convenio, 
- codigo_carrera=:codigo_carrera, codigo_estudiante=:codigo_estudiante, estado=:estado WHERE codigo_convenio=:codigo_convenio");
+ codigo_servicio=:codigo_servicio, codigo_estudiante=:codigo_estudiante, estado=:estado WHERE codigo_convenio=:codigo_convenio");
 
 $resultado = $stmt->execute(
 
@@ -72,7 +71,7 @@ $resultado = $stmt->execute(
             ':descripcion_convenio' => $_POST["descripcion_convenio"],
             ':valor_total_convenio' => $_POST["valor_total_convenio"],
             ':saldo_convenio' => $_POST["saldo_convenio"],
-            ':codigo_carrera' => $_POST["codigo_carrera"],
+            ':codigo_servicio' => $_POST["codigo_In_servicio"],
             ':codigo_estudiante' => $_POST["codigo_estudiante"],
             ':estado' => $_POST["estado"],
             'codigo_convenio' => $_POST["codigo_convenio"]
@@ -89,6 +88,71 @@ $resultado = $stmt->execute(
 };
 
 }
+/*
+function obtener_registros_movimientos($conexion){
+
+    $query = "";
+    $salida = array();
+    $query = "SELECT * FROM movimientos";
+
+    //if (isset($_POST["search"]["value"])) {
+     //   $query .= 'WHERE descripcion_carrera LIKE "%' . $_POST["search"]["value"] . '%" ';
+    //}
+
+    if (isset($_POST["order"])) {
+        $query .= 'ORDER BY ' . $_POST['order']['0']['column'] . ' ' . $_POST["order"][0]['dir'] . ' ';
+    } else {
+        $query .= 'ORDER BY codigo_movimiento DESC ';
+    }
+
+    if (isset($_POST['length']) && isset($_POST['start'])) {
+        $query .= 'LIMIT ' . ($_POST["start"]) . ',' . $_POST["length"];
+    }
+
+    $stmt = $conexion->prepare($query);
+
+    try{
+        $stmt->execute();
+        $resultado = $stmt->fetchAll();
+        $datos = array();
+        $filtered_rows = $stmt->rowCount();
+
+        $draw = isset($_POST['draw']) ? intval($_POST['draw']) : 0;
+
+        foreach ($resultado as $fila) {
+            $sub_array = array();
+            $sub_array[] = $fila["codigo_movimiento"];
+            $sub_array[] = $fila["fecha_movimiento"];
+            $sub_array[] = $fila["valor_movimiento"];
+            
+
+
+            $datos[] = $sub_array;
+        }
+
+        $salida = array(
+            "draw"            => $draw,
+            "recordsTotal"    => $filtered_rows,
+            "recordsFiltered" => obtener_todos_registros_movi(),
+            "data"            => $datos
+
+        );
+
+        echo json_encode($salida);
+    } catch (PDOException $e) {
+        echo "Error en la consulta: " . $e->getMessage();
+    }
+
+
+
+    }*/
+
+
+
+
+
+
+
 
 
 
@@ -129,11 +193,11 @@ function obtener_registros($conexion)
             $sub_array[] = $fila["descripcion_convenio"];
             $sub_array[] = $fila["valor_total_convenio"];
             $sub_array[] = $fila["saldo_convenio"];
-            $sub_array[] = $fila["codigo_carrera"];
+            $sub_array[] = $fila["codigo_servicio"];
             $sub_array[] = $fila["codigo_estudiante"];
             $sub_array[] = $fila["estado"];
 
-           $sub_array[] = '<button type="button" data-bs-toggle="modal" data-bs-target="#modalCrearConvenio" name="editar" id="' . $fila["codigo_convenio"] . '" class="btn btn-warning bi bi-pencil-square editar"></button>';
+           $sub_array[] = '<button type="button" data-bs-toggle="modal" data-bs-target="#modalCrearConvenio" name="editar" id="' . $fila["codigo_convenio"] . '" class="btn btn-success bi bi-pencil-square editar"></button>';
            $sub_array[] = '<button type="button"  data-bs-toggle="modal" data-bs-target="#modalInfoEstudiante" name="info" id="' . $fila["codigo_convenio"] . '" class="btn btn-info bi bi-person-square info"></button>';
 
             $datos[] = $sub_array;
@@ -181,6 +245,12 @@ function obtener_registro($conexion)
     echo json_encode($salida);
 }
 
+
+
+
+
+
+
 /*function obtener_registro_estudiante($conexion){
     $salida=array();
 
@@ -212,7 +282,7 @@ function obtener_registro($conexion)
     echo json_encode($salida);
     }*/
 
-    function obtener_registro_estudiante($conexion)
+  /*  function obtener_registro_estudiante($conexion)
 {
     $salida = array();
 
@@ -233,7 +303,15 @@ function obtener_registro($conexion)
 }
 
 
-
+/*
+function obtener_todos_registros_movi()
+{
+    include('../conexion.php');
+    $stmt = $conexion->prepare('SELECT * FROM movimientos');
+    $stmt->execute();
+    $resultado = $stmt->fetch();
+    return $stmt->rowCount();
+}*/
 
 
 
