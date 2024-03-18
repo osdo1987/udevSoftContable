@@ -1,9 +1,3 @@
-<?php
-include("../componentes/navbar.php");
-
-?>
-
-
 <!doctype html>
 <html lang="en">
 
@@ -11,25 +5,32 @@ include("../componentes/navbar.php");
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>UDEV</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <!-- DataTables CSS -->
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
-
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-</head>
-<link rel="stylesheet" href="../css/style.css">
+  <!-- Bootstrap Icons CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="../css/style.css">
 
 <body>
+
+  <?php
+  include("../componentes/navbar.php");
+
+  ?>
+
+  <h1 class="text-center">CARRERAS</h1>
   <div class="container fondo">
-    <h1 class="text-center">CARRERAS</h1>
+
     <div class="row">
       <div class="col-2 offset-10">
         <div class="text-center">
           <!-- Button trigger modal -->
           <button type="button" class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#modalCarrera" id="botonCrear">
 
-            <i class="bi bi-journal-plus"></i>
+            <i class="bi bi-plus-circle-fill"></i> Crear
           </button>
         </div>
       </div>
@@ -60,7 +61,7 @@ include("../componentes/navbar.php");
             <div class="modal-content">
               <div class="modal-body">
 
-               
+
                 <label for="codigo_carrera">Codigo</label>
                 <input type="number" name="codigo_carrera" id="codigo_carrera" class="form-control">
                 <br>
@@ -79,17 +80,17 @@ include("../componentes/navbar.php");
                 </select>
               </div>
               <div class="modal-footer">
-                <input type="hidden" name="codigo_carrera" id="codigo_carrera">
+                <input type="hidden" name="id_carrera" id="id_carrera">
                 <input type="hidden" method="POST" name="operacion" id="operacion">
 
                 <!-- Este es un comentario<input type="submit" name="action" id="action" class="btn btn-primary" value="crear"   >
                 <i class="bi bi-journal-plus" > </i> -->
                 <button type="button" name="cancelar" id="cancelar" class="btn btn-secondary" data-bs-dismiss="modal">
-                  <i class="bi bi-journal-x"> </i>
+                  <i class="bi bi-x-circle"> </i>
                 </button>
                 <button type="submit" name="action" id="action" class="btn btn-primary " value="ingresar">
 
-                  <i class="bi bi-journal-plus"> </i>
+                  <i class="bi bi-plus-circle-fill"> </i>
 
                 </button>
 
@@ -134,9 +135,23 @@ include("../componentes/navbar.php");
 
         },
         "columnDefs": [{
-          "targets": [0, 3, 4],
-          "orderable": false,
-        }, ]
+            "targets": "_all",
+            "className": "text-center"
+          },
+          {
+            "targets": 2, //valor de la columna valor total
+            "render": function(data, type, row) {
+              return '$' + parseFloat(data).toLocaleString('es-ES', {
+                minimumFractionDigits: 2
+              });
+
+            },
+          }, {
+            "targets": [4, 5],
+            "orderable": false,
+
+          }
+        ]
       });
 
       $(document).on('submit', '#formulario', function(event) {
@@ -156,8 +171,7 @@ include("../componentes/navbar.php");
             //data: formData,
             processData: false,
             contentType: false,
-            success: function(data)
-             {
+            success: function(data) {
               alert(data);
               $('#formulario')[0].reset();
               $('#modalCarrera').modal('hide');
@@ -178,22 +192,22 @@ include("../componentes/navbar.php");
           url: "carreras.controller.php",
           method: "POST",
           data: {
-            codigo_carrera: codigo_carrera
+            codigo_carrera: codigo_carrera,
+            operacion: 'obtener_registro'
           },
           dataType: "json",
           success: function(data) {
 
-            $('#modalUsuario').modal('show');
+            $('#modalCarrera').modal('show');
             $('#descripcion_carrera').val(data.descripcion_carrera);
             $('#valor_total_carrera').val(data.valor_total_carrera);
             $('#estado').val(data.estado);
 
-
-
             $('#modal-title').text("Editar estudiante");
-            $('#action').val("editar");
+            $('#id_carrera').val(codigo_carrera);
+            $('#action').val("editar").removeClass('btn-primary').addClass('btn-warnig');
             $('#operacion').val("editar");
-            $('#codigo_carrera').val(codigo_carrera);
+
 
 
 
@@ -206,14 +220,14 @@ include("../componentes/navbar.php");
 
       //Funcionalida de borrar
       $(document).on('click', '.borrar', function() {
-        var codigo_estudiante = $(this).attr("id");
-        if (confirm("Esta seguro de borrar este registro:" + codigo_carrera)) {
+        var codigo_carrera = $(this).attr("id");
+        if (confirm("Esta seguro de borrar este registro:" + codigo_carrera + "?")) {
           $.ajax({
-            url: "estudiantes.controller.php",
+            url: "carreras.controller.php",
             method: "POST",
             data: {
               codigo_carrera: codigo_carrera,
-              action: 'borrar'
+              operacion: 'borrar'
             },
             success: function(data) {
               alert(data);
