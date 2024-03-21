@@ -292,7 +292,7 @@
       $("#botonCrear").click(function() {
         $("#formulario")[0].reset();
         $(".modal-title").text("Crear Convenio");
-        $("#action").val("crear");
+        $("#action").val("crear").removeClass('btn-success').addClass('btn-primary');
         $("#operacion").val("crear");
       });
       // Dentro del evento $(document).ready

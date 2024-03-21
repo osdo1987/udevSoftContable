@@ -15,7 +15,7 @@
 </head>
 <body>
 <?php include_once '../componentes/navbar.php' ?>
-  <div class="container fondo">
+  <div>
     <h1 class="text-center">SERVICIOS</h1>
     <div class="row">
       <div class="col-2 offset-10">
@@ -37,7 +37,7 @@
             <th>Valor total</th>
             <th>Estado</th>
             <th>Editar</th>
-            <th>Borrar</th>
+            <!--<th>Borrar</th>-->
           </tr>
         </thead>
       </table>
@@ -91,7 +91,7 @@
       $("#botonCrear").click(function() {
         $("#formulario")[0].reset();
         $(".modal-title").text("Crear servicio");
-        $("#action").val("Crear");
+        $("#action").val("Crear").removeClass('btn-success').addClass('btn-primary');
         $("#operacion").val("crear");
       });
 
@@ -112,7 +112,7 @@
       return '$' + parseFloat(data).toLocaleString('es-ES', {minimumFractionDigits: 2});
     }
   }, {
-    "targets": [4, 5],
+    "targets": [4],
     "orderable": false,
   }]
 });
@@ -159,7 +159,7 @@
             $('#estado').val(data.estado);
             $('.modal-title').text("Editar servicio");
             $('#id_servicio').val(codigo_servicio);
-            $('#action').val("Editar").removeClass('btn-primary').addClass('btn-warning');
+            $('#action').val("Editar").removeClass('btn-primary').addClass('btn-success');
             $('#operacion').val("editar");
           },
           error: function(jqXHR, textStatus, errorThrown) {
@@ -169,7 +169,7 @@
       });
 
       // Funcionalidad de borrar
-      $(document).on('click', '.borrar', function() {
+      /*$(document).on('click', '.borrar', function() {
         var codigo_servicio = $(this).attr("id");
         if (confirm("¿Estás seguro de borrar este registro: " + codigo_servicio + "?")) {
           $.ajax({
@@ -182,7 +182,7 @@
             }
           });
         }
-      });
+      });*/
     });
   </script>
   

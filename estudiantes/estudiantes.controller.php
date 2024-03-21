@@ -169,8 +169,8 @@ function obtener_registros($conexion)
             $sub_array[] = $imagen;
             $sub_array[] = $fila["estado"];
 
-            $sub_array[] = '<button type="button" data-bs-toggle="modal" data-bs-target="#modalUsuario" name="editar" id="' . $fila["codigo_estudiante"] . '"  class="btn btn-warning bi bi-pencil-square editar"></button>';
-            $sub_array[] = '<button type="button" name="borrar" id="' . $fila["codigo_estudiante"] . '"  class="btn btn-danger bi bi-trash borrar"></button>';
+            $sub_array[] = '<button type="button" data-bs-toggle="modal" data-bs-target="#modalUsuario" name="editar" id="' . $fila["codigo_estudiante"] . '"  class="btn btn-success bi bi-pencil-square editar"></button>';
+            //$sub_array[] = '<button type="button" name="borrar" id="' . $fila["codigo_estudiante"] . '"  class="btn btn-danger bi bi-trash borrar"></button>';
             $datos[] = $sub_array;
 
         }
