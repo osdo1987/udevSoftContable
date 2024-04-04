@@ -342,3 +342,14 @@ function obtener_todos_registros()
     $resultado = $stmt->fetch();
     return $stmt->rowCount();
 }
+
+function obtener_registros_estudiantes(){
+    include('../conexion.php');
+    $stmt = $conexion->prepare('SELECT movimientos.codigo_movimiento, movimientos.fecha_movimiento, movimientos.valor_movimiento
+    FROM convenio INNER JOIN movimientos ON convenio.codigo_estudiante=movimientos.codigo_fk_estudiante');
+    $stmt->execute();
+    $resultado = $stmt->fetch();
+    return $stmt->rowCount();
+
+
+}

@@ -172,333 +172,333 @@
             <i class="bi bi-x-lg"></i>
           </button>
         </div>
-        <form method="POST" id="formulario" enctype="multipart/form-data">
+        <form method="POST" id="formEstudiant" enctype="multipart/form-data">
           <div class="modal-content">
             <div class="modal-body">
               <div class="row w-100">
-              <div class="col-md-6">
-                <label for="codigo">Codigo</label>
-                <input type="text" name="codigo" id="codigo" class="form-control">
-                
-              </div>
-              <div class="col-md-6 text-end">
-                <img src="" alt="Imagen del estudiante" id="imagen" class="img-fluid">
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-12">
-              <label for="estudiante">Nombre estudiante</label>
-                <input type="text" name="estudiante" id="estudiante" class="form-control">
-                
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-12">
-              <label for="apellidos">Apellidos</label>
-                <input type="text" name="apellidos" id="apellidos" class="form-control">
-                
-            </div>
-            <div class="row">
-              <div class="col-md-12">
-              <label for="fecha_naci">Fecha nacimiento</label>
-                <input type="text" name="fehca_naci" id="fecha_naci" class="form-control">
-                
-            </div>
-            <div class="row">
-              <div class="col-md-12">
-              <label for="carrera">Carrera</label>
-                <input type="text" name="carrera" id="carrera" class="form-control">
-                <br>
-              </div>
-            </div>
-            
-            <div class="table-responsive">
-              <table id="datos_pagos_estudiante" class="table table-bordered table-striped">
-                <thead>
-                  <tr>
-                    <th>CODIGO</th>
-                    <th>FECHA</th>
-                    <th>CUOTAS </th>
-                    <th>SELECCIONAR</th>
-                  </tr>
-                </thead>
-              </table>
-            </div>
-            <!-- Aquí se mostrarán los pagos -->
-            </tbody>
-            </table>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary" id="btn-pagar" data-bs-toggle="modal" data-bs-target="#modalExcelConvenio">Pagar</button>
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-          </div>
-      </div>
-    </div>
-  </div>
-  <!-- Modal Confirmar Pago Convenio -->
-  <div class="modal fade" id="modalExcelConvenio" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">CONFIRMA LA INFORMACION</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <form method="POST" id="formulario" enctype="multipart/form-data">
-          <div class="modal-content">
-            <div class="modal-body">
-              <h3>Se pagara lo siguiente: </h3>
+                <div class="col-md-6">
+                  <label for="codigo">Codigo</label>
+                  <input type="text" name="codigo" id="codigo" class="form-control">
 
-              <div class="table-responsive">
-                <table id="datos_confirmacion_pago" class="table table-bordered table-striped">
-                  <thead>
-                    <tr>
-                      <th>C</th>
-                      <th>FECHA</th>
-                      <th>VALOR</th>
-                    </tr>
-                  </thead>
-                  <!-- Valores de prueba (cuota,fecha,valor) -->
-                  <tbody>
-                    <tr>
-                      <td>1</td>
-                      <td>01/01/24</td>
-                      <td>120000</td>
-                    </tr>
-                    <tr>
-                      <td>2</td>
-                      <td>01/02/24</td>
-                      <td>120000</td>
-                    </tr>
-                </table>
-                <div class="col-5 offset-7">
-                  <h6>TOTAL: </h6>
-                  <div class="card">
-                    <div class="card-body">
-                      $ 240000
+                </div>
+                <div class="col-md-6 text-end">
+                  <img src="" alt="Imagen del estudiante" id="imagen" class="img-fluid">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <label for="estudiante">Nombre estudiante</label>
+                  <input type="text" name="estudiante" id="estudiante" class="form-control">
+
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <label for="apellidos">Apellidos</label>
+                  <input type="text" name="apellidos" id="apellidos" class="form-control">
+
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <label for="fecha_naci">Fecha nacimiento</label>
+                    <input type="text" name="fehca_naci" id="fecha_naci" class="form-control">
+
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <label for="carrera">Carrera</label>
+                      <input type="text" name="carrera" id="carrera" class="form-control">
+                      <br>
                     </div>
                   </div>
+
+                  <div class="table-responsive">
+                    <table id="datos_pagos_estudiante" class="table table-bordered table-striped">
+                      <thead>
+                        <tr>
+                          <th>CODIGO</th>
+                          <th>FECHA</th>
+                          <th>CUOTAS </th>
+                          <th>SELECCIONAR</th>
+                        </tr>
+                      </thead>
+                    </table>
+                  </div>
+                  <!-- Aquí se mostrarán los pagos -->
+                  </tbody>
+                  </table>
                 </div>
-
-
-              </div>
-              <div class="modal-footer">
-                <input type="submit" name="action" id="action" class="btn btn-success" value="Pagar">
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-primary" id="btn-pagar" data-bs-toggle="modal" data-bs-target="#modalExcelConvenio">Pagar</button>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
               </div>
             </div>
-        </form>
-      </div>
-    </div>
-  </div>
+          </div>
+          <!-- Modal Confirmar Pago Convenio -->
+          <div class="modal fade" id="modalExcelConvenio" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="exampleModalLabel">CONFIRMA LA INFORMACION</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method="POST" id="formulario" enctype="multipart/form-data">
+                  <div class="modal-content">
+                    <div class="modal-body">
+                      <h3>Se pagara lo siguiente: </h3>
+
+                      <div class="table-responsive">
+                        <table id="datos_confirmacion_pago" class="table table-bordered table-striped">
+                          <thead>
+                            <tr>
+                              <th>C</th>
+                              <th>FECHA</th>
+                              <th>VALOR</th>
+                            </tr>
+                          </thead>
+                          <!-- Valores de prueba (cuota,fecha,valor) -->
+                          <tbody>
+                            <tr>
+                              <td>1</td>
+                              <td>01/01/24</td>
+                              <td>120000</td>
+                            </tr>
+                            <tr>
+                              <td>2</td>
+                              <td>01/02/24</td>
+                              <td>120000</td>
+                            </tr>
+                        </table>
+                        <div class="col-5 offset-7">
+                          <h6>TOTAL: </h6>
+                          <div class="card">
+                            <div class="card-body">
+                              $ 240000
+                            </div>
+                          </div>
+                        </div>
 
 
-  <!-- jQuery -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+                      </div>
+                      <div class="modal-footer">
+                        <input type="submit" name="action" id="action" class="btn btn-success" value="Pagar">
+                      </div>
+                    </div>
+                </form>
+              </div>
+            </div>
+          </div>
 
-  <!-- DataTables JavaScript -->
-  <script src="//cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
 
-  <!-- Bootstrap JavaScript -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+          <!-- jQuery -->
+          <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+          <!-- DataTables JavaScript -->
+          <script src="//cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+
+          <!-- Bootstrap JavaScript -->
+          <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
 
 
-  <script type="text/javascript">
-    $(document).ready(function() {
-      $("#botonCrear").click(function() {
-        $("#formulario")[0].reset();
-        $(".modal-title").text("Crear Convenio");
-        $("#action").val("crear").removeClass('btn-success').addClass('btn-primary');
-        $("#operacion").val("crear");
-      });
-      // Dentro del evento $(document).ready
-
-      // Llenar el select de estudiantes
-      /*$.ajax({
-          url: "Convenios.controller.php",
-          method: "POST",
-          data: { operacion: 'obtener_registro_estudiante' },
-          dataType: "json",
-          success: function(data) {
-              var options = '';
-              data.estudiantes.forEach(function(estudiante) {
-                  options += '<option value="' + estudiante.codigo_estudiante + '">' + estudiante.nombre_estudiante+ '</option>';
+          <script type="text/javascript">
+            $(document).ready(function() {
+              $("#botonCrear").click(function() {
+                $("#formulario")[0].reset();
+                $(".modal-title").text("Crear Convenio");
+                $("#action").val("crear").removeClass('btn-success').addClass('btn-primary');
+                $("#operacion").val("crear");
               });
-              $('#codigo_estudiante').html(options);
-          },
-          error: function(jqXHR, textStatus, errorThrown) {
-              console.log(textStatus, errorThrown);
-          }
-      });*/
+              // Dentro del evento $(document).ready
+
+              // Llenar el select de estudiantes
+              /*$.ajax({
+                  url: "Convenios.controller.php",
+                  method: "POST",
+                  data: { operacion: 'obtener_registro_estudiante' },
+                  dataType: "json",
+                  success: function(data) {
+                      var options = '';
+                      data.estudiantes.forEach(function(estudiante) {
+                          options += '<option value="' + estudiante.codigo_estudiante + '">' + estudiante.nombre_estudiante+ '</option>';
+                      });
+                      $('#codigo_estudiante').html(options);
+                  },
+                  error: function(jqXHR, textStatus, errorThrown) {
+                      console.log(textStatus, errorThrown);
+                  }
+              });*/
 
 
 
-      var dataTable = $('#datos_convenios').DataTable({
-        language: {
-          url: '//cdn.datatables.net/plug-ins/2.0.2/i18n/es-MX.json',
-        },
-        "processing": true,
-        "serverSide": true,
-        "order": [],
-        "ajax": {
-          url: "Convenios.controller.php",
-          type: "POST"
-        },
-        "columnDefs": [{
-            "targets": "_all",
-            "className": "text-center"
-          },
-          {
-            "targets": 2, // Índice de la columna "valor total"
-            "render": function(data, type, row) {
-              // Formato de moneda con el símbolo "$" y puntuación de miles
-              return '$' + parseFloat(data).toLocaleString('es-ES', {
-                minimumFractionDigits: 2
+              var dataTable = $('#datos_convenios').DataTable({
+                language: {
+                  url: '//cdn.datatables.net/plug-ins/2.0.2/i18n/es-MX.json',
+                },
+                "processing": true,
+                "serverSide": true,
+                "order": [],
+                "ajax": {
+                  url: "Convenios.controller.php",
+                  type: "POST"
+                },
+                "columnDefs": [{
+                    "targets": "_all",
+                    "className": "text-center"
+                  },
+                  {
+                    "targets": 2, // Índice de la columna "valor total"
+                    "render": function(data, type, row) {
+                      // Formato de moneda con el símbolo "$" y puntuación de miles
+                      return '$' + parseFloat(data).toLocaleString('es-ES', {
+                        minimumFractionDigits: 2
+                      });
+                    }
+                  }, {
+                    "targets": [4, 5],
+                    "orderable": false,
+                  }
+                ]
+
               });
-            }
-          }, {
-            "targets": [4, 5],
-            "orderable": false,
-          }
-        ]
-
-      });
-
-
-
-
-      $(document).on('submit', '#formulario', function(event) {
-        event.preventDefault();
-        var codigo_convenio = $("#codigo_convenio").val();
-        var descripcion_convenio = $("#descripcion_convenio").val();
-        var valor_total_convenio = $("#valor_total_convenio");
-        var saldo_convenio = $("#saldo_convenio").val();
-        var codigo_In_servicio = $("#codigo_In_servicio").val();
-        var codigo_estudiante = $("#codigo_estudiante").val();
-        var estado = $("#estado").val();
-
-        if (codigo_convenio != '' && descripcion_convenio != '' && valor_total_convenio != '' && codigo_estudiante != '') {
-
-          $.ajax({
-            url: "Convenios.controller.php",
-            method: "POST",
-            data: new FormData(this),
-            processData: false,
-            contentType: false,
-            success: function(data) {
-              alert(data);
-              $('#formulario')[0].reset();
-              $('#modalCrearConvenio').modal('hide');
-              dataTable.ajax.reload();
-            }
-
-
-          });
-        } else {
-          alert("Algunos campos son obligatorios");
-        }
-
-      });
-
-      $(document).on('click', '.editar', function() {
-        //$("#botonEditar").click(function(){  
-        var codigo_convenio = $(this).attr("id");
-        $.ajax({
-
-          url: "Convenios.controller.php",
-          method: "POST",
-          data: {
-            codigo_convenio: codigo_convenio,
-            operacion: 'obtener_registro'
-
-          },
-          dataType: "json",
-          success: function(data) {
-
-            $('#modalEditarConvenio').modal('show');
-            $('#codigo_convenio').val(data.codigo_convenio);
-            $('#descripcion_convenio').val(data.descripcion_convenio);
-            $('#valor_total_convenio').val(data.valor_total_convenio);
-            $('#saldo_convenio').val(data.saldo_convenio);
-            $('#codigo_In_servicio').val(data.codigo_servicio);
-            $('#codigo_estudiante').val(data.codigo_estudiante);
-            $('#estado').val(data.estado);
-
-
-            $('#modal-title').text('Editar estudiante');
-            $('#id_convenio').val(codigo_convenio);
-            $('#action').val('editar').removeClass('btn-primary').addClass('btn-success');
-            $('#operacion').val("editar");
-
-
-          },
-          error: function(jqXHR, textStatus, errorThrown) {
-            console.log(textStatus, errorThrown);
-          }
+              $(document).ready(function() {
+                var dataTable = $('#datos_pagos_estudiantes').DataTable({
+                  language: {
+                    url: '//cdn.datatables.net/plug-ins/2.0.2/i18n/es-MX.json',
+                  },
+                  "processing": true,
+                  "serverSide": true,
+                  "order": [],
+                  "ajax": {
+                    url: "Convenios.controller.php",
+                    type: "POST",
+                    data: {
+                      operacion: 'obtener_pagos_estudiantes'
+                    } // Envía esta información al servidor para que sepa qué datos obtener
+                  },
+                  "columnDefs": [{
+                    "targets": "_all",
+                    "className": "text-center"
+                  }]
+                });
+              });
 
 
 
 
 
-        });
+              $(document).on('submit', '#formulario', function(event) {
+                event.preventDefault();
+                var codigo_convenio = $("#codigo_convenio").val();
+                var descripcion_convenio = $("#descripcion_convenio").val();
+                var valor_total_convenio = $("#valor_total_convenio");
+                var saldo_convenio = $("#saldo_convenio").val();
+                var codigo_In_servicio = $("#codigo_In_servicio").val();
+                var codigo_estudiante = $("#codigo_estudiante").val();
+                var estado = $("#estado").val();
+
+                if (codigo_convenio != '' && descripcion_convenio != '' && valor_total_convenio != '' && codigo_estudiante != '') {
+
+                  $.ajax({
+                    url: "Convenios.controller.php",
+                    method: "POST",
+                    data: new FormData(this),
+                    processData: false,
+                    contentType: false,
+                    success: function(data) {
+                      alert(data);
+                      $('#formulario')[0].reset();
+                      $('#modalCrearConvenio').modal('hide');
+                      dataTable.ajax.reload();
+                    }
+
+
+                  });
+                } else {
+                  alert("Algunos campos son obligatorios");
+                }
+
+              });
+
+              $(document).on('click', '.editar', function() {
+                //$("#botonEditar").click(function(){  
+                var codigo_convenio = $(this).attr("id");
+                $.ajax({
+
+                  url: "Convenios.controller.php",
+                  method: "POST",
+                  data: {
+                    codigo_convenio: codigo_convenio,
+                    operacion: 'obtener_registro'
+
+                  },
+                  dataType: "json",
+                  success: function(data) {
+
+                    $('#modalEditarConvenio').modal('show');
+                    $('#codigo_convenio').val(data.codigo_convenio);
+                    $('#descripcion_convenio').val(data.descripcion_convenio);
+                    $('#valor_total_convenio').val(data.valor_total_convenio);
+                    $('#saldo_convenio').val(data.saldo_convenio);
+                    $('#codigo_In_servicio').val(data.codigo_servicio);
+                    $('#codigo_estudiante').val(data.codigo_estudiante);
+                    $('#estado').val(data.estado);
+
+
+                    $('#modal-title').text('Editar estudiante');
+                    $('#id_convenio').val(codigo_convenio);
+                    $('#action').val('editar').removeClass('btn-primary').addClass('btn-success');
+                    $('#operacion').val("editar");
+
+
+                  },
+                  error: function(jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus, errorThrown);
+                  }
+
+
+
+
+
+                });
+
+
+
+              });
+
+
+              $(document).on('click', '.info', function() {
+                var codigo_convenio = $(this).attr("id");
+                $.ajax({
+                  url: "Convenios.controller.php",
+                  method: "POST",
+                  data: {
+                    codigo_convenio: codigo_convenio,
+                    operacion: 'obtener_info_estudiante'
+                  },
+                  dataType: "json",
+                  success: function(data) {
+                    $('#codigo_estudiante').text(data.codigo_convenio.codigo_estudiante);
+                    $('#nombre_estudiante').text(data.nombre_estudiante);
+                    $('#apellidos_estudiante').text(data.apellidos_estudiante);
+                    $('fecha_nacimiento_estudiante').text(data.fecha_nacimiento_estudiante);
+
+                    $('#modalInfoEstudiante').modal('show');
+                  },
+                  error: function(jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus, errorThrown);
+                  }
+                });
+              });
 
 
 
 
 
 
-
-
-      });
-
-
-      /* $(document).on('click', '.info', function(){
-    var codigo_convenio = $(this).attr("id");
-    $.ajax({
-        url: "Convenios.controller.php",
-        method: "POST",
-        data: {
-            codigo_convenio: codigo_convenio,
-            operacion: 'obtener_registro_estudiante'
-        },
-        dataType: "json",
-        success: function(data){
-            $('#codigo_estudiante').text(data.codigo_convenio.codigo_estudiante);
-            $('#nombre_estudiante').text(data.nombre_estudiante);
-            $('#apellidos_estudiante').text(data.apellidos_estudiante);
-            $('fecha_nacimiento_estudiante').text(data.fecha_nacimiento_estudiante);
-            
-            // Asegúrate de ajustar esto según la estructura de tu tabla de estudiantes
-            // Continúa con el resto de la información del estudiante (cedula, fecha de nacimiento, carrera, etc.)
-
-            // Luego, actualiza la tabla de movimientos
-            var tablaMovimientos = $('#tabla-pagos');
-            tablaMovimientos.empty(); // Limpiar la tabla antes de agregar nuevos datos
-
-            $.each(data.movimientos, function(index, movimiento){
-                var fila = '<tr>' +
-                               '<td>' + movimiento.codigo + '</td>' +
-                               '<td>' + movimiento.fecha + '</td>' +
-                               '<td>' + movimiento.descripcion + '</td>' +
-                               '<td>' + movimiento.valor + '</td>' +
-                           '</tr>';
-                tablaMovimientos.append(fila);
             });
-
-            $('#modalInfoEstudiante').modal('show');
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-            console.log(textStatus, errorThrown);
-        }
-    });
-});*/
-
-
-
-
-
-
-    });
-  </script>
+          </script>
 
 </body>
 
