@@ -222,7 +222,6 @@
                           <th>SELECCIONAR</th>
                         </tr>
                       </thead>
-                    </table>
                   </div>
                   <!-- Aquí se mostrarán los pagos -->
                   </tbody>
@@ -310,28 +309,7 @@
                 $("#action").val("crear").removeClass('btn-success').addClass('btn-primary');
                 $("#operacion").val("crear");
               });
-              // Dentro del evento $(document).ready
-
-              // Llenar el select de estudiantes
-              /*$.ajax({
-                  url: "Convenios.controller.php",
-                  method: "POST",
-                  data: { operacion: 'obtener_registro_estudiante' },
-                  dataType: "json",
-                  success: function(data) {
-                      var options = '';
-                      data.estudiantes.forEach(function(estudiante) {
-                          options += '<option value="' + estudiante.codigo_estudiante + '">' + estudiante.nombre_estudiante+ '</option>';
-                      });
-                      $('#codigo_estudiante').html(options);
-                  },
-                  error: function(jqXHR, textStatus, errorThrown) {
-                      console.log(textStatus, errorThrown);
-                  }
-              });*/
-
-
-
+              
               var dataTable = $('#datos_convenios').DataTable({
                 language: {
                   url: '//cdn.datatables.net/plug-ins/2.0.2/i18n/es-MX.json',
@@ -362,7 +340,8 @@
                 ]
 
               });
-              $(document).ready(function() {
+              
+              /*$(document).ready(function() {
                 var dataTable = $('#datos_pagos_estudiantes').DataTable({
                   language: {
                     url: '//cdn.datatables.net/plug-ins/2.0.2/i18n/es-MX.json',
@@ -371,18 +350,17 @@
                   "serverSide": true,
                   "order": [],
                   "ajax": {
-                    url: "Convenios.controller.php",
-                    type: "POST",
-                    data: {
-                      operacion: 'obtener_pagos_estudiantes'
-                    } // Envía esta información al servidor para que sepa qué datos obtener
+                    url: "Convenios.table.php?action=info:estudiante",
+                    dataSrc:""
                   },
-                  "columnDefs": [{
-                    "targets": "_all",
-                    "className": "text-center"
-                  }]
+                  "columns": [
+                    {
+                    "data":"codigo_movimiento"},
+                    {"data":"fecha_movimiento"},
+                   {"data":"valor_movimiento"}
+                  ]
                 });
-              });
+              });*/
 
 
 
@@ -468,6 +446,31 @@
               });
 
 
+              
+            $(document).ready(function() {
+              var dataTable = $('#datos_pagos_estudiante').DataTable({
+                language:{ url: '//cdn.datatables.net/plug-ins/2.0.2/i18n/es-MX.json',},
+                "processing": true,
+                "serverSide":true,
+                "order":[[1, 'asc']],
+                "ajax":{
+                  url:"Convenios.Table.php",
+                  type:"POST"
+                },
+                "columnDefs":[{
+                    "targets": "_all",
+                    "className": "text-center"
+                  },
+                 {
+                    "targets": [4],
+                    "orderable": false,
+                  }
+                ]
+
+
+
+
+              })
               $(document).on('click', '.info', function() {
                 var codigo_convenio = $(this).attr("id");
                 $.ajax({
@@ -479,7 +482,7 @@
                   },
                   dataType: "json",
                   success: function(data) {
-                    $('#codigo_estudiante').text(data.codigo_convenio.codigo_estudiante);
+                    $('#codigo_estudiante').text(data.codigo_estudiante);
                     $('#nombre_estudiante').text(data.nombre_estudiante);
                     $('#apellidos_estudiante').text(data.apellidos_estudiante);
                     $('fecha_nacimiento_estudiante').text(data.fecha_nacimiento_estudiante);
@@ -498,6 +501,10 @@
 
 
             });
+
+
+
+              })
           </script>
 
 </body>
