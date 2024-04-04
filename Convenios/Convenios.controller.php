@@ -35,7 +35,7 @@ function main($action, $conexion)
 
 function crear($conexion){
 
-    $stmt = $conexion->prepare("INSERT INTO convenio(codigo_convenio, descripcion_convenio, valor_total_convenio, saldo_convenio, codigo_servicio, codigo_estudiante, estado) VALUES(:codigo_convenio, :descripcion_convenio, :valor_total_convenio, :saldo_convenio, :codigo_In_servicio, :codigo_estudiante, :estado)");
+    $stmt = $conexion->prepare("INSERT INTO convenio(codigo_convenio, descripcion_convenio, valor_total_convenio, saldo_convenio, codigo_servicio, codigo_estudiante, estado) VALUES(:codigo_convenio, :descripcion_convenio, :valor_total_convenio, :saldo_convenio, :codigo_servicio, :codigo_estudiante, :estado)");
 
     $resultado = $stmt->execute(
         array(
@@ -43,7 +43,7 @@ function crear($conexion){
             ':descripcion_convenio' => $_POST["descripcion_convenio"],
             ':valor_total_convenio' => $_POST["valor_total_convenio"],
             ':saldo_convenio' => $_POST["saldo_convenio"],
-            ':codigo_In_servicio' => $_POST["codigo_In_servicio"],
+            ':codigo_servicio' => $_POST["codigo_In_servicio"],
             ':codigo_estudiante' => $_POST["codigo_estudiante"],
             ':estado' => $_POST["estado"]
         )
@@ -57,8 +57,27 @@ function crear($conexion){
 
 
 }
+function editar($conexion) {
+    $stmt = $conexion->prepare("UPDATE convenio SET descripcion_convenio=:descripcion_convenio, valor_total_convenio=:valor_total_convenio, saldo_convenio=:saldo_convenio, codigo_servicio=:codigo_servicio, codigo_estudiante=:codigo_estudiante, estado=:estado WHERE codigo_convenio=:codigo_convenio");
 
-function editar($conexion){
+    $stmt->bindParam(':descripcion_convenio', $_POST["descripcion_convenio"]);
+    $stmt->bindParam(':valor_total_convenio', $_POST["valor_total_convenio"]);
+    $stmt->bindParam(':saldo_convenio', $_POST["saldo_convenio"]);
+    $stmt->bindParam(':codigo_servicio', $_POST["codigo_In_servicio"]);
+    $stmt->bindParam(':codigo_estudiante', $_POST["codigo_estudiante"]);
+    $stmt->bindParam(':estado', $_POST["estado"]);
+    $stmt->bindParam(':codigo_convenio', $_POST["codigo_convenio"], PDO::PARAM_INT);
+
+    $resultado = $stmt->execute();
+
+    if ($resultado) {
+        echo 'Convenio actualizado';
+    } else {
+        echo "No se pudo actualizar el convenio";
+    }
+}
+
+/*function editar($conexion){
 
 $stmt = $conexion->prepare("UPDATE convenio SET descripcion_convenio=:descripcion_convenio, valor_total_convenio=:valor_total_convenio, saldo_convenio=:saldo_convenio, 
  codigo_servicio=:codigo_servicio, codigo_estudiante=:codigo_estudiante, estado=:estado WHERE codigo_convenio=:codigo_convenio");
@@ -71,7 +90,7 @@ $resultado = $stmt->execute(
             ':descripcion_convenio' => $_POST["descripcion_convenio"],
             ':valor_total_convenio' => $_POST["valor_total_convenio"],
             ':saldo_convenio' => $_POST["saldo_convenio"],
-            ':codigo_servicio' => $_POST["codigo_In_servicio"],
+            ':codigo_servicio' => $_POST["codigo_servicio"],
             ':codigo_estudiante' => $_POST["codigo_estudiante"],
             ':estado' => $_POST["estado"],
             'codigo_convenio' => $_POST["codigo_convenio"]
@@ -87,7 +106,7 @@ $resultado = $stmt->execute(
     echo "No se pudo actulizar el convenio";
 };
 
-}
+}*/
 /*
 function obtener_registros_movimientos($conexion){
 

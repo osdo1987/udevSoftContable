@@ -82,7 +82,7 @@
               <input type="number" name="saldo_convenio" id="saldo_convenio" class="form-control">
               <br>
 
-             <label for="codigo_carrera">codigo servicios</label>
+             <label for="codigo_In_servicio">codigo servicios</label>
               <input type="text" name="codigo_In_servicio" id="codigo_In_servicio" class="form-control">
               <br>
 
@@ -357,7 +357,7 @@
         var descripcion_convenio = $("#descripcion_convenio").val();
         var valor_total_convenio = $("#valor_total_convenio");
         var saldo_convenio = $("#saldo_convenio").val();
-        var codigo_In_servicio = $("#codigo_servicio");
+        var codigo_In_servicio = $("#codigo_In_servicio").val();
         var codigo_estudiante = $("#codigo_estudiante").val();
         var estado = $("#estado").val();
 
@@ -404,7 +404,7 @@
             $('#descripcion_convenio').val(data.descripcion_convenio);
             $('#valor_total_convenio').val(data.valor_total_convenio);
             $('#saldo_convenio').val(data.saldo_convenio);
-            $('#codigo_servicio').val(data.codigo_In_servicio);
+            $('#codigo_In_servicio').val(data.codigo_servicio);
             $('#codigo_estudiante').val(data.codigo_estudiante);
             $('#estado').val(data.estado);
 
