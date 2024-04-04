@@ -82,7 +82,7 @@
               <input type="number" name="saldo_convenio" id="saldo_convenio" class="form-control">
               <br>
 
-             <label for="codigo_In_servicio">codigo servicios</label>
+              <label for="codigo_In_servicio">codigo servicios</label>
               <input type="text" name="codigo_In_servicio" id="codigo_In_servicio" class="form-control">
               <br>
 
@@ -93,10 +93,14 @@
               <!--<label for="codigo_carrera">carrera</label>
               <select name="codigo_carrera" id="codigo_carrera" class="form-control">
                 <option value="">Seleccione una opciones</option>
-                <?php //foreach ($carreras as $carrera):?>
+                <?php //foreach ($carreras as $carrera):
+                ?>
               
-                <option value="<?php // echo $carrera['codigo_carrera'];?>"><?php //echo $carrera['descripcion_carrera']; ?></option>
-                //<?php //endforeach;?>
+                <option value="<?php // echo $carrera['codigo_carrera'];
+                                ?>"><?php //echo $carrera['descripcion_carrera']; 
+                                    ?></option>
+                //<?php //endforeach;
+                  ?>
               </select>
               <br>
               <label for="codigo_estudiante">Estado</label>
@@ -106,7 +110,7 @@
                 <option value=""></option>
               </select>
               <br>-->
-              
+
               <label for="estado">Estado</label>
               <select name="estado" id="estado" class="form-control">
                 <option value="">Seleccione una opciones</option>
@@ -140,7 +144,7 @@
                     <label class="form-check-label" for="flexSwitchCheckChecked">Inactivo/Activo</label>
                   </div>
                 </div>-->
-              
+
 
 
 
@@ -168,55 +172,66 @@
             <i class="bi bi-x-lg"></i>
           </button>
         </div>
-        <div class="modal-body">
-          <div class="row w-100">
-            <div class="col-md-6">
-              <h5>Código: <span id="codigo_estudiante"></span></h5>
+        <form method="POST" id="formulario" enctype="multipart/form-data">
+          <div class="modal-content">
+            <div class="modal-body">
+              <div class="row w-100">
+              <div class="col-md-6">
+                <label for="codigo">Codigo</label>
+                <input type="text" name="codigo" id="codigo" class="form-control">
+                
+              </div>
+              <div class="col-md-6 text-end">
+                <img src="" alt="Imagen del estudiante" id="imagen" class="img-fluid">
+              </div>
             </div>
-            <div class="col-md-6 text-end">
-              <img src="" alt="Imagen del estudiante" id="imagen" class="img-fluid">
+            <div class="row">
+              <div class="col-md-12">
+              <label for="estudiante">Nombre estudiante</label>
+                <input type="text" name="estudiante" id="estudiante" class="form-control">
+                
+              </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-md-12">
-              <h5>Nombre: <span id="nombre_estudiante"></span></h5>
+            <div class="row">
+              <div class="col-md-12">
+              <label for="apellidos">Apellidos</label>
+                <input type="text" name="apellidos" id="apellidos" class="form-control">
+                
             </div>
-          </div>
-          <div class="row">
-            <div class="col-md-12">
-              <h5>Apellidos: <span id="apellidos_estudiante"></span></h5>
+            <div class="row">
+              <div class="col-md-12">
+              <label for="fecha_naci">Fecha nacimiento</label>
+                <input type="text" name="fehca_naci" id="fecha_naci" class="form-control">
+                
             </div>
-          </div>
-          <div class="row">
-            <div class="col-md-12">
-              <h5>Fecha de nacimiento: <span id="fecha_nacimiento_estudiante"></span></h5>
+            <div class="row">
+              <div class="col-md-12">
+              <label for="carrera">Carrera</label>
+                <input type="text" name="carrera" id="carrera" class="form-control">
+                <br>
+              </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-md-12">
-              <h5>Carrera: <span id="carrera"></span></h5>
+            
+            <div class="table-responsive">
+              <table id="datos_pagos_estudiante" class="table table-bordered table-striped">
+                <thead>
+                  <tr>
+                    <th>CODIGO</th>
+                    <th>FECHA</th>
+                    <th>CUOTAS </th>
+                    <th>SELECCIONAR</th>
+                  </tr>
+                </thead>
+              </table>
             </div>
-          </div>
-          <br>
-          <table class="table table-bordered">
-            <thead>
-              <tr>
-                <th>P</th>
-                <th>Código</th>
-                <th>Fecha</th>
-                <th>cuotas</th>
-                <th>Seleccionar</th>
-              </tr>
-            </thead>
-            <tbody id="tabla-pagos">
-              <!-- Aquí se mostrarán los pagos -->
+            <!-- Aquí se mostrarán los pagos -->
             </tbody>
-          </table>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" id="btn-pagar" data-bs-toggle="modal" data-bs-target="#modalExcelConvenio">Pagar</button>
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        </div>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" id="btn-pagar" data-bs-toggle="modal" data-bs-target="#modalExcelConvenio">Pagar</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          </div>
       </div>
     </div>
   </div>
@@ -297,23 +312,23 @@
       });
       // Dentro del evento $(document).ready
 
-// Llenar el select de estudiantes
-/*$.ajax({
-    url: "Convenios.controller.php",
-    method: "POST",
-    data: { operacion: 'obtener_registro_estudiante' },
-    dataType: "json",
-    success: function(data) {
-        var options = '';
-        data.estudiantes.forEach(function(estudiante) {
-            options += '<option value="' + estudiante.codigo_estudiante + '">' + estudiante.nombre_estudiante+ '</option>';
-        });
-        $('#codigo_estudiante').html(options);
-    },
-    error: function(jqXHR, textStatus, errorThrown) {
-        console.log(textStatus, errorThrown);
-    }
-});*/
+      // Llenar el select de estudiantes
+      /*$.ajax({
+          url: "Convenios.controller.php",
+          method: "POST",
+          data: { operacion: 'obtener_registro_estudiante' },
+          dataType: "json",
+          success: function(data) {
+              var options = '';
+              data.estudiantes.forEach(function(estudiante) {
+                  options += '<option value="' + estudiante.codigo_estudiante + '">' + estudiante.nombre_estudiante+ '</option>';
+              });
+              $('#codigo_estudiante').html(options);
+          },
+          error: function(jqXHR, textStatus, errorThrown) {
+              console.log(textStatus, errorThrown);
+          }
+      });*/
 
 
 
@@ -349,7 +364,7 @@
       });
 
 
-      
+
 
       $(document).on('submit', '#formulario', function(event) {
         event.preventDefault();
