@@ -88,7 +88,9 @@ function obtener_registros($conexion)
 {
     $query = "";
     $salida = array();
-    $query = "SELECT * FROM convenio";
+    $query = "SELECT convenio.codigo_convenio, convenio.codigo_estudiante, estudiantes.nombre_estudiante, estudiantes.apellidos_estudiante, convenio.codigo_servicio, servicios.descripcion_servicio, 
+    convenio.descripcion_convenio, convenio.valor_total_convenio, convenio.saldo_convenio, convenio.estado 
+    FROM convenio INNER JOIN estudiantes ON convenio.codigo_estudiante = estudiantes.codigo_estudiante INNER JOIN servicios ON convenio.codigo_servicio = servicios.codigo_servicio;";
 
     if (isset($_POST["search"]["value"])) {
         $query .= ' WHERE descripcion_convenio LIKE "%' . $_POST["search"]["value"] . '%" ';
@@ -117,11 +119,14 @@ function obtener_registros($conexion)
         foreach ($resultado as $fila) {
             $sub_array = array();
             $sub_array[] = $fila["codigo_convenio"];
+            //$sub_array[] = $fila["codigo_estudiante"];
+            $sub_array[] = $fila["nombre_estudiante"];
+            $sub_array[] = $fila["apellidos_estudiante"];
+            //$sub_array[] = $fila["codigo_servicio"];
+            $sub_array[] = $fila["descripcion_servicio"];
             $sub_array[] = $fila["descripcion_convenio"];
             $sub_array[] = $fila["valor_total_convenio"];
             $sub_array[] = $fila["saldo_convenio"];
-            $sub_array[] = $fila["codigo_servicio"];
-            $sub_array[] = $fila["codigo_estudiante"];
             $sub_array[] = $fila["estado"];
 
            $sub_array[] = '<button type="button" data-bs-toggle="modal" data-bs-target="#modalCrearConvenio" name="editar" id="' . $fila["codigo_convenio"] . '" class="btn btn-success bi bi-pencil-square editar"></button>';

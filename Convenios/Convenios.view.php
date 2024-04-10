@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,11 +28,15 @@
       <thead>
         <tr>
           <th>CODIGO</th>
-          <th>DESCRIPCION</th>
+          <!-- <th>CODIGO ESTUDIANTE</th>-->
+
+          <th>ESTUDIANTE</th>
+          <th>APELLIDOS</th>
+          <!-- <th>CODIGO CARRERA</th>-->
+          <th>CARRERA</th>
+          <th>CONVENIO</th>
           <th>VALOR TOTAL </th>
           <th>SALDO TOTAL</th>
-          <th>CODIGO CARRERA</th>
-          <th>CODIGO ESTUDIANTE</th>
           <th>ESTADO</th>
           <th>Edición</th>
           <th>+Infos</th>
@@ -74,6 +80,14 @@
               <input type="text" name="descripcion_convenio" id="descripcion_convenio" class="form-control">
               <br>
 
+              <label for="codigo_estudiante">codigo estudiante</label>
+              <input type="text" name="codigo_estudiante" id="codigo_estudiante" class="form-control">
+              <br>
+
+              <label for="codigo_In_servicio">codigo servicios</label>
+              <input type="text" name="codigo_In_servicio" id="codigo_In_servicio" class="form-control">
+              <br>
+
               <label for="valor_total_convenio">Valor total</label>
               <input type="number" name="valor_total_convenio" id="valor_total_convenio" class="form-control">
               <br>
@@ -82,13 +96,9 @@
               <input type="number" name="saldo_convenio" id="saldo_convenio" class="form-control">
               <br>
 
-              <label for="codigo_In_servicio">codigo servicios</label>
-              <input type="text" name="codigo_In_servicio" id="codigo_In_servicio" class="form-control">
-              <br>
 
-              <label for="codigo_estudiante">codigo estudiante</label>
-              <input type="text" name="codigo_estudiante" id="codigo_estudiante" class="form-control">
-              <br>
+
+
               <br>
               <!--<label for="codigo_carrera">carrera</label>
               <select name="codigo_carrera" id="codigo_carrera" class="form-control">
@@ -216,10 +226,11 @@
                     <table id="datos_pagos_estudiante" class="table table-bordered table-striped">
                       <thead>
                         <tr>
-                          <th>CODIGO</th>
+                          <th>CODIGO </th>
                           <th>FECHA</th>
                           <th>CUOTAS </th>
                           <th>SELECCIONAR</th>
+                          <?php include("./Convenios.util.php"); ?>
                         </tr>
                       </thead>
                   </div>
@@ -309,7 +320,28 @@
                 $("#action").val("crear").removeClass('btn-success').addClass('btn-primary');
                 $("#operacion").val("crear");
               });
-              
+
+              //dquery dataTable movimientos del estudiante
+             /* var dataTable = $('#datos_pagos_estudiante').DataTable({
+                language: {
+                  url: '//cdn.datatables.net/plug-ins/2.0.2/i18n/es-MX.json',
+                },
+                "processing": true,
+                "serverSide": true,
+                "order": [],
+                "ajax": {
+                  url: "Convenios.Table.php",
+                  type: "POST"
+                },
+                "columnDefs": [{
+                    "targets": "_all",
+                    "className": "text-center"
+                  },
+                  
+                ]
+
+              });*/
+              //query dataTable convenios
               var dataTable = $('#datos_convenios').DataTable({
                 language: {
                   url: '//cdn.datatables.net/plug-ins/2.0.2/i18n/es-MX.json',
@@ -326,7 +358,7 @@
                     "className": "text-center"
                   },
                   {
-                    "targets": 2, // Índice de la columna "valor total"
+                    "targets": [5, 6], // Índice de la columna "valor total"
                     "render": function(data, type, row) {
                       // Formato de moneda con el símbolo "$" y puntuación de miles
                       return '$' + parseFloat(data).toLocaleString('es-ES', {
@@ -340,7 +372,7 @@
                 ]
 
               });
-              
+
               /*$(document).ready(function() {
                 var dataTable = $('#datos_pagos_estudiantes').DataTable({
                   language: {
@@ -370,10 +402,12 @@
                 event.preventDefault();
                 var codigo_convenio = $("#codigo_convenio").val();
                 var descripcion_convenio = $("#descripcion_convenio").val();
+                var codigo_estudiante = $("#codigo_estudiante").val();
+                var codigo_In_servicio = $("#codigo_In_servicio").val();
                 var valor_total_convenio = $("#valor_total_convenio");
                 var saldo_convenio = $("#saldo_convenio").val();
-                var codigo_In_servicio = $("#codigo_In_servicio").val();
-                var codigo_estudiante = $("#codigo_estudiante").val();
+
+
                 var estado = $("#estado").val();
 
                 if (codigo_convenio != '' && descripcion_convenio != '' && valor_total_convenio != '' && codigo_estudiante != '') {
@@ -446,35 +480,11 @@
               });
 
 
-              
-            $(document).ready(function() {
-              var dataTable = $('#datos_pagos_estudiante').DataTable({
-                language:{ url: '//cdn.datatables.net/plug-ins/2.0.2/i18n/es-MX.json',},
-                "processing": true,
-                "serverSide":true,
-                "order":[[1, 'asc']],
-                "ajax":{
-                  url:"Convenios.Table.php",
-                  type:"POST"
-                },
-                "columnDefs":[{
-                    "targets": "_all",
-                    "className": "text-center"
-                  },
-                 {
-                    "targets": [4],
-                    "orderable": false,
-                  }
-                ]
 
-
-
-
-              })
-              $(document).on('click', '.info', function() {
+              /*$(document).on('click', '.info', function() {
                 var codigo_convenio = $(this).attr("id");
                 $.ajax({
-                  url: "Convenios.controller.php",
+                  url: "Convenios.Table.php",
                   method: "POST",
                   data: {
                     codigo_convenio: codigo_convenio,
@@ -485,7 +495,33 @@
                     $('#codigo_estudiante').text(data.codigo_estudiante);
                     $('#nombre_estudiante').text(data.nombre_estudiante);
                     $('#apellidos_estudiante').text(data.apellidos_estudiante);
-                    $('fecha_nacimiento_estudiante').text(data.fecha_nacimiento_estudiante);
+                    $('#fecha_nacimiento_estudiante').text(data.fecha_nacimiento_estudiante);
+
+                    // Inicializar DataTable dentro del modal
+                    var dataTable = $('#datos_pagos_estudiante').DataTable({
+                      language: {
+                        url: '//cdn.datatables.net/plug-ins/2.0.2/i18n/es-MX.json',
+                      },
+                      "processing": true,
+                      "serverSide": true,
+                      "order": [
+                        [1, 'asc']
+                      ],
+                      "ajax": {
+                        url: "Convenios.Table.php",
+                        type: "POST",
+                        
+                      },
+                      "columnDefs": [{
+                          "targets": "_all",
+                          "className": "text-center"
+                        },
+                        {
+                          "targets": [4],
+                          "orderable": false,
+                        }
+                      ]
+                    });
 
                     $('#modalInfoEstudiante').modal('show');
                   },
@@ -493,18 +529,13 @@
                     console.log(textStatus, errorThrown);
                   }
                 });
-              });
+              });*/
 
 
 
 
 
-
-            });
-
-
-
-              })
+            })
           </script>
 
 </body>

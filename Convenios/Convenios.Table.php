@@ -19,17 +19,73 @@ main($action, $conexion);
 
 function main($action, $conexion) {
     switch ($action) {
-        case 'buscar': // Corregido el nombre de la acción
-            buscar($conexion);
+        case 'obtener_datos_tabla': // Corregido el nombre de la acción
+            obtener_datos_tabla($conexion);
             break;
         default:
+        obtener_datos_tabla($conexion);
         
-        info_estudiante($conexion);
+       // info_estudiante($conexion);
             //echo json_encode(array('error' => 'Acción no válida'));
     }
 }
+function obtener_datos_tabla($conexion)
+{
+    $query = "";
+    $salida = array();
+    $query = "SELECT codigo_movimiento, fecha_movimiento, valor_movimiento FROM movimientos";
 
-function info_estudiante($conexion)
+   
+
+    $stmt = $conexion->prepare($query);
+
+    try {
+
+        $stmt->execute();
+        $resultado = $stmt->fetchAll();
+        $datos = array();
+        $filtered_rows = $stmt->rowCount();
+
+        $draw = isset($_POST['draw']) ? intval($_POST['draw']) : 0;
+        foreach ($resultado as $fila) {
+            $sub_array = array();
+            $sub_array[] = $fila["codigo_movimiento"];
+            $sub_array[] = $fila["fecha_movimiento"];
+            $sub_array[] = $fila["valor_movimiento"];
+           $sub_array[] = '<button type="button"  data-bs-toggle="modal" data-bs-target="#modalInfoEstudiante" name="info" id="' . $fila["codigo_movimiento"] . '" class="btn btn-info bi bi-person-square info"></button>';
+
+            $datos[] = $sub_array;
+        }
+        /*$stmt_carreras = $conexion->query("SELECT * FROM carreras");
+        $carreras = $stmt_carreras->fetchAll(PDO::FETCH_ASSOC);
+
+        $stmt_estudiantes = $conexion->query("SELECTs * FROM estudiantes");
+        $estudiantes = $stmt_estudiantes->fetchAll(PDO::FETCH_ASSOC);
+*/
+        $salida = array(
+            "draw" => $draw,
+            "recordsTotal" => $filtered_rows,
+            "recordsFiltered" => obtener_registros_estudiantes(),
+            "data" => $datos,
+           /* "carreras"=>$carreras,
+            "estudiantes"=>$estudiantes*/
+        );
+
+        echo json_encode($salida);
+    } catch (Exception $e) {
+        echo "Error en la consulta: " . $e->getMessage();
+    }
+}
+function obtener_registros_estudiantes(){
+    include('../conexion.php');
+    $stmt = $conexion->prepare('SELECT * FROM movimientos');
+    $stmt->execute();
+    $resultado = $stmt->fetch();
+    return $stmt->rowCount();
+
+
+}
+/*function info_estudiante($conexion)
 {
 
     $salida = array();
@@ -53,7 +109,7 @@ function info_estudiante($conexion)
         $salida["error"] = "Error en la ejecución de la consulta: " . $e->getMessage();
     }
     echo json_encode($salida);
-}
+}*/
 
 ?>
 
