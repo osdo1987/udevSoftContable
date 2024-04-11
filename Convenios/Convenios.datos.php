@@ -9,8 +9,12 @@ if ($conexion) {
         FROM estudiantes 
         INNER JOIN convenio ON estudiantes.codigo_estudiante = convenio.codigo_estudiante 
         WHERE convenio.codigo_convenio = 10 ";*/
-        $query = "SELECT estudiantes.codigo_estudiante, estudiantes.nombre_estudiante, estudiantes.apellidos_estudiante, estudiantes.fecha_nacimiento_estudiante 
-        FROM convenio INNER JOIN estudiantes ON convenio.codigo_estudiante = estudiantes.codigo_estudiante 
+        $query = "SELECT estudiantes.codigo_estudiante, estudiantes.nombre_estudiante, estudiantes.apellidos_estudiante, estudiantes.fecha_nacimiento_estudiante, servicios.codigo_servicio, servicios.descripcion_servicio
+        FROM convenio 
+        INNER JOIN estudiantes 
+        ON convenio.codigo_estudiante = estudiantes.codigo_estudiante 
+        INNER JOIN servicios
+        ON convenio.codigo_servicio = servicios.codigo_servicio 
         WHERE convenio.codigo_estudiante = 10";
 
 
@@ -58,6 +62,7 @@ mysqli_close($conexion);*/
             $nombre_est = $row['nombre_estudiante'];
             $apellidos_est = $row['apellidos_estudiante'];
             $fecha_naci_est = $row['fecha_nacimiento_estudiante'];
+            $carrera_est= $row['descripcion_servicio'];
            
         }
     } catch (PDOException $e) {

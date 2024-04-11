@@ -190,7 +190,7 @@
                 <div class="col-md-6">
                  
                   <label for="codigo_estudiant">Codigo estudiante</label>
-                  <input type="text" name="codigo_estudiant" id="codigo_estudiant" class="form-control" value="<?php echo $codigo_estudi ?>">
+                  <input type="text" name="codigo_estudiant" id="codigo_estudiant" class="form-control" value="<?php echo $codigo_estudi ?>" readonly>
 
                 </div>
                 <div class="col-md-6 text-end">
@@ -200,26 +200,26 @@
               <div class="row">
                 <div class="col-md-12">
                   <label for="nombre_estudiante">Nombre estudiante</label>
-                  <input type="text" name="nombre_estudiante" id="nombre_estudiante" class="form-control"value="<?php echo $nombre_est ?>">
+                  <input type="text" name="nombre_estudiante" id="nombre_estudiante" class="form-control"value="<?php echo $nombre_est ?>" readonly>
 
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-12">
                   <label for="apellidos_estudiante">Apellidos</label>
-                  <input type="text" name="apellidos_estudiante" id="apellidos_estudiante" class="form-control" value="<?php echo $apellidos_est ?>">
+                  <input type="text" name="apellidos_estudiante" id="apellidos_estudiante" class="form-control" value="<?php echo $apellidos_est ?>" readonly>
 
                 </div>
                 <div class="row">
                   <div class="col-md-12">
                     <label for="fecha_naci_estu">Fecha nacimiento</label>
-                    <input type="text" name="fehca_naci" id="fecha_naci_estu" class="form-control" value="<?php echo $fecha_naci_est ?>">
+                    <input type="text" name="fehca_naci" id="fecha_naci_estu" class="form-control" value="<?php echo $fecha_naci_est ?>" readonly>
 
                   </div>
                   <div class="row">
                     <div class="col-md-12">
                       <label for="carrera_estudiante">Carrera</label>
-                      <input type="text" name="carrera_estudiante" id="carrera_estudiante" class="form-control" >
+                      <input type="text" name="carrera_estudiante" id="carrera_estudiante" class="form-control" value="<?php echo $carrera_est ?>" readonly >
                       <br>
                     </div>
                   </div>
