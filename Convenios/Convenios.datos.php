@@ -1,7 +1,7 @@
 <?php 
 include("../conexion.php");
 
-
+// consulta de la info del estudiante y mostrados en los inputs listas y variables 
 if ($conexion) {
     try {
 

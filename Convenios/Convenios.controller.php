@@ -83,7 +83,7 @@ function editar($conexion) {
         echo "No se pudo actualizar el convenio";
     }
 }
-
+//datos de la tabla con ajax y DATATABLES tabla convenio
 function obtener_registros($conexion)
 {
     $query = "";

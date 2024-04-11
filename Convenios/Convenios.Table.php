@@ -33,6 +33,8 @@ function main($action, $conexion) {
             //echo json_encode(array('error' => 'Acción no válida'));
     }
 }
+
+//obtiene los datos para la tabla por ajax, no esta en uso ahora
 function obtener_datos_tabla($conexion)
 {
     $query = "";
@@ -81,7 +83,7 @@ function obtener_datos_tabla($conexion)
     }
 }
 
-
+//prepara la conexion con la consulta general
 function obtener_registros_estudiantes(){
     include('../conexion.php');
     $stmt = $conexion->prepare('SELECT * FROM movimientos');
@@ -91,7 +93,7 @@ function obtener_registros_estudiantes(){
 
 
 }
-
+//obtencion de un estidoante por medio del registro de convenio, creo que no esta funcional
 function obtener_estudiante($conexion)
 {
 
@@ -114,7 +116,7 @@ function obtener_estudiante($conexion)
     echo json_encode($salida);
 }
 
-/*function info_estudiante($conexion)
+/*function info_estudiante($conexion) sin funcionalidad
 {
 
     $salida = array();
