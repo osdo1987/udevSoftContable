@@ -1,4 +1,4 @@
-<?php include("./Convenios.datos.php");?>
+<?php include("./Convenios.datos.php"); ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -22,6 +22,14 @@
   <h1 class="text-center">CONVENIOS</h1>
 
   <br>
+  <div class="col-md-2">
+  <div class="text-end w-100">
+    <button type="button" class="btn btn-primary btn-block" data-bs-toggle="modal" data-bs-target="#modalCrearConvenio" id="botonCrear">
+      Crear
+    </button>
+  </div>
+</div>
+
   <br>
   <div class="table-responsive">
     <table id="datos_convenios" class="table table-bordered table-striped">
@@ -47,12 +55,10 @@
   </div>
   <div class="text-center">
 
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCrearConvenio" id="botonCrear">
-      Crear
-    </button>
-    <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalEditarConvenio" id="botonEditar">
+
+    <!--  <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalEditarConvenio" id="botonEditar">
       Editar
-    </button>
+    </button>-->
     <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalExcelConveni" id="botonExcel">
       Excel
     </button>
@@ -172,7 +178,7 @@
       </div>
     </div>
   </div>
-  
+
   <!-- Modal -->
   <div class="modal fade" id="modalInfoEstudiante" tabindex="-1" aria-labelledby="nuevoModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
     <div class="modal-dialog modal-dialog-scrollable modal-lg">
@@ -188,19 +194,19 @@
             <div class="modal-body">
               <div class="row w-100">
                 <div class="col-md-6">
-                 
+
                   <label for="codigo_estudiant">Codigo estudiante</label>
                   <input type="text" name="codigo_estudiant" id="codigo_estudiant" class="form-control" value="<?php echo $codigo_estudi ?>" readonly>
 
                 </div>
                 <div class="col-md-6 text-end">
-                  <img src="" alt="Imagen del estudiante" id="imagen" class="img-fluid">
+                  <img src="../img/467626012.png" alt="Imagen del estudiante" id="imagen" class="img-fluid" height="70%" width="70%">
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-12">
                   <label for="nombre_estudiante">Nombre estudiante</label>
-                  <input type="text" name="nombre_estudiante" id="nombre_estudiante" class="form-control"value="<?php echo $nombre_est ?>" readonly>
+                  <input type="text" name="nombre_estudiante" id="nombre_estudiante" class="form-control" value="<?php echo $nombre_est ?>" readonly>
 
                 </div>
               </div>
@@ -219,7 +225,7 @@
                   <div class="row">
                     <div class="col-md-12">
                       <label for="carrera_estudiante">Carrera</label>
-                      <input type="text" name="carrera_estudiante" id="carrera_estudiante" class="form-control" value="<?php echo $carrera_est ?>" readonly >
+                      <input type="text" name="carrera_estudiante" id="carrera_estudiante" class="form-control" value="<?php echo $carrera_est ?>" readonly>
                       <br>
                     </div>
                   </div>
@@ -327,25 +333,25 @@
               });
 
               //dquery dataTable movimientos del estudiante
-             /* var dataTable = $('#datos_pagos_estudiante').DataTable({
-                language: {
-                  url: '//cdn.datatables.net/plug-ins/2.0.2/i18n/es-MX.json',
-                },
-                "processing": true,
-                "serverSide": true,
-                "order": [],
-                "ajax": {
-                  url: "Convenios.Table.php",
-                  type: "POST"
-                },
-                "columnDefs": [{
-                    "targets": "_all",
-                    "className": "text-center"
-                  },
-                  
-                ]
+              /* var dataTable = $('#datos_pagos_estudiante').DataTable({
+                 language: {
+                   url: '//cdn.datatables.net/plug-ins/2.0.2/i18n/es-MX.json',
+                 },
+                 "processing": true,
+                 "serverSide": true,
+                 "order": [],
+                 "ajax": {
+                   url: "Convenios.Table.php",
+                   type: "POST"
+                 },
+                 "columnDefs": [{
+                     "targets": "_all",
+                     "className": "text-center"
+                   },
+                   
+                 ]
 
-              });*/
+               });*/
               //query dataTable convenios
               var dataTable = $('#datos_convenios').DataTable({
                 language: {
@@ -438,19 +444,19 @@
 
               });
 
-              $(document).on('click', '.info', function(){
-                var codigo_fk_estudiante=$(this).attr("id");
+              $(document).on('click', '.info', function() {
+                var codigo_fk_estudiante = $(this).attr("id");
                 $('#codigo_estudiante').val(codigo_fk_estudiante);
                 $.ajax({
-                  url:"Convenios.Table.php",
+                  url: "Convenios.Table.php",
                   method: "POST",
-                  data:{
-                    codigo_estudiante:codigo_fk_estudiante,
+                  data: {
+                    codigo_estudiante: codigo_fk_estudiante,
                     operacion: 'obtener_estudiante'
 
                   },
-                  dataType:"json",
-                  success: function(data){
+                  dataType: "json",
+                  success: function(data) {
 
                     $('#modalInfoEstudiante').modal('show');
                     $('#codigo_estudiant').val(data.codigo_estudiante);
@@ -462,7 +468,7 @@
                     $('#action').val('info');
                     $('#operacion').val("obtener_estudiante");
 
-                    
+
 
                   },
                   error: function(jqXHR, textStatus, errorThrown) {
@@ -472,8 +478,7 @@
 
 
                 })
-              }
-            )
+              })
 
               $(document).on('click', '.editar', function() {
                 //$("#botonEditar").click(function(){  
