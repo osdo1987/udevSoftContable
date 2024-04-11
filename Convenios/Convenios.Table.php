@@ -14,6 +14,7 @@ $stmt = $conexion->prepare('SELECT movimientos.codigo_movimiento, movimientos.fe
 
 // Manejo de la petición Ajax
 $action = isset($_GET['action']) ? $_GET['action'] : '';
+var_dump($action);
 
 main($action, $conexion);
 
@@ -21,6 +22,9 @@ function main($action, $conexion) {
     switch ($action) {
         case 'obtener_datos_tabla': // Corregido el nombre de la acción
             obtener_datos_tabla($conexion);
+            break;
+        case 'info':
+            obtener_estudiante($conexion);
             break;
         default:
         obtener_datos_tabla($conexion);
@@ -76,6 +80,8 @@ function obtener_datos_tabla($conexion)
         echo "Error en la consulta: " . $e->getMessage();
     }
 }
+
+
 function obtener_registros_estudiantes(){
     include('../conexion.php');
     $stmt = $conexion->prepare('SELECT * FROM movimientos');
@@ -85,6 +91,29 @@ function obtener_registros_estudiantes(){
 
 
 }
+
+function obtener_estudiante($conexion)
+{
+
+    $salida = array();
+
+    try {
+        $stmt = $conexion->prepare("SELECT codigo_estudiante, nombre_estudiante, apellidos_estudiante, fecha_nacimiento_estudiante FROM estudiantes WHERE codigo_estudiante = :codigo_estudiant LIMIT 1");
+        $stmt->bindParam(':codigo_estudiant', $_POST['codigo_estudiante'], PDO::PARAM_INT);
+        $stmt->execute();
+
+        if ($stmt->rowCount() > 0) {
+            $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+            $salida = $resultado;
+        } else {
+            $salida["error"] = "No se encontraron resultados";
+        }
+    } catch (PDOException $e) {
+        $salida["error"] = "Error en la ejecución de la consulta: " . $e->getMessage();
+    }
+    echo json_encode($salida);
+}
+
 /*function info_estudiante($conexion)
 {
 

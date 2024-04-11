@@ -1,4 +1,4 @@
-
+<?php include("./Convenios.datos.php");?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -172,6 +172,7 @@
       </div>
     </div>
   </div>
+  
   <!-- Modal -->
   <div class="modal fade" id="modalInfoEstudiante" tabindex="-1" aria-labelledby="nuevoModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
     <div class="modal-dialog modal-dialog-scrollable modal-lg">
@@ -187,8 +188,9 @@
             <div class="modal-body">
               <div class="row w-100">
                 <div class="col-md-6">
-                  <label for="codigo">Codigo</label>
-                  <input type="text" name="codigo" id="codigo" class="form-control">
+                 
+                  <label for="codigo_estudiant">Codigo estudiante</label>
+                  <input type="text" name="codigo_estudiant" id="codigo_estudiant" class="form-control" value="<?php echo $codigo_estudi ?>">
 
                 </div>
                 <div class="col-md-6 text-end">
@@ -197,27 +199,27 @@
               </div>
               <div class="row">
                 <div class="col-md-12">
-                  <label for="estudiante">Nombre estudiante</label>
-                  <input type="text" name="estudiante" id="estudiante" class="form-control">
+                  <label for="nombre_estudiante">Nombre estudiante</label>
+                  <input type="text" name="nombre_estudiante" id="nombre_estudiante" class="form-control"value="<?php echo $nombre_est ?>">
 
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-12">
-                  <label for="apellidos">Apellidos</label>
-                  <input type="text" name="apellidos" id="apellidos" class="form-control">
+                  <label for="apellidos_estudiante">Apellidos</label>
+                  <input type="text" name="apellidos_estudiante" id="apellidos_estudiante" class="form-control" value="<?php echo $apellidos_est ?>">
 
                 </div>
                 <div class="row">
                   <div class="col-md-12">
-                    <label for="fecha_naci">Fecha nacimiento</label>
-                    <input type="text" name="fehca_naci" id="fecha_naci" class="form-control">
+                    <label for="fecha_naci_estu">Fecha nacimiento</label>
+                    <input type="text" name="fehca_naci" id="fecha_naci_estu" class="form-control" value="<?php echo $fecha_naci_est ?>">
 
                   </div>
                   <div class="row">
                     <div class="col-md-12">
-                      <label for="carrera">Carrera</label>
-                      <input type="text" name="carrera" id="carrera" class="form-control">
+                      <label for="carrera_estudiante">Carrera</label>
+                      <input type="text" name="carrera_estudiante" id="carrera_estudiante" class="form-control" >
                       <br>
                     </div>
                   </div>
@@ -241,10 +243,13 @@
                 <div class="modal-footer">
                   <button type="button" class="btn btn-primary" id="btn-pagar" data-bs-toggle="modal" data-bs-target="#modalExcelConvenio">Pagar</button>
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                  <input type="hidden" name="codigo_estudiante" id="codigo_estudiante">
+
                 </div>
               </div>
             </div>
           </div>
+
           <!-- Modal Confirmar Pago Convenio -->
           <div class="modal fade" id="modalExcelConvenio" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -432,6 +437,43 @@
                 }
 
               });
+
+              $(document).on('click', '.info', function(){
+                var codigo_fk_estudiante=$(this).attr("id");
+                $('#codigo_estudiante').val(codigo_fk_estudiante);
+                $.ajax({
+                  url:"Convenios.Table.php",
+                  method: "POST",
+                  data:{
+                    codigo_estudiante:codigo_fk_estudiante,
+                    operacion: 'obtener_estudiante'
+
+                  },
+                  dataType:"json",
+                  success: function(data){
+
+                    $('#modalInfoEstudiante').modal('show');
+                    $('#codigo_estudiant').val(data.codigo_estudiante);
+                    $('#apellidos_estudiante').val(data.apellidos_estudiante);
+                    $('#fecha_estudiante').val(data.fecha_nacimiento_estudiante);
+
+                    $('#modal-title').text('Informacion del estudiante');
+                    $('#id_estudiante').val(codigo_fk_estudiante);
+                    $('#action').val('info');
+                    $('#operacion').val("obtener_estudiante");
+
+                    
+
+                  },
+                  error: function(jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus, errorThrown);
+                  }
+
+
+
+                })
+              }
+            )
 
               $(document).on('click', '.editar', function() {
                 //$("#botonEditar").click(function(){  
