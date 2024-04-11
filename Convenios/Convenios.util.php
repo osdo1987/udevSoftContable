@@ -19,7 +19,7 @@ if($conexion){
             echo "<td>$codigo</td>";
             echo "<td>$fecha</td>";
             echo "<td>$cuotas</td>";
-            echo "<td><!-- Aquí puedes colocar el botón o enlace de selección --></td>";
+            echo '<td class="text-center"><input type="checkbox" class="form-check-input"></td>';
             echo "</tr>";
 
         }
