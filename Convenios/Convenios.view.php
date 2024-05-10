@@ -110,26 +110,7 @@
 
 
               <br>
-              <!--<label for="codigo_carrera">carrera</label>
-              <select name="codigo_carrera" id="codigo_carrera" class="form-control">
-                <option value="">Seleccione una opciones</option>
-                <?php //foreach ($carreras as $carrera):
-                ?>
-              
-                <option value="<?php // echo $carrera['codigo_carrera'];
-                                ?>"><?php //echo $carrera['descripcion_carrera']; 
-                                    ?></option>
-                //<?php //endforeach;
-                  ?>
-              </select>
-              <br>
-              <label for="codigo_estudiante">Estado</label>
-              <select name="codigo_estudiante" id="codigo_estudiante" class="form-control">
-                <option value="">Seleccione una opciones</option>
-                <option value=""></option>
-                <option value=""></option>
-              </select>
-              <br>-->
+             
 
               <label for="estado">Estado</label>
               <select name="estado" id="estado" class="form-control">
@@ -138,35 +119,7 @@
                 <option value="Inactivo">Inactivo</option>
               </select>
               <br>
-              <!-- <div class="row">
-                <div class="col">
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="estado" id="estado" checked disabled>
-                  <label class="form-check-label" for="estado" value="Activo">
-                    activo
-                  </label>
-                  </div>
-                </div>
-                <div class="col"> 
-                  <div class="form-check">
-                  <input class="form-check-input" type="radio" name="estado" id="estado" disabled>
-                  <label class="form-check-label" for="estado" value="Inactivo">
-                    inactivo
-                  </label>
-                </div>
-              </div>
-              </div>
-
-              
-                <div class="offset-md-4 col-md-8">
-                  <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
-                    <label class="form-check-label" for="flexSwitchCheckChecked">Inactivo/Activo</label>
-                  </div>
-                </div>-->
-
-
-
+             
 
 
 
@@ -341,26 +294,7 @@
             $("#operacion").val("crear");
           });
 
-          //dquery dataTable movimientos del estudiante funcional
-          /* var dataTable = $('#datos_pagos_estudiante').DataTable({
-             language: {
-               url: '//cdn.datatables.net/plug-ins/2.0.2/i18n/es-MX.json',
-             },
-             "processing": true,
-             "serverSide": true,
-             "order": [],
-             "ajax": {
-               url: "Convenios.Table.php",
-               type: "POST"
-             },
-             "columnDefs": [{
-                 "targets": "_all",
-                 "className": "text-center"
-               },
-               
-             ]
-
-           });*/
+    
           //query dataTable convenios
           var dataTable = $('#datos_convenios').DataTable({
             language: {
@@ -392,30 +326,6 @@
             ]
 
           });
-
-          /*$(document).ready(function() {
-            var dataTable = $('#datos_pagos_estudiantes').DataTable({
-              language: {
-                url: '//cdn.datatables.net/plug-ins/2.0.2/i18n/es-MX.json',
-              },
-              "processing": true,
-              "serverSide": true,
-              "order": [],
-              "ajax": {
-                url: "Convenios.table.php?action=info:estudiante",
-                dataSrc:""
-              },
-              "columns": [
-                {
-                "data":"codigo_movimiento"},
-                {"data":"fecha_movimiento"},
-               {"data":"valor_movimiento"}
-              ]
-            });
-          });*/
-
-
-
 
 
           $(document).on('submit', '#formulario', function(event) {
@@ -452,55 +362,6 @@
             }
 
           });
-
-          /*$(document).on('click', '.info', function() {
-            var codigo_fk_estudiante = $(this).attr("id");
-            $('#codigo_estudiante').val(codigo_fk_estudiante);
-            $.ajax({
-              url: "Convenios.Table.php",
-              method: "POST",
-              data: {
-                codigo_estudiante: codigo_fk_estudiante,
-                operacion: 'obtener_estudiante'
-
-              },
-              dataType: "json",
-              success: function(data) {
-
-                $('#modalInfoEstudiante').modal('show');
-                $('#codigo_estudiant').val(data.codigo_estudiante);
-                $('#apellidos_estudiante').val(data.apellidos_estudiante);
-                $('#fecha_estudiante').val(data.fecha_nacimiento_estudiante);
-
-                $('#modal-title').text('Informacion del estudiante');
-                $('#id_estudiante').val(codigo_fk_estudiante);
-                $('#action').val('info');
-                $('#operacion').val("obtener_estudiante");
-
-
-
-              },
-              error: function(jqXHR, textStatus, errorThrown) {
-                console.log(textStatus, errorThrown);
-              }
-
-
-
-            })
-          })*/
-
-          //CONSULTA AJAX DE TABLA DATOS PAGOS ESTUDIANTE
-         /* $(document).on('click', '.info', function() {
-        var codigo_convenio = $(this).attr('id');
-        $.ajax({
-            url: 'Convenios.util.php',
-            method: 'POST',
-            data: { codigo_convenio: codigo_convenio },
-            success: function(response) {
-                $('#datos_pagos_estudiante').html(response);
-            }
-        });
-    });*/
 
           $(document).on('click', '.editar', function() {
             //$("#botonEditar").click(function(){  
@@ -550,57 +411,7 @@
 
 
 
-          /*$(document).on('click', '.info', function() {
-            var codigo_convenio = $(this).attr("id");
-            $.ajax({
-              url: "Convenios.Table.php",
-              method: "POST",
-              data: {
-                codigo_convenio: codigo_convenio,
-                operacion: 'obtener_info_estudiante'
-              },
-              dataType: "json",
-              success: function(data) {
-                $('#codigo_estudiante').text(data.codigo_estudiante);
-                $('#nombre_estudiante').text(data.nombre_estudiante);
-                $('#apellidos_estudiante').text(data.apellidos_estudiante);
-                $('#fecha_nacimiento_estudiante').text(data.fecha_nacimiento_estudiante);
-
-                // Inicializar DataTable dentro del modal
-                var dataTable = $('#datos_pagos_estudiante').DataTable({
-                  language: {
-                    url: '//cdn.datatables.net/plug-ins/2.0.2/i18n/es-MX.json',
-                  },
-                  "processing": true,
-                  "serverSide": true,
-                  "order": [
-                    [1, 'asc']
-                  ],
-                  "ajax": {
-                    url: "Convenios.Table.php",
-                    type: "POST",
-                    
-                  },
-                  "columnDefs": [{
-                      "targets": "_all",
-                      "className": "text-center"
-                    },
-                    {
-                      "targets": [4],
-                      "orderable": false,
-                    }
-                  ]
-                });
-
-                $('#modalInfoEstudiante').modal('show');
-              },
-              error: function(jqXHR, textStatus, errorThrown) {
-                console.log(textStatus, errorThrown);
-              }
-            });
-          });*/
-
-
+         
 
 
 

@@ -4,14 +4,6 @@ include("../conexion.php");
 
 
 
-/*main($action, $conexion);
-
-$stmt = $conexion->prepare('SELECT movimientos.codigo_movimiento, movimientos.fecha_movimiento, movimientos.valor_movimiento
-    FROM convenio INNER JOIN movimientos ON convenio.codigo_estudiante=movimientos.codigo_fk_estudiante');
-    $stmt->execute();
-    $resultado = $stmt->fetch();
-    return $stmt->rowCount();*/
-
 // Manejo de la petición Ajax
 $action = isset($_GET['action']) ? $_GET['action'] : '';
 var_dump($action);
@@ -62,12 +54,7 @@ function obtener_datos_tabla($conexion)
 
             $datos[] = $sub_array;
         }
-        /*$stmt_carreras = $conexion->query("SELECT * FROM carreras");
-        $carreras = $stmt_carreras->fetchAll(PDO::FETCH_ASSOC);
 
-        $stmt_estudiantes = $conexion->query("SELECTs * FROM estudiantes");
-        $estudiantes = $stmt_estudiantes->fetchAll(PDO::FETCH_ASSOC);
-*/
         $salida = array(
             "draw" => $draw,
             "recordsTotal" => $filtered_rows,
@@ -116,31 +103,7 @@ function obtener_estudiante($conexion)
     echo json_encode($salida);
 }
 
-/*function info_estudiante($conexion) sin funcionalidad
-{
 
-    $salida = array();
-
-    try {
-        $stmt = $conexion->prepare("SELECT movimientos.codigo_movimiento, movimientos.fecha_movimiento, movimientos.valor_movimiento
-        FROM movimientos
-        WHERE movimientos.codigo_fk_estudiante = :codigo_estudiante");
-        $stmt->bindParam(':codigo_estudiante', $_POST['codigo_estudiante'], PDO::PARAM_INT);
-
-       // $stmt->bindParam(':codigo_convenio', $_POST['codigo_convenio'], PDO::PARAM_INT);
-        $stmt->execute();
-
-        if ($stmt->rowCount() > 0) {
-            $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
-            $salida = $resultado;
-        } else {
-            $salida["error"] = "No se encontraron resultados";
-        }
-    } catch (PDOException $e) {
-        $salida["error"] = "Error en la ejecución de la consulta: " . $e->getMessage();
-    }
-    echo json_encode($salida);
-}*/
 
 ?>
 
