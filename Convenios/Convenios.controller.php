@@ -89,8 +89,14 @@ function obtener_registros($conexion)
     $query = "";
     $salida = array();
     $query = "SELECT convenio.codigo_convenio, convenio.codigo_estudiante, estudiantes.nombre_estudiante, estudiantes.apellidos_estudiante, convenio.codigo_servicio, servicios.descripcion_servicio, 
-    convenio.descripcion_convenio, convenio.valor_total_convenio, convenio.saldo_convenio, convenio.estado 
-    FROM convenio INNER JOIN estudiantes ON convenio.codigo_estudiante = estudiantes.codigo_estudiante INNER JOIN servicios ON convenio.codigo_servicio = servicios.codigo_servicio;";
+    convenio.descripcion_convenio, tipo_convenio.codigo_tipo_convenio, tipo_convenio.valor_descuento, convenio.valor_total_convenio, convenio.saldo_convenio, convenio.estado 
+    FROM convenio 
+    INNER JOIN estudiantes 
+    ON convenio.codigo_estudiante = estudiantes.codigo_estudiante 
+    LEFT JOIN tipo_convenio
+    ON convenio.tipo_fk_convenio = tipo_convenio.codigo_tipo_convenio
+    INNER JOIN servicios 
+    ON convenio.codigo_servicio = servicios.codigo_servicio;";
 
     if (isset($_POST["search"]["value"])) {
         $query .= ' WHERE descripcion_convenio LIKE "%' . $_POST["search"]["value"] . '%" ';
@@ -125,7 +131,7 @@ function obtener_registros($conexion)
             //$sub_array[] = $fila["codigo_servicio"];
             $sub_array[] = $fila["descripcion_servicio"];
             $sub_array[] = $fila["descripcion_convenio"];
-            $sub_array[] = "hola";
+            $sub_array[] = $fila["valor_descuento"];
             $sub_array[] = $fila["valor_total_convenio"];
             $sub_array[] = $fila["saldo_convenio"];
             $sub_array[] = $fila["estado"];
