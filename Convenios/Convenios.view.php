@@ -46,6 +46,7 @@
           <!-- <th>CODIGO CARRERA</th>-->
           <th>CARRERA</th>
           <th>CONVENIO</th>
+          <th>VALOR DESCUENTO</th>
           <th>VALOR TOTAL </th>
           <th>SALDO TOTAL</th>
           <th>ESTADO</th>
@@ -377,7 +378,7 @@
                 "className": "text-center"
               },
               {
-                "targets": [5, 6], // Índice de la columna "valor total"
+                "targets": [6, 7], // Índice de la columna "valor total"
                 "render": function(data, type, row) {
                   // Formato de moneda con el símbolo "$" y puntuación de miles
                   return '$' + parseFloat(data).toLocaleString('es-ES', {
@@ -385,7 +386,7 @@
                   });
                 }
               }, {
-                "targets": [4, 5],
+                "targets": [3, 4],
                 "orderable": false,
               }
             ]

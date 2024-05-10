@@ -125,6 +125,7 @@ function obtener_registros($conexion)
             //$sub_array[] = $fila["codigo_servicio"];
             $sub_array[] = $fila["descripcion_servicio"];
             $sub_array[] = $fila["descripcion_convenio"];
+            $sub_array[] = "hola";
             $sub_array[] = $fila["valor_total_convenio"];
             $sub_array[] = $fila["saldo_convenio"];
             $sub_array[] = $fila["estado"];
