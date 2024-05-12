@@ -69,6 +69,7 @@ function Editar($conexion)
     $resultado = $stmt->execute(
         array(
 
+            
             ':descripcion_carrera'  => $_POST["descripcion_carrera"],
             ':valor_total_carrera'  => $_POST["valor_total_carrera"],
             ':estado'  => $_POST["estado"],

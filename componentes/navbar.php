@@ -38,16 +38,20 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="#">Inicio </a>
+        <a class="nav-link" href="../dashboard/dashboard.php">Inicio </a>
       </li>
-      <li class="nav-item">
+     <!-- <li class="nav-item">
         <a class="nav-link" href="../carreras/carreras.view.php">Carreras</a>
-      </li>
+      </li>-->
+      
       <li class="nav-item">
         <a class="nav-link" href="../estudiantes/estudiantes.view.php">Estudiantes</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="../servicios/servicios.view.php">Servicios</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="../Convenios/Convenios.view.php">Convenios</a>
       </li>
     </ul>
   </div>

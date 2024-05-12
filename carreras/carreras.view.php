@@ -22,7 +22,7 @@
   ?>
 
   <h1 class="text-center">CARRERAS</h1>
-  <div class="container fondo">
+  <div >
 
     <div class="row">
       <div class="col-2 offset-10">
@@ -63,14 +63,14 @@
 
 
                 <label for="codigo_carrera">Codigo</label>
-                <input type="number" name="codigo_carrera" id="codigo_carrera" class="form-control">
+                <input type="number" name="codigo_In_servicio" id="codigo_In_servicio" class="form-control">
                 <br>
 
                 <label for="descripcion_carrera">Ingrese la descripción</label>
-                <input type="text" name="descripcion_carrera" id="descripcion_carrera" class="form-control">
+                <input type="text" name="descripcion_servicio" id="descripcion_servicio" class="form-control">
                 <br>
                 <label for="valor_total_carrera">Ingrese el valor total</label>
-                <input type="number" name="valor_total_carrera" id="valor_total_carrera" class="form-control">
+                <input type="number" name="valor_total_servicio" id="valor_total_servicio" class="form-control">
                 <br>
 
                 <label for="estado">Ingrese el estado</label>
@@ -80,17 +80,17 @@
                 </select>
               </div>
               <div class="modal-footer">
-                <input type="hidden" name="id_carrera" id="id_carrera">
+                <input type="hidden" name="id_servicio" id="id_servicio">
                 <input type="hidden" method="POST" name="operacion" id="operacion">
 
                 <!-- Este es un comentario<input type="submit" name="action" id="action" class="btn btn-primary" value="crear"   >
                 <i class="bi bi-journal-plus" > </i> -->
-                <button type="button" name="cancelar" id="cancelar" class="btn btn-secondary" data-bs-dismiss="modal">
-                  <i class="bi bi-x-circle"> </i>
+                <button type="button" name="cancelar" id="cancelar" class="btn btn-secondary" data-bs-dismiss="modal" > Cancelar
+                 
                 </button>
-                <button type="submit" name="action" id="action" class="btn btn-primary " value="ingresar">
+                <button type="submit" name="action" id="action" class="btn btn-primary" value="ingresar" >Crear
 
-                  <i class="bi bi-plus-circle-fill"> </i>
+                  
 
                 </button>
 
@@ -119,7 +119,7 @@
     $(document).ready(function() {
       $("#botonCrear").click(function() {
         $("#formulario")[0].reset();
-        $(".modal-title").text("crear carrera");
+        $(".modal-title").text("crear servicio");
         $("#action").val("crear");
         $("#operacion").val("crear");
       });
@@ -158,9 +158,9 @@
         event.preventDefault();
         //var formData= new FormData(this);
         //formData.append('operacion', $("#operacion").val());
-        var codigo_carrera = $("#codigo_carrera").val();
-        var descripcion_carrera = $("#descripcion_carrera").val();
-        var valor_total_carrera = $("#valor_total_carrera").val();
+        var codigo_In_servicio = $("#codigo_servicio").val();
+        var descripcion_servicio = $("#descripcion_servicio").val();
+        var valor_total_servicio = $("#valor_total_carrera").val();
         var estado = $("#estado").val();
 
         if (descripcion_carrera != '' && valor_total_carrera != '' && estado != '') {
@@ -199,6 +199,7 @@
           success: function(data) {
 
             $('#modalCarrera').modal('show');
+            $('#codigo_carrera').val(data.codigo_carrera);
             $('#descripcion_carrera').val(data.descripcion_carrera);
             $('#valor_total_carrera').val(data.valor_total_carrera);
             $('#estado').val(data.estado);
