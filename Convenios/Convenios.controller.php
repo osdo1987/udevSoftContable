@@ -1,7 +1,6 @@
-
 <?php
 
-include("../conexion.php");
+include ("../conexion.php");
 
 @$action = $_POST["operacion"];
 
@@ -23,13 +22,13 @@ function main($action, $conexion)
             obtener_registro($conexion);
             break;
         case 'obtener_registrooos':
-                obtener_registrooos($conexion);
-                break; 
+            obtener_registrooos($conexion);
+            break;
         case 'obtener_pagos_estudiantes':
             obtener_pagos_estudiantes($conexion);
-                    break;
-            
-      
+            break;
+
+
         default:
             obtener_registros($conexion);
             break;
@@ -40,7 +39,8 @@ function main($action, $conexion)
 
 
 
-function crear($conexion){
+function crear($conexion)
+{
 
     $stmt = $conexion->prepare("INSERT INTO convenio(codigo_convenio, descripcion_convenio, valor_total_convenio, saldo_convenio, codigo_servicio, codigo_estudiante, estado) VALUES(:codigo_convenio, :descripcion_convenio, :valor_total_convenio, :saldo_convenio, :codigo_servicio, :codigo_estudiante, :estado)");
 
@@ -64,7 +64,8 @@ function crear($conexion){
 
 
 }
-function editar($conexion) {
+function editar($conexion)
+{
     $stmt = $conexion->prepare("UPDATE convenio SET descripcion_convenio=:descripcion_convenio, valor_total_convenio=:valor_total_convenio, saldo_convenio=:saldo_convenio, codigo_servicio=:codigo_servicio, codigo_estudiante=:codigo_estudiante, estado=:estado WHERE codigo_convenio=:codigo_convenio");
 
     $stmt->bindParam(':descripcion_convenio', $_POST["descripcion_convenio"]);
@@ -136,8 +137,8 @@ function obtener_registros($conexion)
             $sub_array[] = $fila["saldo_convenio"];
             $sub_array[] = $fila["estado"];
 
-           $sub_array[] = '<button type="button" data-bs-toggle="modal" data-bs-target="#modalCrearConvenio" name="editar" id="' . $fila["codigo_convenio"] . '" class="btn btn-success bi bi-pencil-square editar"></button>';
-           $sub_array[] = '<button type="button"  data-bs-toggle="modal" data-bs-target="#modalInfoEstudiante" name="info" id="' . $fila["codigo_convenio"] . '" class="btn btn-info bi bi-person-square info"></button>';
+            $sub_array[] = '<button type="button" data-bs-toggle="modal" data-bs-target="#modalCrearConvenio" name="editar" id="' . $fila["codigo_convenio"] . '" class="btn btn-success bi bi-pencil-square editar"></button>';
+            $sub_array[] = '<button type="button"  data-bs-toggle="modal" data-bs-target="#modalInfoEstudiante" name="info" id="' . $fila["codigo_convenio"] . '" class="btn btn-info bi bi-person-square info"></button>';
 
             $datos[] = $sub_array;
         }
@@ -152,8 +153,8 @@ function obtener_registros($conexion)
             "recordsTotal" => $filtered_rows,
             "recordsFiltered" => obtener_todos_registros(),
             "data" => $datos,
-           /* "carreras"=>$carreras,
-            "estudiantes"=>$estudiantes*/
+            /* "carreras"=>$carreras,
+             "estudiantes"=>$estudiantes*/
         );
 
         echo json_encode($salida);
@@ -189,15 +190,16 @@ function obtener_registro($conexion)
 
 function obtener_todos_registros()
 {
-    include('../conexion.php');
+    include ('../conexion.php');
     $stmt = $conexion->prepare('SELECT * FROM convenio');
     $stmt->execute();
     $resultado = $stmt->fetch();
     return $stmt->rowCount();
 }
 
-function obtener_registros_estudiantes(){
-    include('../conexion.php');
+function obtener_registros_estudiantes()
+{
+    include ('../conexion.php');
     $stmt = $conexion->prepare('SELECT movimientos.codigo_movimiento, movimientos.fecha_movimiento, movimientos.valor_movimiento
     FROM convenio INNER JOIN movimientos ON convenio.codigo_estudiante=movimientos.codigo_fk_estudiante');
     $stmt->execute();
@@ -242,7 +244,7 @@ function obtener_pagos_estudiantes($conexion)
             $sub_array[] = $fila["fecha_movimiento"];
             $sub_array[] = $fila["valor_moviento"];
             $sub_array[] = '<button type="button" data-bs-toggle="modal" data-bs-target="#modalInfoEstudiante" name="editar" id="' . $fila["codigo_movimiento"] . '" class="btn btn-success bi bi-pencil-square editar"></button>';
-            
+
             $datos[] = $sub_array;
         }
         /*$stmt_carreras = $conexion->query("SELECT * FROM carreras");
@@ -254,10 +256,10 @@ function obtener_pagos_estudiantes($conexion)
         $salida = array(
             "draw" => $draw,
             "recordsTotal" => $filtered_rows,
-            "recordsFiltered" =>obtener_registros_estudiantes(),
+            "recordsFiltered" => obtener_registros_estudiantes(),
             "data" => $datos,
-           /* "carreras"=>$carreras,
-            "estudiantes"=>$estudiantes*/
+            /* "carreras"=>$carreras,
+             "estudiantes"=>$estudiantes*/
         );
 
         echo json_encode($salida);
