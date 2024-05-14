@@ -232,34 +232,41 @@
       </div>
 
       <!-- Modal Confirmar Pago Convenio -->
-      <div class="modal fade" id="modalExcelConvenio" tabindex="-1" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModalLabel">NUEVO PAGO</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
+<div class="modal fade" id="modalExcelConvenio" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<h1 class="modal-title fs-5" id="exampleModalLabel">NUEVO PAGO</h1>
+<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
 
-            <div class="modal-content">
-              <div class="modal-body">
-                <label for="valor_pagar">Valor a pagar</label>
-                <input type="number" name="valor_pagar" id="valor_pagar" class="form-control">
-                <br>
-              </div>
-            </div>
+<div class="modal-content">
+<div class="modal-body">
+<label for="fecha_movimiento">Fecha</label>
+<input type="date" name="fecha_movimiento" id="fecha_movimiento" class="form-control">
+<br>
 
-            <form method="POST" id="formulario" enctype="multipart/form-data">
-              <div class="modal-content">
-                <div class="modal-body">
-                  <div class="modal-footer">
-                    <input type="submit" name="action" id="action" class="btn btn-success" value="Pagar">
-                  </div>
-                </div>
-            </form>
-          </div>
-        </div>
-      </div>
+<label for="valor_movimiento">Valor</label>
+<input type="number" name="valor_movimiento" id="valor_movimiento" class="form-control">
+<br>
+
+<label for="descripcion_movimiento">Descripción</label>
+<input type="text" name="descripcion_movimiento" id="descripcion_movimiento" class="form-control">
+<br>
+</div>
+</div>
+
+<form method="POST" id="formularioPago" name="formularioPAg" enctype="multipart/form-data">
+<div class="modal-content">
+<div class="modal-body">
+<div class="modal-footer">
+<input type="submit" name="action" id="action" class="btn btn-success" value="Pagar">
+</div>
+</div>
+</form>
+</div>
+</div>
+</div>
 
 
       <!-- jQuery -->
@@ -389,19 +396,44 @@
               error: function (jqXHR, textStatus, errorThrown) {
                 console.log(textStatus, errorThrown);
               }
-
-
-
-
-
             });
-
-
-
           });
-
-
         })
+      </script>
+
+      <script type="text/javascript">
+        $(document).ready(function () {
+        $("#btn-pagar").click(function () {
+        $("#formularioPago")[0].reset();
+        $(".modal-title").text("Nuevo Pago");
+        $("#action").val("pagar").removeClass('btn-primary').addClass('btn-success');
+        });
+
+        $(document).on('submit', '#formularioPago', function(event) {
+  event.preventDefault(); // Evita que el formulario se envíe de forma tradicional
+  var fecha_movimiento = $("#fecha_movimiento").val();
+  var valor_movimiento = $("#valor_movimiento").val();
+  var descripcion_movimiento = $("#descripcion_movimiento").val();
+
+  $.ajax({
+    url: "movimientos.controller.php",
+    method: "POST",
+    data: {
+      fecha_movimiento: fecha_movimiento,
+      valor_movimiento: valor_movimiento,
+      descripcion_movimiento: descripcion_movimiento,
+      codigo_fk_estudiante: 10,
+      codigo_servicio: 9
+    },
+    success: function(data) {
+      alert("Pago registrado exitosamente");
+      $('#modalExcelConvenio').modal('hide');
+    },
+    error: function(jqXHR, textStatus, errorThrown) {
+      console.log(textStatus, errorThrown);
+    }
+  });
+}); 
       </script>
 
 </body>
