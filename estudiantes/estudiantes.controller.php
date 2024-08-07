@@ -1,6 +1,6 @@
 <?php
 
-include("../conexion.php");
+include ("../conexion.php");
 //include("funciones.php");
 
 @$action = $_POST["operacion"];
@@ -114,52 +114,45 @@ function borrar($conexion)
     }
 }
 
+
 function obtener_registros($conexion)
 {
-
-    $query = "";
-    $salida = array();
-    $query = "SELECT * FROM estudiantes ";
-
+    $query = "SELECT * FROM estudiantes WHERE estado = 'Activo' ";
 
     if (isset($_POST["search"]["value"])) {
-
-        $query .= 'WHERE nombre_estudiante LIKE "%' . $_POST["search"]["value"] . '%" ';
-        $query .= ' OR apellidos_estudiante LIKE "%' . $_POST["search"]["value"] . '%" ';
-
+        $query .= 'AND (nombre_estudiante LIKE :search OR apellidos_estudiante LIKE :search) ';
     }
+
     if (isset($_POST["order"])) {
-
-        $query .= 'ORDER BY ' . $_POST['order']['0']['column'] . ' ' .
-            $_POST["order"][0]['dir'] . ' ';
-
+        $query .= 'ORDER BY ' . intval($_POST['order']['0']['column']) . ' ' . $_POST["order"][0]['dir'] . ' ';
     } else {
         $query .= 'ORDER BY codigo_estudiante DESC ';
     }
 
     if (isset($_POST["length"]) && isset($_POST["start"])) {
-        $query .= 'LIMIT ' . $_POST["start"] . ', ' . $_POST["length"];
+        $query .= 'LIMIT :start, :length';
     }
 
     $stmt = $conexion->prepare($query);
 
+    if (isset($_POST["search"]["value"])) {
+        $search = "%" . $_POST["search"]["value"] . "%";
+        $stmt->bindParam(':search', $search, PDO::PARAM_STR);
+    }
+    if (isset($_POST["length"]) && isset($_POST["start"])) {
+        $stmt->bindParam(':start', $_POST["start"], PDO::PARAM_INT);
+        $stmt->bindParam(':length', $_POST["length"], PDO::PARAM_INT);
+    }
+
     try {
-
-
-
         $stmt->execute();
-        $resultado = $stmt->fetchAll();
+        $resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $datos = array();
         $filtered_rows = $stmt->rowCount();
-
         $draw = isset($_POST['draw']) ? intval($_POST['draw']) : 0;
+
         foreach ($resultado as $fila) {
-            $imagen = '';
-            if ($fila["imagen"] != '') {
-                $imagen = '<img src="../img/' . $fila["imagen"] . '"  class="img-thumbnail" width="50" height="35" />';
-            } else {
-                $imagen = '';
-            }
+            $imagen = $fila["imagen"] != '' ? '<img src="../img/' . $fila["imagen"] . '" class="img-thumbnail" width="50" height="35" />' : '';
 
             $sub_array = array();
             $sub_array[] = $fila["codigo_estudiante"];
@@ -168,17 +161,14 @@ function obtener_registros($conexion)
             $sub_array[] = $fila["fecha_nacimiento_estudiante"];
             $sub_array[] = $imagen;
             $sub_array[] = $fila["estado"];
-
-            $sub_array[] = '<button type="button" data-bs-toggle="modal" data-bs-target="#modalUsuario" name="editar" id="' . $fila["codigo_estudiante"] . '"  class="btn btn-success bi bi-pencil-square editar"></button>';
-            //$sub_array[] = '<button type="button" name="borrar" id="' . $fila["codigo_estudiante"] . '"  class="btn btn-danger bi bi-trash borrar"></button>';
+            $sub_array[] = '<button type="button" data-bs-toggle="modal" data-bs-target="#modalUsuario" name="editar" id="' . $fila["codigo_estudiante"] . '" class="btn btn-success bi bi-pencil-square editar"></button>';
             $datos[] = $sub_array;
-
         }
 
         $salida = array(
             "draw" => $draw,
             "recordsTotal" => $filtered_rows,
-            "recordsFiltered" => obtener_todos_registros(),
+            "recordsFiltered" => obtener_todos_registros($conexion),
             "data" => $datos
         );
 
@@ -189,46 +179,44 @@ function obtener_registros($conexion)
     }
 }
 
-
-
-
 function obtener_registro($conexion)
 {
-
     if (isset($_POST["codigo_estudiante"])) {
+        $stmt = $conexion->prepare("SELECT * FROM estudiantes WHERE codigo_estudiante = :codigo_estudiante LIMIT 1");
+        $stmt->bindParam(':codigo_estudiante', $_POST["codigo_estudiante"], PDO::PARAM_INT);
 
-        $salida = array();
-        $stmt = $conexion->prepare("SELECT * FROM estudiantes WHERE codigo_estudiante = '" . $_POST["codigo_estudiante"] . "' LIMIT 1");
-        $stmt->execute();
-        $resultado = $stmt->fetchAll();
-        foreach ($resultado as $fila) {
-            $salida["nombre_estudiante"] = $fila["nombre_estudiante"];
-            $salida["apellidos_estudiante"] = $fila["apellidos_estudiante"];
-            $salida["fecha_nacimiento_estudiante"] = $fila["fecha_nacimiento_estudiante"];
-            if ($fila["imagen"] != "") {
-                $salida["imagen_estudiante"] = '<../img src="img/' . $fila["imagen"]
-                    . '"  class="img-thumbnail" width="100" height="" /><input type="hiden" name="imagen_estudiante_oculta" value="' . $fila["imagen"] . '"/>';
+        try {
+            $stmt->execute();
+            $resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $salida = array();
 
-            } else {
-                $salida["imagen_estudiante"] = '<input type="hidden" name="imagen_estudiante_oculta" value=""/>';
+            foreach ($resultado as $fila) {
+                $salida["nombre_estudiante"] = $fila["nombre_estudiante"];
+                $salida["apellidos_estudiante"] = $fila["apellidos_estudiante"];
+                $salida["fecha_nacimiento_estudiante"] = $fila["fecha_nacimiento_estudiante"];
+                $salida["imagen_estudiante"] = $fila["imagen"] != "" ? '<img src="../img/' . $fila["imagen"] . '" class="img-thumbnail" width="100" height="" /><input type="hidden" name="imagen_estudiante_oculta" value="' . $fila["imagen"] . '"/>' : '<input type="hidden" name="imagen_estudiante_oculta" value=""/>';
+                $salida["estado"] = $fila["estado"];
             }
-            $salida["estado"] = $fila["estado"];
 
+            echo json_encode($salida);
+        } catch (PDOException $e) {
+            echo "Error en la consulta: " . $e->getMessage();
         }
-
-        echo json_encode($salida);
     }
 }
 
-function obtener_todos_registros()
+function obtener_todos_registros($conexion)
 {
-    include('../conexion.php');
-    $stmt = $conexion->prepare("SELECT * FROM estudiantes");
-    $stmt->execute();
-    $resutlado = $stmt->fetchAll();
-    return $stmt->rowCount();
-
+    $stmt = $conexion->prepare("SELECT * FROM estudiantes WHERE estado = 'Activo'");
+    try {
+        $stmt->execute();
+        return $stmt->rowCount();
+    } catch (PDOException $e) {
+        echo "Error en la consulta: " . $e->getMessage();
+        return 0;
+    }
 }
+
 
 function subir_imagen()
 {
@@ -246,12 +234,23 @@ function subir_imagen()
 
 function obtener_nombre_imagen($codigo_estudiante)
 {
-    include('../conexion.php');
+    include ('../conexion.php');
     $stmt = $conexion->prepare("SELECT imagen From estudiantes WHERE codigo_estudiante= '$codigo_estudiante'");
     $stmt->execute();
     $resultado = $stmt->fetchAll();
     foreach ($resultado as $fila) {
         return $fila["imagen"];
     }
+
+}
+
+function obtener_estado($conexion)
+{
+
+    include ('../conexion.php');
+    $stmt = $conexion->prepare("SELECT estado FROM estudiantes ");
+    $stmt->execute();
+    $resutlado = $stmt->fetchAll();
+    return $stmt->rowCount();
 
 }

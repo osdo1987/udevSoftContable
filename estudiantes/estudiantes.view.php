@@ -26,7 +26,7 @@
   <?php include_once '../componentes/navbar.php' ?>
 
   <h1 class="text-center">Estudiante</h1>
-  <div >
+  <div>
 
     <div class="row">
       <div class="col-2 offset-10">
@@ -134,11 +134,9 @@
 
   <?php
 
-  include("../componentes/pie.php");
+  include ("../componentes/pie.php");
 
   ?>
-
-
 
 
 
