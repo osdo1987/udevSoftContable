@@ -26,7 +26,7 @@
   <?php include_once '../componentes/navbar.php' ?>
 
   <h1 class="text-center">Estudiante</h1>
-  <div class="container fondo">
+  <div >
 
     <div class="row">
       <div class="col-2 offset-10">
@@ -57,7 +57,7 @@
             <th>Imagen</th>
             <th>Estado</th>
             <th>Editar</th>
-            <th>Borrar</th>
+            <!--<th>Borrar</th>-->
 
           </tr>
         </thead>
@@ -160,7 +160,7 @@
       $("#botonCrear").click(function () {
         $("#formulario")[0].reset();
         $(".modal-title").text("crear estudiante");
-        $("#action").val("crear");
+        $("#action").val("crear").removeClass('btn-success').addClass('btn-primary');
         $("#operacion").val("crear");
         $("#imagen_subida").html("");
 
@@ -246,7 +246,7 @@
             $(".modal-title").text("Editar estudiante");
             $('#imagen_subida').val(data.imagen_estudiante);
             $('#estado').val(data.estado);
-            $('#action').val("editar");
+            $('#action').val("editar").removeClass('btn-primary').addClass('btn-success');
             $('#codigo_estudiante').val(codigo_estudiante);
             $('#operacion').val("editar");
 
