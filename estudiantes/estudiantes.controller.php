@@ -115,7 +115,7 @@ function borrar($conexion)
 }
 
 
-function obtener_registros($conexion)
+function obtener_registros($conexion) //Se realizo revision de filtro para mostrar solo estudiantes activos
 {
     $query = "SELECT * FROM estudiantes WHERE estado = 'Activo' ";
 
