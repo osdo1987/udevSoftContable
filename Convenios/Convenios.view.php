@@ -153,7 +153,7 @@
                 <div class="col-md-6">
 
                   <label for="codigo_estudiant">Codigo estudiante</label>
-                  <input type="text" name="codigo_estudiant" id="codigo_estudiant" class="form-control" value="<?php echo $codigo_estudi ?>" readonly>
+                  <input type="text" name="codigo_estudiant" id="codigo_estudiant" class="form-control" readonly>
 
                 </div>
                 <div class="col-md-6 text-end">
@@ -163,7 +163,7 @@
               <div class="row">
                 <div class="col-md-12">
                   <label for="nombre_estudiante">Nombre estudiante</label>
-                  <input type="text" name="nombre_estudiante" id="nombre_estudiante" class="form-control" value="<?php echo $nombre_est ?>" readonly>
+                  <input type="text" name="nombre_estudiante" id="nombre_estudiante" class="form-control"  readonly>
 
                 </div>
               </div>
@@ -177,7 +177,7 @@
               <div class="row">
                 <div class="col-md-12">
                   <label for="fecha_naci_estu">Fecha nacimiento</label>
-                  <input type="text" name="fehca_naci" id="fecha_naci_estu" class="form-control" value="<?php echo $fecha_naci_est ?>" readonly>
+                  <input type="text" name="fecha_naci_estu" id="fecha_naci_estu" class="form-control" value="<?php echo $fecha_naci_est ?>" readonly>
 
                 </div>
               </div>
@@ -376,19 +376,18 @@
               success: function(data) {
 
                 $('#modalInfoEstudiante').modal('show');
-                $('#codigo_convenio').val(data.codigo_convenio);
-                $('#descripcion_convenio').val(data.descripcion_convenio);
-                $('#valor_total_convenio').val(data.valor_total_convenio);
-                $('#saldo_convenio').val(data.saldo_convenio);
-                $('#codigo_In_servicio').val(data.codigo_servicio);
-                $('#codigo_estudiante').val(data.codigo_estudiante);
-                $('#estado').val(data.estado);
+                $('#codigo_estudiant').val(data.codigo_convenio);
+                $('#nombre_estudiante').val(data.descripcion_convenio);
+                $('#apellidos_estudiante').val(data.valor_total_convenio);
+                $('#fecha_naci_estu').val(data.saldo_convenio);
+                $('#carrera_estudiante').val(data.codigo_servicio);
+                
 
 
-                $('#modal-title').text('Editar estudiante');
+                $('#modal-title').text('info estudiante');
                 $('#id_convenio').val(codigo_convenio);
-                $('#action').val('editar').removeClass('btn-primary').addClass('btn-success');
-                $('#operacion').val("editar");
+                //$('#action').val('registro_individual').removeClass('btn-primary').addClass('btn-success');
+                //$('#operacion').val("registro_individual");
 
 
               },
