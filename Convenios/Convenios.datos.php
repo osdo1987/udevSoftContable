@@ -15,6 +15,7 @@ if ($conexion) {
         WHERE convenio.codigo_estudiante = 10";
 
         $resultadoDato = $conexion->query($query);
+        
 
 
         while ($row = $resultadoDato->fetch(PDO::FETCH_ASSOC)) {
