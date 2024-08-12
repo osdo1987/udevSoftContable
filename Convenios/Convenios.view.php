@@ -363,6 +363,8 @@
 
           });
 
+          /*Script ajax para la consulta de los registros mandando 
+          como referencia el codigo de convenio*/
           $(document).on('click', '.info', function(){
             var codigo_convenio = $(this).attr("id");
             $.ajax({
@@ -374,7 +376,8 @@
               },
               dataType: "json",
               success: function(data) {
-
+                
+                /*valida y rellena la informacion con la data recibida de la DB*/
                 $('#modalInfoEstudiante').modal('show');
                 $('#codigo_estudiant').val(data.codigo_estudiante);
                 $('#nombre_estudiante').val(data.nombre_estudiante);

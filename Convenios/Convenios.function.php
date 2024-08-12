@@ -1,6 +1,8 @@
 <?php
 
 include("../conexion.php");
+/*Este archivo hace la consulta de la info de estudiante para el modal
+info_estudiante Estado:FUNCIONAL activo*/
 
 @$action = $_POST["operacion"];
 
@@ -31,7 +33,8 @@ function Registro_individual($conexion){
             ON convenio.codigo_estudiante = estudiantes.codigo_estudiante 
             INNER JOIN servicios
             ON convenio.codigo_servicio = servicios.codigo_servicio 
-            WHERE convenio.codigo_convenio = :codigo_convenio LIMIT 1 ";
+            WHERE convenio.codigo_convenio = :codigo_convenio LIMIT 1 "; 
+            /*Consulta que compara con el codigo convenio recibido de el view y limit la busqueda a 1 rgistro*/
 
         try {
             $stmt=$conexion->prepare($query);
