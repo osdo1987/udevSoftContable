@@ -1,4 +1,4 @@
-<?php include("./Convenios.datos.php"); ?>
+<?php //include("./Convenios.datos.php"); ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -170,21 +170,21 @@
               <div class="row">
                 <div class="col-md-12">
                   <label for="apellidos_estudiante">Apellidos</label>
-                  <input type="text" name="apellidos_estudiante" id="apellidos_estudiante" class="form-control" value="<?php echo $apellidos_est ?>" readonly>
+                  <input type="text" name="apellidos_estudiante" id="apellidos_estudiante" class="form-control"  readonly>
 
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-12">
                   <label for="fecha_naci_estu">Fecha nacimiento</label>
-                  <input type="text" name="fecha_naci_estu" id="fecha_naci_estu" class="form-control" value="<?php echo $fecha_naci_est ?>" readonly>
+                  <input type="text" name="fecha_naci_estu" id="fecha_naci_estu" class="form-control"  readonly>
 
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-12">
                   <label for="carrera_estudiante">Carrera</label>
-                  <input type="text" name="carrera_estudiante" id="carrera_estudiante" class="form-control" value="<?php echo $carrera_est ?>" readonly>
+                  <input type="text" name="carrera_estudiante" id="carrera_estudiante" class="form-control" readonly>
                   <br>
                 </div>
               </div>
@@ -376,10 +376,10 @@
               success: function(data) {
 
                 $('#modalInfoEstudiante').modal('show');
-                $('#codigo_estudiant').val(data.codigo_convenio);
-                $('#nombre_estudiante').val(data.descripcion_convenio);
-                $('#apellidos_estudiante').val(data.valor_total_convenio);
-                $('#fecha_naci_estu').val(data.saldo_convenio);
+                $('#codigo_estudiant').val(data.codigo_estudiante);
+                $('#nombre_estudiante').val(data.nombre_estudiante);
+                $('#apellidos_estudiante').val(data.apellidos_estudiante);
+                $('#fecha_naci_estu').val(data.fecha_nacimiento_estudiante);
                 $('#carrera_estudiante').val(data.codigo_servicio);
                 
 
